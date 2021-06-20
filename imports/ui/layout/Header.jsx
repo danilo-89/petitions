@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import MatchMediaWrapper from '../components/MatchMediaWrapper.jsx';
 import Sidebar from './Sidebar.jsx';
 import HamburgerButton from './HamburgerButton.jsx';
+import NavigationWide from './NavigationWide.jsx';
 import { Button } from '@material-ui/core';
 import './Header.css';
 
@@ -52,14 +53,7 @@ const Header = () => {
                     </>
                 }
                 desktopContent={
-                    <>
-                    <span>Home</span>
-                    <span>Browse</span>
-                    <span>Start a petition</span>
-                    <span>About</span>
-                    <span>Sign up</span>
-                    <span>o</span>
-                    </>
+                    <NavigationWide />
                 }
             />
         </header>
