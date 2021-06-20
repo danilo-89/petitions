@@ -14,6 +14,7 @@ const Sidebar = ({toggleDrawer, state}) => {
         >
             <div className="side-menu">
                 <ul>
+                    <li className="side-menu__title"><span>petitions</span></li>
                     <li className="side-menu__item"><a href="">Home</a></li>
                     <li className="side-menu__item"><a href="">Browse</a></li>
                     <li className="side-menu__item"><a href="">Start a petition</a></li>

@@ -5,13 +5,27 @@
 }
 
 .side-menu__item {
-    height: 38px;
-    padding: 5px;
+    height: 49px;
     display: flex;
     align-items: center;
 }
 
+.side-menu__title {
+    height: 56px;
+    color: #16DB93;
+    font-weight: 700;
+    font-weight: 700;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+    background-image: linear-gradient(to right, #54478c, #485192, #3d5a97, #336299, #2c699a);
+
+}
 .side-menu__item a{
     width: 100%;
+    padding-left: 10px;
     text-decoration: none;
+    height: 100%;
+    display: flex;
+    align-items: center;
 }
