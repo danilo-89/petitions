@@ -1,0 +1,17 @@
+.side-menu {
+    max-width: 320px;
+    width: 67%;
+    min-width: 200px;
+}
+
+.side-menu__item {
+    height: 38px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.side-menu__item a{
+    width: 100%;
+    text-decoration: none;
+}

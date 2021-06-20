@@ -31,12 +31,16 @@ const Header = () => {
     return (
 
         <header className="main-header">
-            <div className="main-header__logo">logo</div>
-            <div className="main-header__title">title</div>
+            <div className="main-header__logo">
+                <img src="/logo.svg" alt="petitions logo" />
+                <span className="logo-title">petitions</span>
+            </div>
+            
 
             <MatchMediaWrapper
                 mobileContent={
                     <>
+                        <div className="main-header__title">title</div>
                         <HamburgerButton
                             toggleDrawer={toggleDrawer}
                             state={sidebarState}
@@ -47,7 +51,16 @@ const Header = () => {
                         />
                     </>
                 }
-                desktopContent={desktopContent}
+                desktopContent={
+                    <>
+                    <span>Home</span>
+                    <span>Browse</span>
+                    <span>Start a petition</span>
+                    <span>About</span>
+                    <span>Sign up</span>
+                    <span>o</span>
+                    </>
+                }
             />
         </header>
     );
