@@ -27,19 +27,14 @@ const Create = () => {
 
     const handleImage = async (e) => {
         // e.persist()
-        setImageCover(e.target.value)
+        
 
         try {
             const file = e.target.files[0];
             const image = await resizeFile(file);
             console.log(image);
-
-
-            var img = new Image();
-        img.onload = draw;
-        img.onerror = failed;
-        img.src = image;
-        // img.src = URL.createObjectURL(image);
+            setImageCover(image)
+            // img.src = URL.createObjectURL(image);
 
         } catch (err) {
             console.log(err);
@@ -47,18 +42,7 @@ const Create = () => {
 
         console.log(e)
         console.log(imageCover)
-        
-    }
 
-    function draw() {
-        var canvas = document.getElementById('canvas');
-        canvas.width = this.width;
-        canvas.height = this.height;
-        var ctx = canvas.getContext('2d');
-        ctx.drawImage(this, 0, 0);
-    }
-    function failed() {
-        console.error("The provided file couldn't be loaded as an Image media");
     }
 
     const resizeFile = (file) =>
@@ -108,6 +92,7 @@ const Create = () => {
                 details={details}
                 video={video}
                 website={website}
+                imageCover={imageCover}
             />
 
             <h2>Form in progress</h2>
@@ -141,7 +126,7 @@ const Create = () => {
                         id="petitionCover"
                         name="petitionCover"
                         accept="image/png, image/jpeg, image/jpg, image/webp"
-                        value={imageCover}
+                        // value={imageCover}
                         onChange={(e) => handleImage(e)}
                     />
                 </div>
