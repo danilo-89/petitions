@@ -1,0 +1,26 @@
+.cover-holder {
+    max-width: 940px;
+    width: 100%;
+    position: relative;
+}
+
+.cover-holder__cover {
+    width: 100%;
+    height: 100%;
+    padding-top: 45%;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.cover-holder__avatar {
+    height: 90px;
+    width: 90px;
+    border-radius: 50%;
+    border: 3px solid white;
+    position: absolute;
+    bottom: 0;
+    transform: translateY(50%);
+    left: 5px;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
