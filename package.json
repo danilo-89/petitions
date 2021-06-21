@@ -13,6 +13,7 @@
     "meteor-node-stubs": "^1.0.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-image-file-resizer": "^0.4.7",
     "react-router-dom": "^5.2.0",
     "simpl-schema": "^1.12.0"
   },

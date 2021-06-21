@@ -1,15 +1,16 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './NavigationWide.css'
 
 const NavigationWide = () => {
     return ( 
         <>
-        <a href="" className="nav-link">Home</a>
-        <a href="" className="nav-link active">Browse</a>
-        <a href="" className="nav-link">Start a petition</a>
-        <a href="" className="nav-link">About</a>
-        <a href="" className="nav-link">Sign up</a>
-        <a>o</a>
+        <Link to="/" className="nav-link">Home</Link>
+        <Link to="/" className="nav-link active">Browse</Link>
+        <Link to="/create" className="nav-link">Start a petition</Link>
+        <Link to="/" className="nav-link">About</Link>
+        <Link to="/" className="nav-link">Sign up</Link>
+        <Link>o</Link>
         </>
      );
 }
