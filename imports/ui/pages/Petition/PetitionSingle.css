@@ -1,7 +1,15 @@
+.petition-header {
+    background-color: white;
+    border-bottom: 1px solid black;
+    margin-bottom: 20px;
+}
+
 .cover-holder {
     max-width: 940px;
     width: 100%;
     position: relative;
+    margin-right: auto;
+    margin-left: auto;
 }
 
 .cover-holder__cover {
@@ -10,17 +18,73 @@
     padding-top: 45%;
     background-size: cover;
     background-repeat: no-repeat;
+    border-radius: 0 0 15px 15px;
+    position: relative;
 }
 
-.cover-holder__avatar {
-    height: 90px;
-    width: 90px;
+.sign-petition-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.title-holder {
+    display: flex;
+}
+
+.title-holder__left {
+    padding-left: 20px;
+}
+
+.title-holder__left-avatar {
+    height: 120px;
+    width: 120px;
     border-radius: 50%;
     border: 3px solid white;
-    position: absolute;
-    bottom: 0;
-    transform: translateY(50%);
-    left: 5px;
+    transform: translateY(-30%);
     background-size: cover;
     background-repeat: no-repeat;
+}
+
+.title-holder__right {
+    padding-left: 15px;
+    padding-top: 5px;
+}
+
+.cover-holder__title {
+    padding-top: 15px;
+}
+
+.cover-holder__title-name {
+    margin-bottom: 15px;
+}
+
+.towards-holder {
+    border-top: 1px solid black;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.petition-content {
+    background-color: white;
+    max-width: 940px;
+    width: 100%;
+    position: relative;
+    margin-right: auto;
+    margin-left: auto;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    border-radius: 15px;
+}
+
+.petition-content__overview {
+    font-size: 19.2px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    line-height: 1.35em;
+}
+
+.petition-content__details {
+    font-size: 16px;
+    line-height: 1.6em;
 }
