@@ -28,3 +28,7 @@ img {
   height: auto;
 }
 /* CSS Minimal Reset - END */
+
+.main-header + div {
+  padding-top: 35px;
+}

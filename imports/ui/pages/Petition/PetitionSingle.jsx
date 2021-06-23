@@ -11,12 +11,12 @@ const PetitionSingle = (props) => {
                 >
 
                     <div className="cover-holder__title">
+
+                        
                         <h2 className="cover-holder__title-name">
                             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste error commodi delectus vitae ducimus praesentium, impedit reiciendis soluta.
                         </h2>
-                        <div className="towards-holder">
-                            <h3>For: Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, ratione sed.</h3>
-                        </div>
+
                     </div>
 
                     <div
@@ -25,6 +25,7 @@ const PetitionSingle = (props) => {
                             { backgroundImage: `url(${props.imageCover})` }
                         }
                     >
+                        <div className="cover-holder__top"></div>
                         <button className="sign-petition-button">Sign</button>
                     </div>
                     <div className="title-holder">
@@ -41,13 +42,17 @@ const PetitionSingle = (props) => {
                             <h3>Lorem ipsum dolor sit amet consec</h3>
                         </div>
                     </div>
-                    <div className="actions-holder">
+                    {/* <div className="actions-holder">
                         <button>Sign</button>
-                    </div>
+                    </div> */}
                 </div>
             </div>
 
             <div className="petition-content">
+            <div className="towards-holder">
+                            <h3>
+                                <span className="towards-holder__for-span">For:</span> Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, ratione sed.</h3>
+                        </div>
                 <h4 className="petition-content__overview">
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum voluptatibus explicabo fugit autem iusto aliquid, porro mollitia quam nam odio repellat dignissimos, vel perferendis. Explicabo a numquam aliquam, illum in voluptas porro accusamus debitis repudiandae, eos provident est accusantium sunt, asperiores atque dolore tempora maiores laudantium consequuntur et officia. Distinctio impedit architecto, porro molestias voluptatibus, aut tenetur magni sequi libero earum officiis eos blanditiis, velit odio sit numquam quia veniam.
                 </h4>

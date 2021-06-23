@@ -1,12 +1,16 @@
 .main-header {
   display: flex;
-  background-image: linear-gradient(to right, #54478c, #485192, #3d5a97, #336299, #2c699a);
+  background-color: #ffffff;
+  width: 100%;
   align-items: center;
   justify-content: space-between;
   height: 56px;
   padding-right: 10px;
   padding-left: 10px;
-  /* z-index: 1200; */
+  box-shadow: 0 1px 6px 0 rgb(32 33 36 / 17%);
+  /* border-bottom: 1px solid #fff; */
+  position: fixed;
+  z-index: 1200;
 }
 
 .main-gradient {

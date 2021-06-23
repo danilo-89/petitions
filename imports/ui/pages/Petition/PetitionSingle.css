@@ -1,7 +1,8 @@
 .petition-header {
     background-color: white;
-    border-bottom: 1px solid black;
+    /* border-bottom: 1px solid black; */
     margin-bottom: 20px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .cover-holder {
@@ -10,12 +11,13 @@
     position: relative;
     margin-right: auto;
     margin-left: auto;
+    padding-top: 15px;
 }
 
 .cover-holder__cover {
     width: 100%;
     height: 100%;
-    padding-top: 45%;
+    padding-top: 55%;
     background-size: cover;
     background-repeat: no-repeat;
     border-radius: 0 0 15px 15px;
@@ -37,11 +39,11 @@
 }
 
 .title-holder__left-avatar {
-    height: 120px;
-    width: 120px;
+    height: 90px;
+    width: 90px;
     border-radius: 50%;
     border: 3px solid white;
-    transform: translateY(-30%);
+    transform: translateY(-20%);
     background-size: cover;
     background-repeat: no-repeat;
 }
@@ -52,18 +54,40 @@
 }
 
 .cover-holder__title {
-    padding-top: 15px;
-}
-
-.cover-holder__title-name {
-    margin-bottom: 15px;
+    padding: 15px;
+    padding-bottom: 0;
+    /* background-color: #f3f3f3; */
+    border-radius: 15px 15px 0 0;
 }
 
 .towards-holder {
-    border-top: 1px solid black;
-    padding-top: 15px;
+    /* border-top: 1px solid #bdbdbd; */
     padding-bottom: 15px;
+    border-bottom: 1px solid #f1f1f1;
+    margin-bottom: 15px;
 }
+
+.towards-holder__for-span {
+    color: gray;
+}
+
+/* .cover-holder__top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    background: linear-gradient(to bottom, #f3f3f3 35%, transparent 100%);
+    border-bottom: 1px solid #fff;
+} */
+
+
+.cover-holder__title-name {
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+
 
 .petition-content {
     background-color: white;
@@ -74,13 +98,14 @@
     margin-left: auto;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
     padding: 15px;
+    padding-top: 15px;
     border-radius: 15px;
 }
 
 .petition-content__overview {
     font-size: 19.2px;
     font-weight: 600;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     line-height: 1.35em;
 }
 
