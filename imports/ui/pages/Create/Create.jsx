@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import PetitionSingle from "../Petition/PetitionSingle";
 import '../../styles/Create.css'
 import Resizer from "react-image-file-resizer";
+import { DataGrid } from '@material-ui/data-grid';
+
 
 
 const Create = () => {
@@ -12,8 +14,48 @@ const Create = () => {
     const [details, setDetails] = useState('')
     const [imageCover, setImageCover] = useState('');
     const [video, setVideo] = useState('')
-    const [website, setWebsite] = useState('')
 
+
+    const columns = [
+        {
+          field: 'Field',
+          headerName: 'Field',
+          editable: false,
+          sortable: false,
+          width: 160,
+        },
+        {
+          field: 'Mandatory',
+          headerName: 'Mandatory',
+          type: 'boolean',
+          editable: true,
+          sortable: false,
+          width: 110,
+        },
+        // {
+        //   field: 'fullName',
+        //   headerName: 'Full name',
+        //   description: 'This column has a value getter and is not sortable.',
+        //   sortable: false,
+        //   width: 160,
+        //   valueGetter: (params) =>
+        //     `${params.getValue(params.id, 'firstName') || ''} ${
+        //       params.getValue(params.id, 'lastName') || ''
+        //     }`,
+        // },
+      ];
+      
+      const rows = [
+        { id: 1, Field: 'First Name', Mandatory: true },
+        { id: 2, Field: 'Last Name', Mandatory: true },
+        { id: 3, Field: 'Country of Residence', Mandatory: true },
+        { id: 4, Field: 'City', Mandatory: true },
+        { id: 5, Field: 'Age', Mandatory: false },
+        { id: 6, Field: 'Phone', Mandatory: false },
+        { id: 7, Field: 'Email', Mandatory: true },
+        { id: 8, Field: 'Comment', Mandatory: false },
+      ];
+    
 
     // const onChange = async (event) => {
     //     try {
@@ -91,7 +133,6 @@ const Create = () => {
                 overview={overview}
                 details={details}
                 video={video}
-                website={website}
                 imageCover={imageCover}
             />
 
@@ -163,17 +204,21 @@ const Create = () => {
                         onChange={(e) => setVideo(e.target.value)}
                     />
                 </div>
-                <div className="form-group">
-                    <label htmlFor="petitionSite">Petition Site</label>
-                    <input
-                        type="text"
-                        id="petitionSite"
-                        name="petitionSite"
-                        required
-                        value={website}
-                        onChange={(e) => setWebsite(e.target.value)}
-                    />
-                </div>
+
+
+
+                <div style={{ height: 528, width: '100%' }}>
+      <DataGrid
+        rows={rows}
+        columns={columns}
+        checkboxSelection
+        disableSelectionOnClick
+        disableColumnMenu
+        hideFooterPagination
+      />
+    </div>
+
+
                 <button type="submit">
                     Submit
                 </button>
