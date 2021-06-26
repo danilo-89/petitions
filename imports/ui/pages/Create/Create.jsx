@@ -43,13 +43,12 @@ const Create = () => {
     //     }
     //   };
 
-    const handleCheckboxClick = (data) => {
+    const handleCheckboxClick = (data, checkName) => {
         const newFields = [...fields];
         const fieldIndex = [data.id-1];
-        newFields[fieldIndex] = {...newFields[fieldIndex], mandatory:!newFields[fieldIndex].mandatory}
+        newFields[fieldIndex] = {...newFields[fieldIndex], [checkName]:!newFields[fieldIndex][checkName]}
         setFields(newFields)
     }
-
 
     const handleImage = async (e) => {
         // e.persist()
@@ -208,9 +207,7 @@ const Create = () => {
                         <thead>
                             <tr>
                                 <th>
-                                    <Form.Group>
-                                        <Form.Check type="checkbox" />
-                                    </Form.Group>
+                                   Include
                                 </th>
                                 <th>Field</th>
                                 <th>Mandatory</th>
@@ -222,23 +219,26 @@ const Create = () => {
                             fields.map(field => {
                                 return (
                                 <tr key={field.id}>
-                                <td>
+                                <td onClick={() => handleCheckboxClick(field, "include")}>
                                     <Form.Group className="mb-0">
-                                        <Form.Check type="checkbox"
+                                        <Form.Check 
+                                        className="text-center"
+                                        type="checkbox"
+                                        checked={field.include}
                                         readOnly
-                                        onClick={console.log("test")}
                                         />
                                     </Form.Group>
                                 </td>
                                 <td>{field.field}</td>
-                                <td>
+                                <td onClick={() => handleCheckboxClick(field, "mandatory")}>
                                     <Form.Group className="mb-0">
                                     <Form.Check
                                     className=""
                                     type="checkbox"
                                     checked={field.mandatory}
-                                    onClick={() => handleCheckboxClick(field)}
-                                    readOnly/>
+                            
+                                    readOnly
+                                    />
                                 </Form.Group>
                                 </td>
                                 </tr>
