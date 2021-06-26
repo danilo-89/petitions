@@ -1,5 +1,6 @@
 import { useFormControl } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import CustomLoader from "../../components/CustomLoader";
 import PetitionSingle from "../Petition/PetitionSingle";
 import PetitionForm from "../Petition/PetitionForm";
 import '../../styles/Create.css'
@@ -18,20 +19,16 @@ const Create = () => {
     const [imageCover, setImageCover] = useState('');
     const [video, setVideo] = useState('')
 
-
     const [fields, setFields] = useState([
-        { id: 1, include: true, field: 'First Name', mandatory: true, type: 'text' },
-        { id: 2, include: true, field: 'Last Name', mandatory: true, type: 'text' },
-        { id: 3, include: true, field: 'Country of Residence', mandatory: true, type: 'text' },
-        { id: 4, include: true, field: 'City', mandatory: true, type: 'text' },
-        { id: 5, include: true, field: 'Age', mandatory: false, type: 'number' },
-        { id: 6, include: true, field: 'Phone', mandatory: false, type: 'text' },
-        { id: 7, include: true, field: 'Email', mandatory: true, type: 'email' },
-        { id: 8, include: true, field: 'Comment', mandatory: false, type: 'textarea' },
+        { id: 1, include: true, field: 'First Name', mandatory: true, type: 'text', value: ''},
+        { id: 2, include: true, field: 'Last Name', mandatory: true, type: 'text', value: ''},
+        { id: 3, include: true, field: 'Country of Residence', mandatory: true, type: 'text', value: ''},
+        { id: 4, include: true, field: 'City', mandatory: true, type: 'text', value: ''},
+        { id: 5, include: true, field: 'Age', mandatory: false, type: 'number', value: ''},
+        { id: 6, include: true, field: 'Phone', mandatory: false, type: 'text', value: ''},
+        { id: 7, include: true, field: 'Email', mandatory: true, type: 'email', value: ''},
+        { id: 8, include: true, field: 'Comment', mandatory: false, type: 'textarea', value: ''},
     ])
-
-
-
 
     // const onChange = async (event) => {
     //     try {
@@ -43,12 +40,21 @@ const Create = () => {
     //     }
     //   };
 
-    const handleCheckboxClick = (data, checkName) => {
+    const onChangeField = (targetValue, index) => {
         const newFields = [...fields];
-        const fieldIndex = [data.id-1];
-        newFields[fieldIndex] = {...newFields[fieldIndex], [checkName]:!newFields[fieldIndex][checkName]}
+        const fieldIndex = [index - 1];
+        newFields[fieldIndex] = { ...newFields[fieldIndex], value: targetValue }
         setFields(newFields)
     }
+
+    const handleCheckboxClick = (index, checkName) => {
+        const newFields = [...fields];
+        const fieldIndex = [index - 1];
+        newFields[fieldIndex] = { ...newFields[fieldIndex], [checkName]: !newFields[fieldIndex][checkName] }
+        setFields(newFields)
+    }
+
+
 
     const handleImage = async (e) => {
         // e.persist()
@@ -125,148 +131,137 @@ const Create = () => {
                 video={video}
                 imageCover={imageCover}
             />
-            <PetitionForm
-                fields={fields}
-            />
+
+            <div className="container">
+                <PetitionForm
+                    fields={fields}
+                    onChange={onChangeField}
+                />
+            </div>
+
+            <button onClick={onChangeField}>Test</button>
 
             <h2>Form in progress</h2>
 
             {/* <canvas id="canvas"></canvas> */}
-            <form onSubmit={handleSubmit}>
-                <div className="form-group mb-0">
-                    <label htmlFor="petitionTitle">Petition title</label>
-                    <input
-                        type="text"
-                        id="petitionTitle"
-                        name="petitionTitle"
-                        required
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="petitionFor">Petition for</label>
-                    <input
-                        type="text"
-                        id="petitionFor"
-                        name="petitionFor"
-                        required
-                        onChange={(e) => setTowards(e.target.value)}
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="petitionCover">Choose a petition cover picture:</label>
-                    <input type="file"
-                        id="petitionCover"
-                        name="petitionCover"
-                        accept="image/png, image/jpeg, image/jpg, image/webp"
-                        // value={imageCover}
-                        onChange={(e) => handleImage(e)}
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="petitionOverview">Petition overview</label>
-                    <textarea
-                        type="text"
-                        id="petitionOverview"
-                        name="petitionOverview"
-                        required
-                        value={overview}
-                        onChange={(e) => setOverview(e.target.value)}
-                    ></textarea>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="petitionDetails">Petition Details</label>
-                    <textarea
-                        type="text"
-                        id="petitionDetails"
-                        name="petitionDetails"
-                        required
-                        value={details}
-                        onChange={(e) => setDetails(e.target.value)}
-                    ></textarea>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="petitionVideo">Petition Video</label>
-                    <input
-                        type="text"
-                        id="petitionVideo"
-                        name="petitionVideo"
-                        required
-                        value={video}
-                        onChange={(e) => setVideo(e.target.value)}
-                    />
-                </div>
-                <button type="submit">
-                    Submit
-                </button>
-
-                <div className="container">
-
-                    <Table bordered hover>
-                        <thead>
-                            <tr>
-                                <th>
-                                   Include
-                                </th>
-                                <th>Field</th>
-                                <th>Mandatory</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                            {
-                            fields.map(field => {
-                                return (
-                                <tr key={field.id}>
-                                <td onClick={() => handleCheckboxClick(field, "include")}>
-                                    <Form.Group className="mb-0">
-                                        <Form.Check 
-                                        className="text-center"
-                                        type="checkbox"
-                                        checked={field.include}
-                                        readOnly
-                                        />
-                                    </Form.Group>
-                                </td>
-                                <td>{field.field}</td>
-                                <td onClick={() => handleCheckboxClick(field, "mandatory")}>
-                                    <Form.Group className="mb-0">
-                                    <Form.Check
-                                    className=""
-                                    type="checkbox"
-                                    checked={field.mandatory}
-                            
-                                    readOnly
-                                    />
-                                </Form.Group>
-                                </td>
-                                </tr>
-                                )
-                            })
-                            }
-
-
-                        </tbody>
-                    </Table>
-
-
-
-<div class="loader-container">
-    <img src="/logo-animated.svg" alt="animated logo" />
-</div>
-
+            <div className="container">
+                <form onSubmit={handleSubmit}>
+                    <div className="form-group mb-0">
+                        <label htmlFor="petitionTitle">Petition title</label>
+                        <input
+                            type="text"
+                            id="petitionTitle"
+                            name="petitionTitle"
+                            required
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="petitionFor">Petition for</label>
+                        <input
+                            type="text"
+                            id="petitionFor"
+                            name="petitionFor"
+                            required
+                            onChange={(e) => setTowards(e.target.value)}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="petitionCover">Choose a petition cover picture:</label>
+                        <input type="file"
+                            id="petitionCover"
+                            name="petitionCover"
+                            accept="image/png, image/jpeg, image/jpg, image/webp"
+                            // value={imageCover}
+                            onChange={(e) => handleImage(e)}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="petitionOverview">Petition overview</label>
+                        <textarea
+                            type="text"
+                            id="petitionOverview"
+                            name="petitionOverview"
+                            required
+                            value={overview}
+                            onChange={(e) => setOverview(e.target.value)}
+                        ></textarea>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="petitionDetails">Petition Details</label>
+                        <textarea
+                            type="text"
+                            id="petitionDetails"
+                            name="petitionDetails"
+                            required
+                            value={details}
+                            onChange={(e) => setDetails(e.target.value)}
+                        ></textarea>
+                    </div>
 
                     <Form.Group>
-                        <Form.Label htmlFor="basic-url">Your vanity URL</Form.Label>
-                        <InputGroup className="mb-3">
-                            <FormControl id="basic-url" aria-describedby="basic-addon3" />
-                        </InputGroup>
+                            <Form.Label htmlFor="petitionVideo">Petition Video link</Form.Label>
+                            <InputGroup className="mb-3">
+                                <FormControl
+                                id="petitionVideo"
+                                aria-describedby="petition video"
+                                value={video}
+                                required={true}
+                                onChange={(e) => setVideo(e.target.value)}
+                                />
+                            </InputGroup>
                     </Form.Group>
-                </div>
-
-
-            </form >
+                    <button type="submit">
+                        Submit
+                    </button>
+                    <div className="container">
+                        <Table bordered hover>
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Include
+                                    </th>
+                                    <th>Field</th>
+                                    <th>Mandatory</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    fields.map(field => {
+                                        return (
+                                            <tr key={field.id}>
+                                                <td onClick={() => handleCheckboxClick(field.id, "include")}>
+                                                    <Form.Group className="mb-0">
+                                                        <Form.Check
+                                                            className="text-center"
+                                                            type="checkbox"
+                                                            checked={field.include}
+                                                            readOnly
+                                                        />
+                                                    </Form.Group>
+                                                </td>
+                                                <td>{field.field}</td>
+                                                <td onClick={() => handleCheckboxClick(field.id, "mandatory")}>
+                                                    <Form.Group className="mb-0">
+                                                        <Form.Check
+                                                            className=""
+                                                            type="checkbox"
+                                                            checked={field.mandatory}
+                                                            readOnly
+                                                        />
+                                                    </Form.Group>
+                                                </td>
+                                            </tr>
+                                        )
+                                    })
+                                }
+                            </tbody>
+                        </Table>
+                        <CustomLoader />
+                    </div>
+                </form >
+            </div>
 
 
         </div>

@@ -57,6 +57,7 @@ const PetitionSingle = (props) => {
                 </h4>
                 <p className="petition-content__details">
                 {props.details}
+                {props.video}
                 </p>
                 {/* <div id="sRVideo" className="petition-video-wrapper href-effect">
                             <iframe width="420" height="345" src="https://www.youtube.com/embed/awE_8ZG6DCw" allowFullScreen={true}>
