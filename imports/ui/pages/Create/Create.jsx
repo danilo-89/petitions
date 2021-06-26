@@ -252,6 +252,11 @@ const Create = () => {
 
 
 
+<div class="loader-container">
+    <img src="/logo-animated.svg" alt="animated logo" />
+</div>
+
+
                     <Form.Group>
                         <Form.Label htmlFor="basic-url">Your vanity URL</Form.Label>
                         <InputGroup className="mb-3">
