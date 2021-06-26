@@ -1,10 +1,13 @@
 import { useFormControl } from "@material-ui/core";
 import React, { useState } from "react";
 import PetitionSingle from "../Petition/PetitionSingle";
+import PetitionForm from "../Petition/PetitionForm";
 import '../../styles/Create.css'
 import Resizer from "react-image-file-resizer";
-import { DataGrid } from '@material-ui/data-grid';
-
+import Form from 'react-bootstrap/Form';
+import FormControl from 'react-bootstrap/FormControl';
+import InputGroup from 'react-bootstrap/InputGroup';
+import Table from 'react-bootstrap/Table';
 
 
 const Create = () => {
@@ -16,46 +19,19 @@ const Create = () => {
     const [video, setVideo] = useState('')
 
 
-    const columns = [
-        {
-          field: 'Field',
-          headerName: 'Field',
-          editable: false,
-          sortable: false,
-          width: 160,
-        },
-        {
-          field: 'Mandatory',
-          headerName: 'Mandatory',
-          type: 'boolean',
-          editable: true,
-          sortable: false,
-          width: 110,
-        },
-        // {
-        //   field: 'fullName',
-        //   headerName: 'Full name',
-        //   description: 'This column has a value getter and is not sortable.',
-        //   sortable: false,
-        //   width: 160,
-        //   valueGetter: (params) =>
-        //     `${params.getValue(params.id, 'firstName') || ''} ${
-        //       params.getValue(params.id, 'lastName') || ''
-        //     }`,
-        // },
-      ];
-      
-      const rows = [
-        { id: 1, Field: 'First Name', Mandatory: true },
-        { id: 2, Field: 'Last Name', Mandatory: true },
-        { id: 3, Field: 'Country of Residence', Mandatory: true },
-        { id: 4, Field: 'City', Mandatory: true },
-        { id: 5, Field: 'Age', Mandatory: false },
-        { id: 6, Field: 'Phone', Mandatory: false },
-        { id: 7, Field: 'Email', Mandatory: true },
-        { id: 8, Field: 'Comment', Mandatory: false },
-      ];
-    
+    const [fields, setFields] = useState([
+        { id: 1, include: true, field: 'First Name', mandatory: true, type: 'text' },
+        { id: 2, include: true, field: 'Last Name', mandatory: true, type: 'text' },
+        { id: 3, include: true, field: 'Country of Residence', mandatory: true, type: 'text' },
+        { id: 4, include: true, field: 'City', mandatory: true, type: 'text' },
+        { id: 5, include: true, field: 'Age', mandatory: false, type: 'number' },
+        { id: 6, include: true, field: 'Phone', mandatory: false, type: 'text' },
+        { id: 7, include: true, field: 'Email', mandatory: true, type: 'email' },
+        { id: 8, include: true, field: 'Comment', mandatory: false, type: 'textarea' },
+    ])
+
+
+
 
     // const onChange = async (event) => {
     //     try {
@@ -67,9 +43,17 @@ const Create = () => {
     //     }
     //   };
 
+    const handleCheckboxClick = (data) => {
+        const newFields = [...fields];
+        const fieldIndex = [data.id-1];
+        newFields[fieldIndex] = {...newFields[fieldIndex], mandatory:!newFields[fieldIndex].mandatory}
+        setFields(newFields)
+    }
+
+
     const handleImage = async (e) => {
         // e.persist()
-        
+
 
         try {
             const file = e.target.files[0];
@@ -124,6 +108,13 @@ const Create = () => {
 
     }
 
+
+    function currentlySelected(e) {
+        console.log(e)
+        console.log(e.formattedValue)
+        console.log(e.getValue(e.id, e.field))
+    }
+
     return (
         <div>
 
@@ -135,12 +126,15 @@ const Create = () => {
                 video={video}
                 imageCover={imageCover}
             />
+            <PetitionForm
+                fields={fields}
+            />
 
             <h2>Form in progress</h2>
 
             {/* <canvas id="canvas"></canvas> */}
             <form onSubmit={handleSubmit}>
-                <div className="form-group">
+                <div className="form-group mb-0">
                     <label htmlFor="petitionTitle">Petition title</label>
                     <input
                         type="text"
@@ -204,24 +198,68 @@ const Create = () => {
                         onChange={(e) => setVideo(e.target.value)}
                     />
                 </div>
-
-
-
-                <div style={{ height: 528, width: '100%' }}>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        checkboxSelection
-        disableSelectionOnClick
-        disableColumnMenu
-        hideFooterPagination
-      />
-    </div>
-
-
                 <button type="submit">
                     Submit
                 </button>
+
+                <div className="container">
+
+                    <Table bordered hover>
+                        <thead>
+                            <tr>
+                                <th>
+                                    <Form.Group>
+                                        <Form.Check type="checkbox" />
+                                    </Form.Group>
+                                </th>
+                                <th>Field</th>
+                                <th>Mandatory</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            {
+                            fields.map(field => {
+                                return (
+                                <tr key={field.id}>
+                                <td>
+                                    <Form.Group className="mb-0">
+                                        <Form.Check type="checkbox"
+                                        readOnly
+                                        onClick={console.log("test")}
+                                        />
+                                    </Form.Group>
+                                </td>
+                                <td>{field.field}</td>
+                                <td>
+                                    <Form.Group className="mb-0">
+                                    <Form.Check
+                                    className=""
+                                    type="checkbox"
+                                    checked={field.mandatory}
+                                    onClick={() => handleCheckboxClick(field)}
+                                    readOnly/>
+                                </Form.Group>
+                                </td>
+                                </tr>
+                                )
+                            })
+                            }
+
+
+                        </tbody>
+                    </Table>
+
+
+
+                    <Form.Group>
+                        <Form.Label htmlFor="basic-url">Your vanity URL</Form.Label>
+                        <InputGroup className="mb-3">
+                            <FormControl id="basic-url" aria-describedby="basic-addon3" />
+                        </InputGroup>
+                    </Form.Group>
+                </div>
+
 
             </form >
 
