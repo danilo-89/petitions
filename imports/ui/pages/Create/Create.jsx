@@ -18,16 +18,18 @@ const Create = () => {
     const [details, setDetails] = useState('')
     const [imageCover, setImageCover] = useState('');
     const [video, setVideo] = useState('')
+    const [milestone, setMilestone] = useState(0);
 
     const [fields, setFields] = useState([
         { id: 1, include: true, field: 'First Name', mandatory: true, type: 'text', value: ''},
         { id: 2, include: true, field: 'Last Name', mandatory: true, type: 'text', value: ''},
-        { id: 3, include: true, field: 'Country of Residence', mandatory: true, type: 'text', value: ''},
-        { id: 4, include: true, field: 'City', mandatory: true, type: 'text', value: ''},
-        { id: 5, include: true, field: 'Age', mandatory: false, type: 'number', value: ''},
-        { id: 6, include: true, field: 'Phone', mandatory: false, type: 'text', value: ''},
-        { id: 7, include: true, field: 'Email', mandatory: true, type: 'email', value: ''},
-        { id: 8, include: true, field: 'Comment', mandatory: false, type: 'textarea', value: ''},
+        { id: 3, include: true, field: 'Age', mandatory: false, type: 'number', value: ''},
+        { id: 4, include: true, field: 'Country of Residence', mandatory: true, type: 'text', value: ''},
+        { id: 5, include: true, field: 'City', mandatory: true, type: 'text', value: ''},
+        { id: 6, include: true, field: 'Address', mandatory: false, type: 'text', value: ''},
+        { id: 7, include: true, field: 'Phone', mandatory: false, type: 'text', value: ''},
+        { id: 8, include: true, field: 'Email', mandatory: true, type: 'email', value: ''},
+        { id: 9, include: true, field: 'Comment', mandatory: false, type: 'textarea', value: ''},
     ])
 
     // const onChange = async (event) => {
@@ -97,16 +99,31 @@ const Create = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        Meteor.call('tasks.insert', "names", (err, res) => {
+        const obj = {
+            title,
+            towards,
+            overview,
+            details,
+            imageCover,
+            video,
+            milestone,
+            fields, 
+        }
+
+        console.log(obj)
+
+        Meteor.call('create.petition', obj, (err, res) => {
             if (err) {
                 Bert.alert(err.reason, 'danger');
             } else {
                 if (res.isError) {
-                    Bert.alert(res.err.reason, 'danger');
+                    // Bert.alert(res.err.reason, 'danger');
+                    console.log(res.err.reason)
                 } else {
-                    Bert.alert('Success', 'success');
+                    // Bert.alert('Success', 'success');
                     // resetForm();
                     // FlowRouter.go('/myRecipes');
+                    console.log('success')
                 }
             }
         });
@@ -145,6 +162,7 @@ const Create = () => {
 
             {/* <canvas id="canvas"></canvas> */}
             <div className="container">
+
                 <form onSubmit={handleSubmit}>
                     <div className="form-group mb-0">
                         <label htmlFor="petitionTitle">Petition title</label>
@@ -212,9 +230,20 @@ const Create = () => {
                                 />
                             </InputGroup>
                     </Form.Group>
-                    <button type="submit">
-                        Submit
-                    </button>
+                    <Form.Group>
+                            <Form.Label htmlFor="petitionMilestone">Petition Milestone</Form.Label>
+                            <InputGroup className="mb-3">
+                                <FormControl
+                                id="petitionMilestone"
+                                type="number"
+                                aria-describedby="petition Milestone"
+                                value={milestone}
+                                required={true}
+                                onChange={(e) => setMilestone(e.target.value)}
+                                />
+                            </InputGroup>
+                    </Form.Group>
+
                     <div className="container">
                         <Table bordered hover>
                             <thead>
@@ -260,6 +289,10 @@ const Create = () => {
                         </Table>
                         <CustomLoader />
                     </div>
+
+                    <button type="submit">
+                        Submit
+                    </button>
                 </form >
             </div>
 
