@@ -3,9 +3,9 @@ import Petitions from "../../../../lib/petitions";
 import { Link } from "react-router-dom";
 import { useTracker } from 'meteor/react-meteor-data';
 import CustomLoader from "../../components/CustomLoader";
+import helpers from '/imports/ui/components/GlobalHelpers'
 
 const Home = () => {
-
 
     const { petitions, isLoading } = useTracker(() => {
         const noDataAvailable = { petitions: [] };
@@ -15,7 +15,7 @@ const Home = () => {
         //   return noDataAvailable;
         // }
 
-console.log('petitions sub')
+        console.log('petitions sub')
         const handler = Meteor.subscribe('petitions');
 
         // WHEN SUBSCRIBE IS NOT READY
@@ -34,7 +34,7 @@ console.log('petitions sub')
         <>
 
             {isLoading ? <CustomLoader /> : ''}
-            
+
 
             <div>Home page</div>
             <Link to="/create">New petition</Link>
@@ -48,12 +48,16 @@ console.log('petitions sub')
                                     <article>
                                         <div className="article__top">
                                             {petition.title}
+                                            <br />
+                                            For: {petition.towards}
                                         </div>
                                         <div className="article__middle">
-                                            <img src={petition.imageCover} alt="" />
+                                            <div className="article__middle__cover">
+                                                <img src={petition.imageCover} alt="" />
+                                            </div>
                                         </div>
                                         <div className="article__bottom">
-                                            
+                                            {helpers.formatDateObj(petition.createdAt)}
                                         </div>
                                     </article>
                                 </div>
