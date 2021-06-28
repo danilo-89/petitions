@@ -45,14 +45,14 @@ const Home = () => {
                     {
                         petitions.map((petition) => {
                             return (
-                                <div key={petition._id} className="col-12 col-md-6 mb-3">
+                                <div key={petition._id} className="col-12 col-md-6 col-lg-4 mb-3">
                                     <PetitionCard props={petition} />
                                 </div>
                             )
                         })
                     }
 
-                    <div className="col-12 col-md-6">
+                    <div className="col-12 col-md-6 col-lg-4">
                         test
                     </div>
                     <div className="col-12 col-md-6">

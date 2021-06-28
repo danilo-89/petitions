@@ -2,6 +2,7 @@
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
     background: #ffffff;
     border-radius: 10px;
+    overflow: hidden;
 }
 
 .article__top {
@@ -39,4 +40,28 @@
     height: 400px;
     background-size: cover;
     background-position: center center;
+    border-radius: 8px 8px 0 0;
+}
+
+.article__bottom__sig {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.article__bottom__sig__top {
+    font-size: 21px;
+    font-weight: 500;
+}
+
+.article__bottom__sig__bottom {
+    text-align: right;
+}
+
+.article__bar {
+    height: 3px;
+    width: 98%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #16db93;
 }
