@@ -1,5 +1,6 @@
 import React from "react";
 import Petitions from "../../../../lib/petitions";
+import PetitionCard from "./PetitionCard";
 import { Link } from "react-router-dom";
 import { useTracker } from 'meteor/react-meteor-data';
 import CustomLoader from "../../components/CustomLoader";
@@ -44,22 +45,8 @@ const Home = () => {
                     {
                         petitions.map((petition) => {
                             return (
-                                <div key={petition._id} className="col-12 col-md-6">
-                                    <article>
-                                        <div className="article__top">
-                                            {petition.title}
-                                            <br />
-                                            For: {petition.towards}
-                                        </div>
-                                        <div className="article__middle">
-                                            <div className="article__middle__cover">
-                                                <img src={petition.imageCover} alt="" />
-                                            </div>
-                                        </div>
-                                        <div className="article__bottom">
-                                            {helpers.formatDateObj(petition.createdAt)}
-                                        </div>
-                                    </article>
+                                <div key={petition._id} className="col-12 col-md-6 mb-3">
+                                    <PetitionCard props={petition} />
                                 </div>
                             )
                         })

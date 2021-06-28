@@ -1,22 +1,16 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
-
 import Home from './pages/Home/Home';
 import { Info } from './Info.jsx';
 import Create from './pages/Create/Create';
 import { Button } from '@material-ui/core';
 
-
 import Header from './layout/Header.jsx';
 
 export const App = () => {
 
-
   return (
-
-
-
 
     <Router>
       <Switch>
