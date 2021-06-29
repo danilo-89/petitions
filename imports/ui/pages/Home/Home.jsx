@@ -45,9 +45,12 @@ const Home = () => {
                     {
                         petitions.map((petition) => {
                             return (
-                                <div key={petition._id} className="col-12 col-md-6 col-lg-4 mb-3">
+                                <Link
+                                to={`/petition/${petition._id}`}
+                                key={petition._id}
+                                className="article-wrapper col-12 col-md-6 col-lg-4 mb-3">
                                     <PetitionCard props={petition} />
-                                </div>
+                                </Link>
                             )
                         })
                     }

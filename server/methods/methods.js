@@ -1,5 +1,6 @@
 import { Meteor } from "meteor/meteor";
 import Petitions from "./../../lib/petitions"
+import Signatures from "./../../lib/signatures"
 import SimpleSchema from 'simpl-schema';
 import { check } from "meteor/check";
 

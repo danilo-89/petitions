@@ -2,6 +2,9 @@ import { Meteor } from 'meteor/meteor';
 import Petitions from './../../lib/petitions'
 
 Meteor.publish('petitions', function publishPetitions() {
-    console.log('petitions pub')
-  return Petitions.find({});
+    return Petitions.find({});
+});
+
+Meteor.publish('petitionSingle', function publishPetitions(petId) {
+    return Petitions.find({ _id: petId });
 });

@@ -18,7 +18,11 @@ const PetitionCard = ({ props }) => {
                     } />
                 </div>
             </div>
-            <div className="article__bar"></div>
+            <div className="article__bar">
+                <div className="article__bar__inside">
+
+                </div>
+            </div>
             <div className="article__bottom">
                
                 <div className="article__bottom__sig">

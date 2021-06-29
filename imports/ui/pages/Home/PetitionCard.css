@@ -1,67 +1,76 @@
 .article {
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-    background: #ffffff;
-    border-radius: 10px;
-    overflow: hidden;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  background: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .article__top {
-    padding: 15px;
+  padding: 15px;
 }
 
 .article__middle {
-    position: relative;
+  position: relative;
 }
 
 .article__middle__title {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    padding-left: 10px;
-    padding-right: 10px;
-    background: linear-gradient(180deg,rgba(255, 255, 255, 0.45),rgba(255, 255, 255, 0.70),#fafafa);
-    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.7);
-    padding-bottom: 15px;
-    padding-top: 8px;
-    border-top: 1px solid #e8e8e8;
-    border-bottom: 1px solid #eaeaea;
-    font-size: 21px;
-    font-weight: 500;
-}
-
-
-.article__bottom {
-    padding: 15px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding-left: 15px;
+  padding-right: 15px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.45),
+    rgba(255, 255, 255, 0.7),
+    #fafafa
+  );
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.7);
+  padding-bottom: 15px;
+  padding-top: 8px;
+  border-top: 1px solid #e8e8e8;
+  border-bottom: 1px solid #eaeaea;
+  font-size: 21px;
+  font-weight: 500;
 }
 
 .article__middle__cover__pic {
-    width: 100%;
-    height: 400px;
-    background-size: cover;
-    background-position: center center;
-    border-radius: 8px 8px 0 0;
+  width: 100%;
+  height: 400px;
+  background-size: cover;
+  background-position: center center;
+  border-radius: 8px 8px 0 0;
+}
+
+.article__bottom {
+  padding: 15px;
 }
 
 .article__bottom__sig {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .article__bottom__sig__top {
-    font-size: 21px;
-    font-weight: 500;
+  font-size: 21px;
+  font-weight: 500;
 }
 
 .article__bottom__sig__bottom {
-    text-align: right;
+  text-align: right;
 }
 
 .article__bar {
-    height: 3px;
-    width: 98%;
-    margin-left: auto;
-    margin-right: auto;
-    background-color: #16db93;
+  padding: 5px;
+}
+
+.article__bar__inside {
+  height: 4px;
+  margin-left: auto;
+  margin-right: auto;
+  background: linear-gradient(to right, #16db93, #16db93 60%, rgb(233, 233, 233) 60%);
+
+  border-radius: 5px;
 }
