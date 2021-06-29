@@ -8,7 +8,8 @@ import CustomLoader from "../../components/CustomLoader";
 const PetitionPage = () => {
 
 
-    let { id } = useParams();
+    let { id:addressId } = useParams();
+    console.log(useParams())
 
     const { petition, isLoading } = useTracker(() => {
 
@@ -34,7 +35,9 @@ const PetitionPage = () => {
             <br />
             {petition.title}
             <br />
-            {id}
+            {addressId}
+            <br />
+            
         </div>
      );
 }
