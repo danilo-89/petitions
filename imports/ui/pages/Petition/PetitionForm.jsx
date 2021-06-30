@@ -37,6 +37,7 @@ const PetitionForm = ({ fields, onChange }) => {
     return (
         <>
             {
+                
                 fields.map((field) => {
 
                     if (field.include) {
