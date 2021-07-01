@@ -126,9 +126,17 @@ const PetitionPage = () => {
 
             {/* {!isLoading ? <h1>hajde {petition.fields[0].field}</h1> : ''} */}
             
-            
+            {console.log('petition.props')}
+            {console.log(petition)}
 
-            <PetitionSingle props={petition} />
+            <PetitionSingle 
+                title={petition.title}
+                towards={petition.towards}
+                overview={petition.overview}
+                details={petition.details}
+                video={petition.video}
+                imageCover={petition.imageCover}
+            />
             {petition.title}
             <br />
             {addressId}
