@@ -1,7 +1,10 @@
 import React from 'react';
 import './PetitionSingle.css'
 
-const PetitionSingle = ({props}) => {
+const PetitionSingle = (props) => {
+    console.log('props in single')
+    console.log(props)
+    console.log('props in single END')
     return (
         <>
             <div className="petition-header">

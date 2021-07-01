@@ -12,7 +12,7 @@ import Table from 'react-bootstrap/Table';
 
 
 const Create = () => {
-    const [title, setTitle] = useState('')
+    const [title, setTitle] = useState('Test')
     const [towards, setTowards] = useState('')
     const [overview, setOverview] = useState('')
     const [details, setDetails] = useState('')
@@ -32,6 +32,7 @@ const Create = () => {
         { id: 9, include: true, field: 'Comment', mandatory: false, type: 'textarea', value: ''},
     ])
 
+    
     // const onChange = async (event) => {
     //     try {
     //       const file = event.target.files[0];
@@ -139,6 +140,9 @@ const Create = () => {
 
     return (
         <div>
+
+{console.log({title})}
+
 
             <PetitionSingle
                 title={title}
