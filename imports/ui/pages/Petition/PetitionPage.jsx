@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import PetitionSingle from './PetitionSingle';
 import PetitionForm from './PetitionForm';
 import CustomLoader from "../../components/CustomLoader";
+import Button from 'react-bootstrap/Button'
 
 const PetitionPage = () => {
 
@@ -13,7 +14,7 @@ const PetitionPage = () => {
     const { id: addressId } = useParams();
     // console.log(useParams())
 
-    const [fields, setFields] = useState([{field:"1"}])
+
 
     const { petition, isLoading, getFields } = useTracker(() => {
 
@@ -33,21 +34,40 @@ const PetitionPage = () => {
         // console.log(petition.fields)
         // setFields(petition.fields)
         // console.log(fields)
-      
+
         // WHEN SUBSCRIBE IS READY (isLoading is absent so it is false)
-        
 
-
-        return { petition, isLoading: false, getFields};
+        return { petition, isLoading: false, getFields };
 
     })
 
+
+    const [fields, setFields] = useState([])
+
+
+    // const memo = useMemo(() => {
+    //     return { isLoading }
+    // }, [isLoading])
+
+    useEffect(() => {
+        setFields(() => petition.fields)
+        // console.log(fields)
+    }, [isLoading])
+
+
+
+    //   useEffect(() => {
+    //     setFields(petition.fields)
+
+    // }, [isLoading])
+
     // const getData = useTracker(() => Petitions.findOne().fields)
-    
 
     // const setData = useTracker(() => {
     //     setFields(petition.fields)
-    // }, [fields])
+    // }, [memo])
+
+
 
 
     // useEffect(() => {
@@ -82,7 +102,7 @@ const PetitionPage = () => {
     //     setFields(petition.fields)
     //     console.log(fields)
     // }, [isLoading])
-    
+
     // const tasks = useTracker(() => {
     //     setTimeout(
     //         () => {
@@ -91,13 +111,13 @@ const PetitionPage = () => {
     //         },
     //         1000
     //       )
-        
-        
+
+
     // }, [petition]);
 
     // setFields([...petition.fields])
 
-    
+
     const onChangeField = (targetValue, index) => {
         const newFields = [...fields];
         const fieldIndex = [index - 1];
@@ -105,10 +125,39 @@ const PetitionPage = () => {
         setFields(newFields)
     }
 
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const obj = {};
+        fields.map((field) => {
+            obj[field.field] = field.value
+        });
+
+        obj["petitionId"] = addressId;
+        obj["userId"] = Meteor.userId() || null;
+
+        console.log(obj);
+
+        Meteor.call('sign.petition', obj, (err, res) => {
+            if (err) {
+                Bert.alert(err.reason, 'danger');
+            } else {
+                if (res.isError) {
+                    // Bert.alert(res.err.reason, 'danger');
+                    console.log(res.err.reason)
+                } else {
+                    // Bert.alert('Success', 'success');
+                    // resetForm();
+                    // FlowRouter.go('/myRecipes');
+                    console.log('success')
+                }
+            }
+        });
+    }
+
     // if(!isLoading) {
     //     console.log(petition)
     //     setFields([...petition.fields])
-    
+
     //     const onChangeField = (targetValue, index) => {
     //         const newFields = [...fields];
     //         const fieldIndex = [index - 1];
@@ -117,38 +166,73 @@ const PetitionPage = () => {
     //     }
     // }
 
-
     return (
         <div>
             test
-            {isLoading ? <CustomLoader /> : ''}
+
+            {/* {console.log('fields')}
+            {console.log(fields)} */}
 
 
-            {/* {!isLoading ? <h1>hajde {petition.fields[0].field}</h1> : ''} */}
-            
-            {console.log('petition.props')}
-            {console.log(petition)}
 
-            <PetitionSingle 
-                title={petition.title}
-                towards={petition.towards}
-                overview={petition.overview}
-                details={petition.details}
-                video={petition.video}
-                imageCover={petition.imageCover}
-            />
-            {petition.title}
-            <br />
-            {addressId}
-            <br />
+            {isLoading ? <CustomLoader /> :
 
 
-            {/* <div className="container">
-                <PetitionForm
-                    fields={fields}
-                    onChange={onChangeField}
-                />
-            </div> */}
+                <>
+                    <h1>hajde {petition.fields[0].value}</h1>
+
+
+
+
+                    {/* {console.log('petition.props')}
+            {console.log(petition)} */}
+
+                    <PetitionSingle
+                        title={petition.title}
+                        towards={petition.towards}
+                        overview={petition.overview}
+                        details={petition.details}
+                        video={petition.video}
+                        imageCover={petition.imageCover}
+                    />
+                    {petition.title}
+                    <br />
+                    {addressId}
+                    <br />
+
+                    {fields ?
+
+                        <div className="container">
+                            <form onSubmit={handleSubmit}>
+                                <PetitionForm
+                                    fields={fields}
+                                    onChange={onChangeField}
+                                />
+
+                                <Button variant="primary" type="submit">
+                                    Submit
+                                </Button>
+
+                            </form>
+
+                        </div>
+
+                        :
+
+                        <div></div>
+
+
+                    }
+
+
+
+
+                </>
+            }
+
+
+
+
         </div>
     );
 }

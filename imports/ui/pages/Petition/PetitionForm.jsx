@@ -37,7 +37,7 @@ const PetitionForm = ({ fields, onChange }) => {
     return (
         <>
             {
-                
+
                 fields.map((field) => {
 
                     if (field.include) {
@@ -67,6 +67,10 @@ const PetitionForm = ({ fields, onChange }) => {
 
                                     </InputGroup>
                                 </Form.Group>
+
+
+                             
+
                             </React.Fragment>
                         )
                     }
