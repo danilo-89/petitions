@@ -168,8 +168,7 @@ const PetitionPage = () => {
 
     return (
         <div>
-            test
-
+         
             {/* {console.log('fields')}
             {console.log(fields)} */}
 
@@ -179,7 +178,7 @@ const PetitionPage = () => {
 
 
                 <>
-                    <h1>hajde {petition.fields[0].value}</h1>
+                    {/* <h1>hajde {petition.fields[0].value}</h1> */}
 
 
 

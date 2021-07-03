@@ -22,4 +22,4 @@ react-meteor-data       # React higher-order component for reactively tracking M
 
 
 ddp-rate-limiter@1.0.9
-accounts-password
+accounts-password@1.7.0

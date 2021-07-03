@@ -56,6 +56,11 @@ Meteor.methods({
         // }).validate({ test });
 
 
+        const petitionId = obj.petitionId;
+
+        const totalSignatures = Signatures.find({ petitionId }).count() + 1;
+
+        console.log({totalSignatures});
 
         try {
 
@@ -67,6 +72,12 @@ Meteor.methods({
                         userId: this.userId
                     }
                 )
+                Petitions.update(  
+                    { _id: petitionId },
+                    {
+                        $set: {totalSignatures : totalSignatures}
+                    }
+                )
 
                 return { isError: false };
             } else {
@@ -76,10 +87,25 @@ Meteor.methods({
             return { isError: true, err };
         }
 
-        // if (!this.userId) {
-        //     throw new Meteor.Error('Not authorized.');
-        // }
+        if (!this.userId) {
+            throw new Meteor.Error('Not authorized.');
+        }
 
 
     },
 });
+
+
+
+// const PAGE_SIZE = 100;
+
+// Meteor.methods({
+//   getItems(page) {
+//     check(page, Number);
+//     const skip = Math.max(page - 1, 0) * PAGE_SIZE;
+//     const limit = PAGE_SIZE;
+//     const sort = {createdAt: -1};
+
+//     const cursor = Items.find({}, {skip, limit, sort});
+//     return {count: cursor.count(), data: cursor.fetch()};
+// });
