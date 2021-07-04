@@ -193,6 +193,8 @@ const PetitionPage = () => {
                         details={petition.details}
                         video={petition.video}
                         imageCover={petition.imageCover}
+                        milestone={petition.milestone}
+                        totalSignatures={petition.totalSignatures}
                     />
                     {petition.title}
                     <br />

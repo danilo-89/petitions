@@ -14,11 +14,32 @@ const PetitionSingle = (props) => {
                 >
 
                     <div className="cover-holder__title">
-                        
+
                         <h2 className="cover-holder__title-name">
-                        {props.title}
+                            {props.title}
                         </h2>
 
+                    </div>
+
+                    <div className="cover-holder__top">
+                        <div className="cover-holder__top__pet-status">
+                            <div className="cover-holder__progress-bar">
+                                <div className="cover-holder__progress-bar-line">
+                                </div>
+                            </div>
+                            <span className="">
+                                {props.totalSignatures || 0}
+                            </span>
+                            <span className="mr-2">
+                                {
+                                    props.milestone ? <> have signed | <span className="milestone-span">{props.milestone}</span> required signatures</> : ''
+                                }
+
+                            </span>
+
+                            <button className="btn btn-outline-success sign-petition-button mt-3">Sign this petition</button>
+                        </div>
+                        
                     </div>
 
                     <div
@@ -27,8 +48,6 @@ const PetitionSingle = (props) => {
                             { backgroundImage: `url(${props.imageCover})` }
                         }
                     >
-                        <div className="cover-holder__top"></div>
-                        <button className="sign-petition-button">Sign</button>
                     </div>
                     <div className="title-holder">
                         <div className="title-holder__left">
@@ -51,16 +70,16 @@ const PetitionSingle = (props) => {
             </div>
 
             <div className="petition-content">
-            <div className="towards-holder">
-                            <h3>
-                                <span className="towards-holder__for-span">For:</span> {props.towards}</h3>
-                        </div>
+                <div className="towards-holder">
+                    <h3>
+                        <span className="towards-holder__for-span">For:</span> {props.towards}</h3>
+                </div>
                 <h4 className="petition-content__overview">
-                {props.overview}
+                    {props.overview}
                 </h4>
                 <p className="petition-content__details">
-                {props.details}
-                {props.video}
+                    {props.details}
+                    {props.video}
                 </p>
                 {/* <div id="sRVideo" className="petition-video-wrapper href-effect">
                             <iframe width="420" height="345" src="https://www.youtube.com/embed/awE_8ZG6DCw" allowFullScreen={true}>
