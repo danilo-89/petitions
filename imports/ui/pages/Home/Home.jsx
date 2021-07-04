@@ -4,7 +4,11 @@ import PetitionCard from "./PetitionCard";
 import { Link } from "react-router-dom";
 import { useTracker } from 'meteor/react-meteor-data';
 import CustomLoader from "../../components/CustomLoader";
-import helpers from '/imports/ui/components/GlobalHelpers'
+import helpers from '/imports/ui/components/GlobalHelpers';
+import Form from 'react-bootstrap/Form';
+import FormControl from 'react-bootstrap/FormControl';
+import InputGroup from 'react-bootstrap/InputGroup';
+import { Button } from "react-bootstrap";
 
 const Home = () => {
 
@@ -36,19 +40,29 @@ const Home = () => {
 
             {isLoading ? <CustomLoader /> : ''}
 
+            <div className="container pt-70px">
 
-            <div>Home page</div>
-            <Link to="/create">New petition</Link>
-            <div className="container">
+                <div>
+                    <Form.Group>
+                        <InputGroup className="mb-3">
+                            <Form.Control
+                                id="searchInput"
+                                type="search"
+                            />
+                        <Button className="searchBtn" variant="primary">Search</Button>
+                        </InputGroup>
+                    </Form.Group>
+                </div>
+
                 <div className="row">
 
                     {
                         petitions.map((petition) => {
                             return (
                                 <Link
-                                to={`/petition/${petition._id}`}
-                                key={petition._id}
-                                className="article-wrapper col-12 col-md-6 col-lg-4 mb-3">
+                                    to={`/petition/${petition._id}`}
+                                    key={petition._id}
+                                    className="article-wrapper col-12 col-md-6 col-lg-4 mb-3">
                                     <PetitionCard props={petition} />
                                 </Link>
                             )

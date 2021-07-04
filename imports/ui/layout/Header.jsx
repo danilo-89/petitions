@@ -3,6 +3,7 @@ import MatchMediaWrapper from '../components/MatchMediaWrapper.jsx';
 import Sidebar from './Sidebar.jsx';
 import HamburgerButton from './HamburgerButton.jsx';
 import NavigationWide from './NavigationWide.jsx';
+import { Link } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import './Header.css';
 
@@ -32,10 +33,11 @@ const Header = () => {
     return (
 
         <header className="main-header">
-            <div className="main-header__logo">
+            <div className="main-header-container">
+            <Link to="/" className="main-header__logo">
                 <img src="/logo.svg" alt="petitions logo" />
                 <span className="logo-title">petitions</span>
-            </div>
+            </Link>
             
 
             <MatchMediaWrapper
@@ -56,6 +58,10 @@ const Header = () => {
                     <NavigationWide />
                 }
             />
+
+            </div>
+
+
         </header>
     );
 }

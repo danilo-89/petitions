@@ -66,3 +66,11 @@ a.article-wrapper {
   text-decoration: none;
   color: initial;
 }
+
+.pt-70px {
+  padding-top: 70px;
+}
+
+.searchBtn {
+  border-radius: 0 5px 5px 0;
+}

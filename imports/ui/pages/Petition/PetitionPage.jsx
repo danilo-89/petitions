@@ -168,7 +168,7 @@ const PetitionPage = () => {
 
     return (
         <div>
-         
+
             {/* {console.log('fields')}
             {console.log(fields)} */}
 
@@ -202,17 +202,30 @@ const PetitionPage = () => {
                     {fields ?
 
                         <div className="container">
-                            <form onSubmit={handleSubmit}>
-                                <PetitionForm
-                                    fields={fields}
-                                    onChange={onChangeField}
-                                />
 
-                                <Button variant="primary" type="submit">
-                                    Submit
-                                </Button>
 
-                            </form>
+                            <div className="petition-form-wrapper mx-auto">
+
+                                <div className="petition-form-wrapper__title">
+                                    Sign the petition
+                                </div>
+
+                                <div className="petition-form-wrapper__main p-3">
+                                    <form onSubmit={handleSubmit}>
+                                        <PetitionForm
+                                            fields={fields}
+                                            onChange={onChangeField}
+                                        />
+
+                                        <Button variant="primary" type="submit">
+                                            Submit
+                                        </Button>
+
+                                    </form>
+                                </div>
+
+
+                            </div>
 
                         </div>
 
