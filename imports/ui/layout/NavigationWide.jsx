@@ -10,7 +10,7 @@ const NavigationWide = () => {
         <Link to="/create" className="nav-link">Start a petition</Link>
         <Link to="/create" className="nav-link">About</Link>
         <Link to="/create" className="nav-link">Sign up</Link>
-        <Link to="/create" className="nav-link">o</Link>
+        <Link to="/profile" className="nav-link">o</Link>
         </div>
      );
 }

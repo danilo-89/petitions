@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 import Home from './pages/Home/Home';
 import { Info } from './Info.jsx';
+import Profile from './pages/Profile/Profile';
 import Create from './pages/Create/Create';
 import { Button } from '@material-ui/core';
 import PetitionPage from './pages/Petition/PetitionPage';
@@ -15,7 +16,7 @@ export const App = () => {
 
     <Router>
       <Switch>
-      <Route path={["/create", "/petition", "/info", "/"]}>
+      <Route path={["/create", "/petition", "/info", "/profile", "/"]}>
       <Header />
       <Switch>
         <Route exact path="/">
@@ -27,6 +28,9 @@ export const App = () => {
         </Route>
         <Route path="/petition/:id">
             <PetitionPage />
+        </Route>
+        <Route path="/profile">
+            <Profile />
         </Route>
         <Route path="/info">
           <div>
