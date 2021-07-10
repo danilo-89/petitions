@@ -16,7 +16,7 @@ const PetitionPage = () => {
 
 
 
-    const { petition, isLoading, getFields } = useTracker(() => {
+    const { petition, isLoading } = useTracker(() => {
 
         const noDataAvailable = { petition: {} };
         const handler = Meteor.subscribe('petitionSingle', addressId, () => {
@@ -24,12 +24,11 @@ const PetitionPage = () => {
         })
 
         if (!handler.ready()) {
-            return { ...noDataAvailable, isLoading: true, getFields: [] };
+            return { ...noDataAvailable, isLoading: true };
         }
 
         const petition = Petitions.findOne();
 
-        const getFields = petition.fields;
         // console.log('petition.fields')
         // console.log(petition.fields)
         // setFields(petition.fields)
@@ -37,7 +36,7 @@ const PetitionPage = () => {
 
         // WHEN SUBSCRIBE IS READY (isLoading is absent so it is false)
 
-        return { petition, isLoading: false, getFields };
+        return { petition, isLoading: false};
 
     })
 
@@ -208,7 +207,9 @@ const PetitionPage = () => {
 
                             <div className="petition-form-wrapper mx-auto">
 
-                                <div className="petition-form-wrapper__title">
+                                <div 
+                                id="petitionWrapper"
+                                className="petition-form-wrapper__title">
                                     Sign the petition
                                 </div>
 

@@ -6,6 +6,14 @@ import { check } from "meteor/check";
 
 
 Meteor.methods({
+
+    'create.account'(username, password) {
+    Accounts.createUser({
+        username,
+        password,
+      });
+    },
+
     'create.petition'(obj) {
         // validate: new SimpleSchema({
         //     email: { type: String, regEx: SimpleSchema.RegEx.Email },

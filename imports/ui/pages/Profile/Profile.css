@@ -15,7 +15,6 @@
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    border: 1px solid rgb(199, 199, 199);
 }
 
 .my-petiton {
@@ -24,19 +23,26 @@
     background: #ffffff;
     border-radius: 10px;
     overflow: hidden;
+    max-width: 580px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .my-petiton__cover {
     background-image: url("/avatar.webp");
-    min-width: 100px;
+    min-width: 70px;
     min-height: 100px;
     height: 100%;
     background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
-/* .my-petiton__details {
-    max-width: calc(100% - 100px);
-} */
+.my-petiton__details {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
 
 .my-petiton__details__title {
     /* text-overflow: ellipsis;
@@ -47,4 +53,13 @@
     overflow: hidden;
     font-size: 19.2px;
     font-weight: 500;
+}
+
+.my-petiton__details__date {
+    color: gray;
+}
+
+.my-petiton__details__signatures {
+    margin-top: auto;
+    margin-left: auto;
 }
