@@ -2,16 +2,17 @@ import React, { useState } from 'react';
 import Petitions from '../../../../lib/petitions';
 import { useTracker } from 'meteor/react-meteor-data';
 import './Profile.css';
+import Register from '../SignUp/Register';
 
 const Profile = () => {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-  
+
     const submit = e => {
-      e.preventDefault();
-  
-      Meteor.loginWithPassword(username, password);
+        e.preventDefault();
+
+        Meteor.loginWithPassword(username, password);
     };
 
     const { petitions, isLoading } = useTracker(() => {
@@ -24,35 +25,38 @@ const Profile = () => {
 
         const petitions = Petitions.find().fetch();
 
-        return { petitions, isLoading: false};
+        return { petitions, isLoading: false };
     })
 
     return (
         <div className="container">
             <div>
-            <form onSubmit={submit} className="login-form">
-      <label htmlFor="username">Username</label>
+                <Register />
+            </div>
+            <div>
+                <form onSubmit={submit} className="login-form">
+                    <label htmlFor="username">Username</label>
 
-      <input
-        type="text"
-        placeholder="Username"
-        name="username"
-        required
-        onChange={e => setUsername(e.target.value)}
-      />
+                    <input
+                        type="text"
+                        placeholder="Username"
+                        name="username"
+                        required
+                        onChange={e => setUsername(e.target.value)}
+                    />
 
-      <label htmlFor="password">Password</label>
+                    <label htmlFor="password">Password</label>
 
-      <input
-        type="password"
-        placeholder="Password"
-        name="password"
-        required
-        onChange={e => setPassword(e.target.value)}
-      />
+                    <input
+                        type="password"
+                        placeholder="Password"
+                        name="password"
+                        required
+                        onChange={e => setPassword(e.target.value)}
+                    />
 
-      <button type="submit">Log In</button>
-    </form>
+                    <button type="submit">Log In</button>
+                </form>
             </div>
             <div className="text-center pt-3 mb-5">
                 <div className="avatar mx-auto mb-2">
@@ -65,31 +69,31 @@ const Profile = () => {
                     <div className="col-12">
 
 
-                        {isLoading ? <div>loading...</div> : 
-                        
-                        petitions.map((pet) => {
-                            return (
-                            <div 
-                                className="my-petiton mb-3"
-                                key={pet._id}
-                            >
-                                <div className="my-petiton__cover"
-                                style = {
-                                    {
-                                        backgroundImage:`url(${pet.imageCover})`
-                                    }
-                                }
-                                >
-                                </div>
-                                <div className="my-petiton__details px-2 py-1">
-                                    <h4  className="my-petiton__details__title">{pet.title}</h4>
-                                    {/* <p className="my-petiton__details__date">22/09/2020</p> */}
-                                    <p className="my-petiton__details__signatures">12 of {pet.milestone} signatures</p>
-                                </div>
-                            </div>
-                            )
-                        })
-                        
+                        {isLoading ? <div>loading...</div> :
+
+                            petitions.map((pet) => {
+                                return (
+                                    <div
+                                        className="my-petiton mb-3"
+                                        key={pet._id}
+                                    >
+                                        <div className="my-petiton__cover"
+                                            style={
+                                                {
+                                                    backgroundImage: `url(${pet.imageCover})`
+                                                }
+                                            }
+                                        >
+                                        </div>
+                                        <div className="my-petiton__details px-2 py-1">
+                                            <h4 className="my-petiton__details__title">{pet.title}</h4>
+                                            {/* <p className="my-petiton__details__date">22/09/2020</p> */}
+                                            <p className="my-petiton__details__signatures">12 of {pet.milestone} signatures</p>
+                                        </div>
+                                    </div>
+                                )
+                            })
+
                         }
 
 

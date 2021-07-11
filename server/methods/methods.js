@@ -8,10 +8,10 @@ import { check } from "meteor/check";
 Meteor.methods({
 
     'create.account'(username, password) {
-    Accounts.createUser({
-        username,
-        password,
-      });
+        Accounts.createUser({
+            username,
+            password,
+        });
     },
 
     'create.petition'(obj) {
