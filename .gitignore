@@ -1,2 +1,2 @@
 node_modules/
-server/firebase/config.js
+server/secret/

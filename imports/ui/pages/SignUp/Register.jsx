@@ -36,6 +36,7 @@ const Register = () => {
                         className="form-control"
                         value={username}
                         onChange={e => setUsername(e.target.value)}
+                        autoComplete="on"
                     />
                 </div>
             </div>
@@ -49,6 +50,7 @@ const Register = () => {
                         className="form-control"
                         value={password}
                         onChange={e => setPassword(e.target.value)}
+                        autoComplete="on"
                     />
                 </div>
             </div>
@@ -62,6 +64,7 @@ const Register = () => {
                         className="form-control"
                         value={repeatPassword}
                         onChange={e => setRepeatPassword(e.target.value)}
+                        autoComplete="on"
                     />
                 </div>
             </div>

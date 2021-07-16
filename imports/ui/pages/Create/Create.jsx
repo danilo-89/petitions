@@ -9,9 +9,33 @@ import Form from 'react-bootstrap/Form';
 import FormControl from 'react-bootstrap/FormControl';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Table from 'react-bootstrap/Table';
+import FileUpload from "../../components/FileUpload";
 
 
 const Create = () => {
+
+    const [file, setFile] = useState(null);
+    const [error, setError] = useState(null);
+
+    const types = ['image/png', 'image/jpeg', 'image/webp'];
+
+    const changeHandler = (e) => {
+        let selected = e.target.files[0];
+
+
+
+        console.log(selected)
+        if (selected && types.includes(selected.type)) {
+            setFile(selected);
+            setError(null)
+        } else {
+            setFile(null)
+            setError('Please sellect PNG or JPEG')
+        }
+    }
+
+
+
     const [title, setTitle] = useState('Test')
     const [towards, setTowards] = useState('')
     const [overview, setOverview] = useState('')
@@ -21,18 +45,18 @@ const Create = () => {
     const [milestone, setMilestone] = useState(0);
 
     const [fields, setFields] = useState([
-        { id: 1, include: true, field: 'First Name', mandatory: true, type: 'text', value: ''},
-        { id: 2, include: true, field: 'Last Name', mandatory: true, type: 'text', value: ''},
-        { id: 3, include: true, field: 'Age', mandatory: false, type: 'number', value: ''},
-        { id: 4, include: true, field: 'Country of Residence', mandatory: true, type: 'text', value: ''},
-        { id: 5, include: true, field: 'City', mandatory: true, type: 'text', value: ''},
-        { id: 6, include: true, field: 'Address', mandatory: false, type: 'text', value: ''},
-        { id: 7, include: true, field: 'Phone', mandatory: false, type: 'text', value: ''},
-        { id: 8, include: true, field: 'Email', mandatory: true, type: 'email', value: ''},
-        { id: 9, include: true, field: 'Comment', mandatory: false, type: 'textarea', value: ''},
+        { id: 1, include: true, field: 'First Name', mandatory: true, type: 'text', value: '' },
+        { id: 2, include: true, field: 'Last Name', mandatory: true, type: 'text', value: '' },
+        { id: 3, include: true, field: 'Age', mandatory: false, type: 'number', value: '' },
+        { id: 4, include: true, field: 'Country of Residence', mandatory: true, type: 'text', value: '' },
+        { id: 5, include: true, field: 'City', mandatory: true, type: 'text', value: '' },
+        { id: 6, include: true, field: 'Address', mandatory: false, type: 'text', value: '' },
+        { id: 7, include: true, field: 'Phone', mandatory: false, type: 'text', value: '' },
+        { id: 8, include: true, field: 'Email', mandatory: true, type: 'email', value: '' },
+        { id: 9, include: true, field: 'Comment', mandatory: false, type: 'textarea', value: '' },
     ])
 
-    
+
     // const onChange = async (event) => {
     //     try {
     //       const file = event.target.files[0];
@@ -57,6 +81,17 @@ const Create = () => {
         setFields(newFields)
     }
 
+
+    // const handleImage = (e) => {
+    //     console.log("test")
+    //     var func = this;
+    //     var file = e.target.files[0];
+    //     var reader = new FileReader();
+    //     reader.onload = function(fileLoadEvent) {
+    //         Meteor.call('print.img', file, reader.result);
+    //     };
+    //     reader.readAsBinaryString(file);
+    // }
 
 
     const handleImage = async (e) => {
@@ -95,7 +130,21 @@ const Create = () => {
             );
         });
 
-
+        const resizeFileImg = (file) =>
+        new Promise((resolve) => {
+            Resizer.imageFileResizer(
+                file,
+                500,
+                500,
+                "JPEG",
+                85,
+                0,
+                (uri) => {
+                    resolve(uri);
+                },
+                "file"
+            );
+        });
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -108,7 +157,7 @@ const Create = () => {
             imageCover,
             video,
             milestone,
-            fields, 
+            fields,
         }
 
         console.log(obj)
@@ -141,8 +190,13 @@ const Create = () => {
     return (
         <div>
 
-{console.log({title})}
 
+            {console.log({ title })}
+
+
+
+
+            <FileUpload />
 
             <PetitionSingle
                 title={title}
@@ -223,29 +277,29 @@ const Create = () => {
                     </div>
 
                     <Form.Group>
-                            <Form.Label htmlFor="petitionVideo">Petition Video link</Form.Label>
-                            <InputGroup className="mb-3">
-                                <FormControl
+                        <Form.Label htmlFor="petitionVideo">Petition Video link</Form.Label>
+                        <InputGroup className="mb-3">
+                            <FormControl
                                 id="petitionVideo"
                                 aria-describedby="petition video"
                                 value={video}
                                 required={true}
                                 onChange={(e) => setVideo(e.target.value)}
-                                />
-                            </InputGroup>
+                            />
+                        </InputGroup>
                     </Form.Group>
                     <Form.Group>
-                            <Form.Label htmlFor="petitionMilestone">Petition Milestone</Form.Label>
-                            <InputGroup className="mb-3">
-                                <FormControl
+                        <Form.Label htmlFor="petitionMilestone">Petition Milestone</Form.Label>
+                        <InputGroup className="mb-3">
+                            <FormControl
                                 id="petitionMilestone"
                                 type="number"
                                 aria-describedby="petition Milestone"
                                 value={milestone}
                                 required={true}
                                 onChange={(e) => setMilestone(e.target.value)}
-                                />
-                            </InputGroup>
+                            />
+                        </InputGroup>
                     </Form.Group>
 
                     <div className="container">

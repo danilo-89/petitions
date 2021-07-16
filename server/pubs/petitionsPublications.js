@@ -1,5 +1,10 @@
 import { Meteor } from 'meteor/meteor';
 import Petitions from './../../lib/petitions'
+import Images from '/lib/dropbox.js';
+
+Meteor.publish('files.all', function () {
+    return Images.files.find().cursor;
+});
 
 Meteor.publish('petitions', function publishPetitions() {
     return Petitions.find({});
