@@ -13,17 +13,25 @@ class FileUploadComponent extends Component {
   constructor(props) {
     super(props);
 
+    console.log('props', props)
     this.state = {
       uploading: [],
       progress: 0,
       inProgress: false
     };
 
+
+    
+
     this.uploadIt = this.uploadIt.bind(this);
   }
 
   uploadIt = async (e) => {
     e.preventDefault();
+
+
+    this.props.setImage("new img")
+
 
     let self = this;
     

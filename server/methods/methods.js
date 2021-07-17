@@ -8,6 +8,28 @@ import Images from '/lib/dropbox.js';
 
 Meteor.methods({
 
+    // Image methods
+
+    'UploadFile'(file) {
+        // Using callback
+        // Images.insert({
+        //     file: file,
+        //     meta: {
+        //       userId: Meteor.userId() // Optional, used to check on server for file tampering
+        //     },
+        //     chunkSize: 'dynamic',
+        //     allowWebWorkers: true // If you see issues with uploads, change this to false
+        //   }, false)
+
+
+          Images.insert({
+            file: file,
+            isBase64: true, // <— Mandatory
+            fileName: 'pic.jpg' // <— Mandatory
+          });
+
+    },
+
     'RemoveFile'(id) {
         // Using callback
         Images.remove({_id: id}, (error) => {

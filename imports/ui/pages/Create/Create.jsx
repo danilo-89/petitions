@@ -41,6 +41,7 @@ const Create = () => {
     const [overview, setOverview] = useState('')
     const [details, setDetails] = useState('')
     const [imageCover, setImageCover] = useState('');
+    const [uImage, setUImage] = useState('test img');
     const [video, setVideo] = useState('')
     const [milestone, setMilestone] = useState(0);
 
@@ -72,6 +73,10 @@ const Create = () => {
         const fieldIndex = [index - 1];
         newFields[fieldIndex] = { ...newFields[fieldIndex], value: targetValue }
         setFields(newFields)
+    }
+
+    const onSetImage = (uImg) => {
+        setUImage(uImg)
     }
 
     const handleCheckboxClick = (index, checkName) => {
@@ -111,6 +116,26 @@ const Create = () => {
 
         console.log(e)
         console.log(imageCover)
+
+
+        Meteor.call('UploadFile', imageCover, (err, res) => {
+            if (err) {
+                Bert.alert(err.reason, 'danger');
+            } else {
+                if (res.isError) {
+                    // Bert.alert(res.err.reason, 'danger');
+                    console.log(res.err.reason)
+                } else {
+                    // Bert.alert('Success', 'success');
+                    // resetForm();
+                    // FlowRouter.go('/myRecipes');
+                    console.log('success')
+                }
+            }
+        });
+
+
+
 
     }
 
@@ -196,7 +221,11 @@ const Create = () => {
 
 
 
-            <FileUpload />
+            <FileUpload 
+                uImage={uImage}
+                setImage={onSetImage}
+            />
+            <div>{uImage}</div>
 
             <PetitionSingle
                 title={title}
