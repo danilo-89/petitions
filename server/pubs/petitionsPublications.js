@@ -3,7 +3,7 @@ import Petitions from './../../lib/petitions'
 import Images from '/lib/dropbox.js';
 
 Meteor.publish('files.all', function () {
-    return Images.files.find().cursor;
+    return Images.find().cursor;
 });
 
 Meteor.publish('petitions', function publishPetitions() {

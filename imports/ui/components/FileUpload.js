@@ -26,6 +26,7 @@ class FileUploadComponent extends Component {
     e.preventDefault();
 
     let self = this;
+    
 
     if (e.currentTarget.files && e.currentTarget.files[0]) {
       // We upload only one file, in case
@@ -55,7 +56,8 @@ class FileUploadComponent extends Component {
       var file = await resizeFile(fileReal);
 
       if (file) {
-        let uploadInstance = Images.files.insert({
+        console.log('locator', self.props.fileLocator);
+        let uploadInstance = Images.insert({
           file: file,
           meta: {
             locator: self.props.fileLocator,
@@ -144,7 +146,7 @@ class FileUploadComponent extends Component {
       // (make sure the subscription only sends files owned by this user)
       let display = fileCursors.map((aFile, key) => {
         // console.log('A file: ', aFile.link(), aFile.get('name'))
-        let link = Images.files.findOne({_id: aFile._id}).link();  //The "view/download" link
+        let link = Images.findOne({_id: aFile._id}).link();  //The "view/download" link
 
         // Send out components that show details of each file
         return <div key={'file' + key}>
@@ -191,7 +193,7 @@ class FileUploadComponent extends Component {
 export default withTracker( ( props ) => {
   const filesHandle = Meteor.subscribe('files.all');
   const docsReadyYet = filesHandle.ready();
-  const files = Images.files.find({}, {sort: {name: 1}}).fetch();
+  const files = Images.find({}, {sort: {name: 1}}).fetch();
 
   return {
     docsReadyYet,

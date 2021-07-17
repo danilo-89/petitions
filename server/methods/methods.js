@@ -3,9 +3,35 @@ import Petitions from "./../../lib/petitions"
 import Signatures from "./../../lib/signatures"
 import SimpleSchema from 'simpl-schema';
 import { check } from "meteor/check";
+import Images from '/lib/dropbox.js';
 // import { projectStorage } from './../firebase/config'
 
 Meteor.methods({
+
+    'RemoveFile'(id) {
+        // Using callback
+        Images.remove({_id: id}, (error) => {
+            if (error) {
+            console.error(`File wasn't removed, error:  ${error.reason}`);
+            } else {
+            console.info('File successfully removed');
+            }
+        });
+    },
+
+    'RenameFile'(id, imageName) {
+        // Using callback
+        // Images.rename({_id: id, name}, (error) => {
+        //     if (error) {
+        //     console.error(`File wasn't removed, error:  ${error.reason}`);
+        //     } else {
+        //     console.info('File successfully removed');
+        //     }
+        // });
+        Images.update({ _id: id }, {
+            $set: { name: imageName }
+        })
+    },
 
     'create.account'(username, password) {
         Accounts.createUser({
