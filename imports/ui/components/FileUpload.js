@@ -45,8 +45,8 @@ class FileUploadComponent extends Component {
       new Promise((resolve) => {
           Resizer.imageFileResizer(
               file,
-              500,
-              500,
+              900,
+              900,
               "JPEG",
               85,
               0,

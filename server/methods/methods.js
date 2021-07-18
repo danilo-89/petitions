@@ -79,6 +79,24 @@ Meteor.methods({
         });
     },
 
+    'update.account'(username, pic) {
+        try {
+            if (this.userId) {
+                Meteor.users.update({_id: this.userId},{
+                    $set: { 
+                        username: "username",
+                        'profile.picture': pic
+                     }
+                });
+                return { isError: false };
+            } else {
+                throw new Meteor.Error("not-logged-in", "You are not logged in");
+            }
+        } catch (err) {
+            return { isError: true, err };
+        }
+    },
+
     'create.petition'(obj) {
         // validate: new SimpleSchema({
         //     email: { type: String, regEx: SimpleSchema.RegEx.Email },
@@ -94,7 +112,7 @@ Meteor.methods({
 
         try {
 
-            if (!this.userId) {
+            if (this.userId) {
                 Petitions.insert(
                     {
                         ...obj,

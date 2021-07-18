@@ -6,6 +6,9 @@ import Register from '../SignUp/Register';
 import FileUpload from '../../components/FileUpload';
 import Images from '/lib/dropbox.js';
 import helpers from '../../components/GlobalHelpers';
+import { getCipherInfo } from 'crypto';
+import { getegid } from 'process';
+import UserAvatar from '../../components/UserAvatar';
 
 const Profile = () => {
 
@@ -24,7 +27,7 @@ const Profile = () => {
 
     const {user, isUserLoading} = useTracker(() => {
         const handler = Meteor.subscribe('userData')
-        const noDataAvailable = {user: {}};
+        const noDataAvailable = {user: null};
 
         if (!handler.ready()) {
             return { ...noDataAvailable, isUserLoading: true };
@@ -55,8 +58,34 @@ const Profile = () => {
         return { petitions, isLoading: false };
     })
 
+    const handleUpdateClick = () => {
+        console.log("test")
+        Meteor.call('update.account', Meteor.user().username, uImage, (err, res) => {
+            if (err) {
+                console.log(err.reason)
+            } else {
+                if (res.isError) {
+                    // Bert.alert(res.err.reason, 'danger');
+                    console.log(res.err.reason)
+                } else {
+                    // Bert.alert('Success', 'success');
+                    // resetForm();
+                    // FlowRouter.go('/myRecipes');
+                    console.log('success')
+                }
+            }
+        });
+    }
+
+    const handleAvatarClick = () => {
+        console.log("test")
+        document.getElementById('fileinput').click();
+    }
+
     return (
         <div className="container">
+
+            <button onClick={handleUpdateClick}>Update</button>
 
             <FileUpload 
                 uImage={uImage}
@@ -94,9 +123,16 @@ const Profile = () => {
                 </form>
             </div>
             <div className="text-center pt-3 mb-5">
-                <div className="avatar mx-auto mb-2">
-                    <img className="avatar__img" src={helpers.getImgUrlById(uImage)} alt="" />
-                </div>
+                { user ? (
+                        <div className="profile-avatar-holder">
+                            <UserAvatar 
+                                handleClick={handleAvatarClick}
+                                img={helpers.getImgUrlById(uImage)}
+                            />
+                        </div>
+                    ) : <div>no user</div>
+                }
+                
                 { user && <div>{user.username}</div>}
             </div>
             <div>
