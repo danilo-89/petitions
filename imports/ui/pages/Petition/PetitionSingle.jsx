@@ -59,12 +59,12 @@ const PetitionSingle = (props) => {
                         
                     </div>
 
-                    <div
-                        className="cover-holder__cover"
-                        style={
-                            { backgroundImage: `url(${helpers.getImgUrlById(props.imageCover)})` }
-                        }
-                    >
+                    <div className="cover-holder__wrapper">
+                        <img
+                            className="cover-holder__cover"
+                            src={helpers.getImgUrlById(props.imageCover)}
+                        
+                        />
                     </div>
                     <div className="title-holder">
                         <div className="title-holder__left">
