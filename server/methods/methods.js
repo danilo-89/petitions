@@ -4,6 +4,7 @@ import Signatures from "./../../lib/signatures"
 import SimpleSchema from 'simpl-schema';
 import { check } from "meteor/check";
 import Images from '/lib/dropbox.js';
+import { FilesCollection } from 'meteor/ostrio:files';
 // import { projectStorage } from './../firebase/config'
 
 Meteor.methods({
@@ -12,6 +13,8 @@ Meteor.methods({
 
     'UploadFile'(file) {
         // Using callback
+
+        const buffer=Buffer.from(file,'binary');
         // Images.insert({
         //     file: file,
         //     meta: {
@@ -22,11 +25,25 @@ Meteor.methods({
         //   }, false)
 
 
-          Images.insert({
-            file: file,
-            isBase64: true, // <— Mandatory
-            fileName: 'pic.jpg' // <— Mandatory
+
+        Images.write(buffer, {
+            fileName: 'sample.jpeg',
+            fielId: 'abc123myId', //optional
+            type: 'image/jpeg'
+          }, function (writeError, fileRef) {
+            if (writeError) {
+              throw writeError;
+            } else {
+              console.log(fileRef.name + ' is successfully saved to FS. _id: ' + fileRef._id);
+            }
           });
+
+
+        //   Images.insert({
+        //     file: a,
+        //     isBase64: true, // <— Mandatory
+        //     fileName: 'pic.jpeg' // <— Mandatory
+        //   });
 
     },
 

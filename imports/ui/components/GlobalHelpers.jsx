@@ -1,4 +1,15 @@
+import Images from '/lib/dropbox.js';
+
 const helpers = {
+    rootUrl : function(){
+        return Meteor.absoluteUrl().substring(0, Meteor.absoluteUrl().length - 1)
+    },
+    getImgUrl : function(obj){
+        return Images.link(obj); 
+    },
+    getImgUrlById : function(img){
+        return `${this.rootUrl()}/cdn/storage/uploadedFiles/${img}/original/${img}`; 
+    },
     formatDateObj: function(obj){
         return obj.toString()
     },
@@ -9,5 +20,6 @@ const helpers = {
 
     }
 }
+
 
 export default helpers;

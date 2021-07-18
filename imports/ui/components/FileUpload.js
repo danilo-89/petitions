@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Images from '/lib/dropbox.js';
 import Resizer from "react-image-file-resizer";
-
+import helpers from './GlobalHelpers';
 import IndividualFile from './IndividualFile';
 
 const debug = require('debug')('demo:file');
@@ -30,7 +30,7 @@ class FileUploadComponent extends Component {
     e.preventDefault();
 
 
-    this.props.setImage("new img")
+    
 
 
     let self = this;
@@ -91,6 +91,7 @@ class FileUploadComponent extends Component {
 
         uploadInstance.on('uploaded', function (error, fileObj) {
           console.log('uploaded: ', fileObj);
+          self.props.setImage(fileObj._id);
 
           // Remove the filename from the upload box
           self.refs['fileinput'].value = '';

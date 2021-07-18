@@ -2,6 +2,13 @@ import { Meteor } from 'meteor/meteor';
 import Petitions from './../../lib/petitions'
 import Images from '/lib/dropbox.js';
 
+Meteor.publish("userData", function () {
+    if (!this.userId) {
+        return this.ready();
+    }
+    return Meteor.users.find({});
+});
+
 Meteor.publish('files.all', function () {
     return Images.find().cursor;
 });

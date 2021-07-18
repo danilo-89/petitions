@@ -114,25 +114,25 @@ const Create = () => {
             console.log(err);
         }
 
-        console.log(e)
+        // console.log(e)
         console.log(imageCover)
 
 
-        Meteor.call('UploadFile', imageCover, (err, res) => {
-            if (err) {
-                Bert.alert(err.reason, 'danger');
-            } else {
-                if (res.isError) {
-                    // Bert.alert(res.err.reason, 'danger');
-                    console.log(res.err.reason)
-                } else {
-                    // Bert.alert('Success', 'success');
-                    // resetForm();
-                    // FlowRouter.go('/myRecipes');
-                    console.log('success')
-                }
-            }
-        });
+        // Meteor.call('UploadFile', (err, res) => {
+        //     if (err) {
+        //         console.log(err.reason);
+        //     } else {
+        //         if (res.isError) {
+        //             // Bert.alert(res.err.reason, 'danger');
+        //             console.log(res.err.reason)
+        //         } else {
+        //             // Bert.alert('Success', 'success');
+        //             // resetForm();
+        //             // FlowRouter.go('/myRecipes');
+        //             console.log(res)
+        //         }
+        //     }
+        // });
 
 
 

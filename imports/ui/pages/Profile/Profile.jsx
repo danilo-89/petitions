@@ -1,19 +1,46 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Petitions from '../../../../lib/petitions';
 import { useTracker } from 'meteor/react-meteor-data';
 import './Profile.css';
 import Register from '../SignUp/Register';
+import FileUpload from '../../components/FileUpload';
+import Images from '/lib/dropbox.js';
+import helpers from '../../components/GlobalHelpers';
 
 const Profile = () => {
 
+    const [uImage, setUImage] = useState("");
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+
+
+
 
     const submit = e => {
         e.preventDefault();
 
         Meteor.loginWithPassword(username, password);
     };
+
+    const {user, isUserLoading} = useTracker(() => {
+        const handler = Meteor.subscribe('userData')
+        const noDataAvailable = {user: {}};
+
+        if (!handler.ready()) {
+            return { ...noDataAvailable, isUserLoading: true };
+        }
+        const user = Meteor.user();
+        return {user}
+    });
+
+    useEffect(() => {
+        const pic = user?.profile?.picture || "";
+        setUImage(() => pic)
+    }, [isUserLoading])
+
+    const onSetImage = (uImg) => {
+        setUImage(()=>uImg)
+    }
 
     const { petitions, isLoading } = useTracker(() => {
         const noDataAvailable = { petitions: [] };
@@ -30,6 +57,14 @@ const Profile = () => {
 
     return (
         <div className="container">
+
+            <FileUpload 
+                uImage={uImage}
+                setImage={onSetImage}
+            />
+
+        <div>picture: {uImage}</div>
+
             <div>
                 <Register />
             </div>
@@ -60,9 +95,9 @@ const Profile = () => {
             </div>
             <div className="text-center pt-3 mb-5">
                 <div className="avatar mx-auto mb-2">
-                    <img className="avatar__img" src="/avatar.webp" alt="" />
+                    <img className="avatar__img" src={helpers.getImgUrlById(uImage)} alt="" />
                 </div>
-                <div>User name</div>
+                { user && <div>{user.username}</div>}
             </div>
             <div>
                 <div className="row">
