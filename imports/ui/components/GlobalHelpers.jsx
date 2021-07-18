@@ -8,7 +8,7 @@ const helpers = {
         return Images.link(obj); 
     },
     getImgUrlById : function(img){
-        return `${this.rootUrl()}/cdn/storage/uploadedFiles/${img}/original/${img}`; 
+        return `/cdn/storage/uploadedFiles/${img}/original/${img}`; 
     },
     formatDateObj: function(obj){
         return obj.toString()
