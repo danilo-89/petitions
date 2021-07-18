@@ -1,10 +1,27 @@
 import React from 'react';
+import { Meteor } from 'meteor/meteor';
+import { useTracker } from 'meteor/react-meteor-data';
 import './PetitionSingle.css'
+import UserAvatar from '../../components/UserAvatar';
+import helpers from '../../components/GlobalHelpers';
 
 const PetitionSingle = (props) => {
     // console.log('props in single')
     // console.log(props)
     // console.log('props in single END')
+
+    const {userAuthor, isUserAuthorLoading} = useTracker(() => {
+        const handler = Meteor.subscribe('userAuthor', props.author)
+        const noDataAvailable = {userAuthor: null};
+
+        if (!handler.ready()) {
+            return { ...noDataAvailable, isUserAuthorLoading: true };
+        }
+        const userAuthor = Meteor.users.findOne({_id: props.author});
+        console.log(userAuthor)
+        return {userAuthor}
+    });
+
     return (
         <>
             <div className="petition-header">
@@ -45,22 +62,25 @@ const PetitionSingle = (props) => {
                     <div
                         className="cover-holder__cover"
                         style={
-                            { backgroundImage: `url(${props.imageCover})` }
+                            { backgroundImage: `url(${helpers.getImgUrlById(props.imageCover)})` }
                         }
                     >
                     </div>
                     <div className="title-holder">
                         <div className="title-holder__left">
                             <div
-                                className="title-holder__left-avatar"
-                                style={
-                                    { backgroundImage: `url(${props.imageCover})` }
-                                }
-                            ></div>
+                                className="title-holder__left-avatar">
+                                    {userAuthor && (<UserAvatar 
+                                        // handleClick={handleAvatarClick}
+                                        img={helpers.getImgUrlById(userAuthor.profile.picture)}
+                                    />)
+                                    }
+                                </div>
                         </div>
                         <div className="title-holder__right">
                             <p>Petition author:</p>
-                            <h3>{props.towards}</h3>
+                            {/* <h3>{userAuthor.username}</h3> */}
+                            {userAuthor && <h3>{userAuthor.username}</h3>}
                         </div>
                     </div>
                     {/* <div className="actions-holder">

@@ -88,16 +88,16 @@
 .title-holder__left-avatar {
     height: 90px;
     width: 90px;
-    border-radius: 50%;
-    border: 3px solid white;
     transform: translateY(-20%);
-    background-size: cover;
-    background-repeat: no-repeat;
 }
 
 .title-holder__right {
     padding-left: 15px;
     padding-top: 5px;
+}
+
+.title-holder__right h3 {
+    font-size: 21px;
 }
 
 .cover-holder__title {
