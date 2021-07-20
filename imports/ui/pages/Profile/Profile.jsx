@@ -15,7 +15,7 @@ const Profile = () => {
     const [uImage, setUImage] = useState("");
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-
+    const [profileUsername, setProfileUsername] = useState('');
 
 
 
@@ -38,6 +38,7 @@ const Profile = () => {
 
     useEffect(() => {
         const pic = user?.profile?.picture || "";
+        setProfileUsername(user?.username || "");
         setUImage(() => pic)
     }, [isUserLoading])
 
@@ -60,7 +61,7 @@ const Profile = () => {
 
     const handleUpdateClick = () => {
         console.log("test")
-        Meteor.call('update.account', Meteor.user().username, uImage, (err, res) => {
+        Meteor.call('update.account', profileUsername, uImage, (err, res) => {
             if (err) {
                 console.log(err.reason)
             } else {
@@ -85,7 +86,7 @@ const Profile = () => {
     return (
         <div className="container">
 
-            <button onClick={handleUpdateClick}>Update</button>
+            
 
             <FileUpload 
                 uImage={uImage}
@@ -133,7 +134,23 @@ const Profile = () => {
                     ) : <div>no user</div>
                 }
                 
-                { user && <div>{user.username}</div>}
+                { user && <input 
+                    className="text-center px-2 py-1 custom-input mb-3"
+                    type="text" 
+                    value={profileUsername}
+                    onChange={(e) => setProfileUsername(e.target.value)} 
+                />}
+
+                <div className="text-center">
+                    {(user?.username != profileUsername || user.profile.picture != uImage) &&
+                        <button
+                        className="btn btn-primary px-4 py-2"
+                        onClick={handleUpdateClick}>
+                        Update
+                        </button>
+                    }
+                    
+                </div>
             </div>
             <div>
                 <div className="row">

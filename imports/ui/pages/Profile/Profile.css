@@ -50,3 +50,17 @@
     margin-top: auto;
     margin-left: auto;
 }
+
+.custom-input {
+    border: 1px dashed rgba(128, 128, 128, 0.322);
+    outline: none;
+    border-radius: 5px;
+    background-color: transparent;
+    transition: all 0.5s ease;
+}
+
+.custom-input:focus-within {
+    background-color: #ffffff;
+    outline: none;
+    border: 1px solid #000000;
+}
