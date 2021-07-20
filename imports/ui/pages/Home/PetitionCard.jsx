@@ -16,16 +16,16 @@ const PetitionCard = ({ props }) => {
                 <h5>For: {props.towards}</h5>
             </div> */}
             <div className="article__middle">
+                
+                <div className="article__middle__cover p-1">
+                    <div className="article__middle__cover__pic">
+                        <img src={helpers.getImgUrlById(props.imageCover)} alt="petition cover picture" />
+                    </div>
+                    
+                </div>
                 <div className="article__middle__title">
                     <h4 className="">{props.title}</h4>
                     <p className=""> <br /> {props.overview}</p>
-                </div>
-                <div className="article__middle__cover p-1">
-                    <div className="article__middle__cover__pic" style={
-                        {
-                            backgroundImage: `url(${props.imageCover})`
-                        }
-                    } />
                 </div>
             </div>
             <div className="article__bar">
