@@ -9,6 +9,7 @@ import helpers from '../../components/GlobalHelpers';
 import { getCipherInfo } from 'crypto';
 import { getegid } from 'process';
 import UserAvatar from '../../components/UserAvatar';
+import { Link } from 'react-router-dom';
 
 const Profile = () => {
 
@@ -161,14 +162,15 @@ const Profile = () => {
 
                             petitions.map((pet) => {
                                 return (
-                                    <div
+                                    <Link
+                                        to={`/my-petition?p=${pet._id}`}
                                         className="my-petiton mb-3"
                                         key={pet._id}
                                     >
                                         <div className="my-petiton__cover"
                                             style={
                                                 {
-                                                    backgroundImage: `url(${pet.imageCover})`
+                                                    backgroundImage: `url(${helpers.getImgUrlById(pet.imageCover)})`
                                                 }
                                             }
                                         >
@@ -178,7 +180,7 @@ const Profile = () => {
                                             {/* <p className="my-petiton__details__date">22/09/2020</p> */}
                                             <p className="my-petiton__details__signatures">12 of {pet.milestone} signatures</p>
                                         </div>
-                                    </div>
+                                    </Link>
                                 )
                             })
 

@@ -7,6 +7,7 @@ import Profile from './pages/Profile/Profile';
 import Create from './pages/Create/Create';
 import { Button } from '@material-ui/core';
 import PetitionPage from './pages/Petition/PetitionPage';
+import MyPetition from './pages/Petition/MyPetition';
 
 import Header from './layout/Header.jsx';
 
@@ -16,7 +17,7 @@ export const App = () => {
 
     <Router>
       <Switch>
-      <Route path={["/create", "/petition", "/info", "/profile", "/"]}>
+      <Route path={["/create", "/petition", "/info", "/profile", "/petitionAdmin", "/"]}>
       <Header />
       <Switch>
         <Route exact path="/">
@@ -31,6 +32,9 @@ export const App = () => {
         </Route>
         <Route path="/profile">
             <Profile />
+        </Route>
+        <Route path="/my-petition">
+            <MyPetition />
         </Route>
         <Route path="/info">
           <div>

@@ -15,6 +15,11 @@
     margin-right: auto;
 }
 
+a.my-petiton {
+    text-decoration: none;
+    color: unset;
+}
+
 .my-petiton__cover {
     background-image: url("/avatar.webp");
     min-width: 70px;
