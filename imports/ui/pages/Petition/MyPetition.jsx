@@ -29,14 +29,21 @@ const MyPetition = () => {
 
     const createChart = () => {
         var ctx = document.getElementById('myChart');
-        // const custom = [{12, 19, 3, 5, 2, 3}]
+        const custom = {
+            January: 10,
+            February: 20,
+            March: 19,
+            April: 20,
+            May: 10,
+            June: 109,
+        }
         var myChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                labels: Object.keys(custom),
                 datasets: [{
                     label: '# of Votes',
-                    data: [12, 19, 3, 5, 2, 3],
+                    data: Object.values(custom),
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
