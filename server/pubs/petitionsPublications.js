@@ -29,8 +29,14 @@ Meteor.publish('files.all', function () {
     return Images.find().cursor;
 });
 
-Meteor.publish('petitions', function publishPetitions() {
-    return Petitions.find({});
+Meteor.publish('petitions', function publishPetitions(term) {
+    if (!term.trim()) {
+        return Petitions.find({});
+    } else {
+        return Petitions.find({$text: { $search: term }});
+        // return Petitions.find({title: {$regex: /^Lore/} });
+    }
+    
 });
 
 Meteor.publish('petitionSingle', function publishPetitions(petId) {

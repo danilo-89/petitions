@@ -3,9 +3,9 @@ import { useTracker } from 'meteor/react-meteor-data';
 import Chart from 'chart.js/auto';
 import Signatures from '../../../../lib/signatures';
 import './MyPetition.css'
+import makeQR from '../../components/GenerateQR';
 
 const MyPetition = () => {
-
 
     const [dateRange, setDateRange] = useState();
 
@@ -18,6 +18,7 @@ const MyPetition = () => {
         }
         const signatures = Signatures.find().fetch();
         console.log(signatures);
+        makeQR(window.location.href)
         return {signatures, isSignaturesLoading: false}
     });
 

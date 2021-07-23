@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import Petitions from "../../../../lib/petitions";
 import PetitionCard from "./PetitionCard";
 import { Link } from "react-router-dom";
@@ -12,6 +12,9 @@ import { Button } from "react-bootstrap";
 
 const Home = () => {
 
+
+    const [searchTerm, setSearchTerm] = useState("");
+
     const { petitions, isLoading } = useTracker(() => {
         const noDataAvailable = { petitions: [] };
 
@@ -20,8 +23,9 @@ const Home = () => {
         //   return noDataAvailable;
         // }
 
+        
         console.log('petitions sub')
-        const handler = Meteor.subscribe('petitions');
+        const handler = Meteor.subscribe('petitions', searchTerm);
 
         // WHEN SUBSCRIBE IS NOT READY
         if (!handler.ready()) {
@@ -48,6 +52,8 @@ const Home = () => {
                             <Form.Control
                                 id="searchInput"
                                 type="search"
+                                value={searchTerm}
+                                onChange={(e)=>setSearchTerm(e.target.value)}
                             />
                         <Button className="searchBtn" variant="primary">Search</Button>
                         </InputGroup>
