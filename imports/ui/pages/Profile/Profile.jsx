@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Petitions from '../../../../lib/petitions';
 import { useTracker } from 'meteor/react-meteor-data';
 import './Profile.css';
@@ -11,6 +11,8 @@ import { getegid } from 'process';
 import UserAvatar from '../../components/UserAvatar';
 import { Link } from 'react-router-dom';
 
+import { UserContext } from '../../../context/userContext';
+
 const Profile = () => {
 
     const [uImage, setUImage] = useState("");
@@ -19,6 +21,10 @@ const Profile = () => {
     const [profileUsername, setProfileUsername] = useState('');
 
 
+    const { userR } = useContext(UserContext)
+    
+    console.log('userR inside profile')
+    console.log(userR)
 
     const submit = e => {
         e.preventDefault();

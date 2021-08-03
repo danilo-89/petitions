@@ -20,7 +20,7 @@ const UserContextProvider = (props) => {
         const user = Meteor.user();
         // console.log("from tracker")
         // console.log(user)
-        return {user}
+        return {user, isUserLoading: false}
     });
 
     const [userR, dispatch] = useReducer(userReducer, {}, () => {
@@ -41,7 +41,7 @@ const UserContextProvider = (props) => {
         
         console.log('user')
         console.log(userData)
-        dispatch({type: 'ADD_DATA', userData})
+        dispatch({type: 'ADD_DATA', userData, isUserLoading})
         console.log('userR')
         console.log(userR)
     }, [isUserLoading])
