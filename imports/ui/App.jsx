@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import UserContextProvider from './../context/userContext.js'
 
 import Home from './pages/Home/Home';
 import { Info } from './Info.jsx';
@@ -31,7 +32,9 @@ export const App = () => {
             <PetitionPage />
         </Route>
         <Route path="/profile">
+            <UserContextProvider>
             <Profile />
+            </UserContextProvider>
         </Route>
         <Route path="/my-petition">
             <MyPetition />

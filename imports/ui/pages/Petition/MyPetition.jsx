@@ -1,15 +1,16 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTracker } from 'meteor/react-meteor-data';
 import Chart from 'chart.js/auto';
 import Signatures from '../../../../lib/signatures';
 import './MyPetition.css'
 import makeQR from '../../components/GenerateQR';
+import Form from 'react-bootstrap/Form';
 
 const MyPetition = () => {
 
     const [dateRange, setDateRange] = useState();
 
-    const {signatures, isSignaturesLoading} = useTracker(() => {
+    const { signatures, isSignaturesLoading } = useTracker(() => {
         const handler = Meteor.subscribe('chartSignatures')
         const noDataAvailable = { signatures: [] };
 
@@ -19,14 +20,14 @@ const MyPetition = () => {
         const signatures = Signatures.find().fetch();
         console.log(signatures);
         makeQR(window.location.href)
-        return {signatures, isSignaturesLoading: false}
+        return { signatures, isSignaturesLoading: false }
     });
 
     useEffect(() => {
-        if(isSignaturesLoading==false) {
+        if (isSignaturesLoading == false) {
             const checkIfChart = Chart?.instances?.length || false;
             console.log(checkIfChart)
-            if(checkIfChart) {
+            if (checkIfChart) {
                 console.log("already exists");
             } else {
                 console.log("chart init");
@@ -156,42 +157,57 @@ const MyPetition = () => {
     // function updateData() {
 
     //     Chart.helpers.each(Chart.instances, function (instance) {
-    
+
     //         const chart = instance;
     //         //   console.log(instance.chart.canvas.id)
-    
+
     //         const data = OHLCV_historical.find({}, { sort: { start: 1 } }).fetch();
-    
+
     //         const formatTimes = data.map((item) => new Date(item.start).toLocaleTimeString(navigator.language, { hour: '2-digit', minute: '2-digit' }))
-    
+
     //         const formatValues = data.map((item) => item.close)
-    
+
     //         chart.data.labels = formatTimes;
     //         chart.data.datasets[0].data = formatValues;
-    
+
     //         chart.update()
     //     })
-    
+
     // }
 
 
-    return ( 
-        <div>
+    return (
+        <div className="container">
 
             {
                 isSignaturesLoading ?
-                <div>loading...</div> :
-                <div>
-                    {
-                    signatures.map((item) => <div key={item._id}>"{item.createdAt.toLocaleDateString()}",</div>)
-                    }
-                </div>
+                    <div>loading...</div> :
+                    <div>
+                        {
+                            signatures.map((item) => <div key={item._id}>"{item.createdAt.toLocaleDateString()}",</div>)
+                        }
+                    </div>
             }
 
-{/* setHours(0, 0, 0) */}
+            {/* setHours(0, 0, 0) */}
+
 
 
             admin
+
+
+
+            <Form.Group>
+               
+                <Form.Control as="select">
+                    <option>Default select</option>
+                    <option>Last 7 days</option>
+                    <option>Last 30 days</option>
+                    <option>Last 12 months</option>
+                </Form.Control>
+                
+            </Form.Group>
+
             <canvas id="myChart" width="400" height="400"></canvas>
 
             <button onClick={createChart}>Create chart</button>

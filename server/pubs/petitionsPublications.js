@@ -29,7 +29,7 @@ Meteor.publish('files.all', function () {
     return Images.find().cursor;
 });
 
-Meteor.publish('petitions', function publishPetitions(term) {
+Meteor.publish('petitions', function publishPetitions(term="") {
     if (!term.trim()) {
         return Petitions.find({});
     } else {
