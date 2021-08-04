@@ -41,7 +41,7 @@ const UserContextProvider = (props) => {
         
         console.log('user')
         console.log(userData)
-        dispatch({type: 'ADD_DATA', userData, isUserLoading})
+        dispatch({type: 'ADD_DATA', userData})
         console.log('userR')
         console.log(userR)
     }, [isUserLoading])
@@ -56,7 +56,7 @@ const UserContextProvider = (props) => {
     // }, [books])
 
     return (
-        <UserContext.Provider value={{userR, dispatch}}>
+        <UserContext.Provider value={{userR, dispatch, isUserLoading}}>
             { props.children }
         </UserContext.Provider>
     )

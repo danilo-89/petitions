@@ -21,10 +21,11 @@ const Profile = () => {
     const [profileUsername, setProfileUsername] = useState('');
 
 
-    const { userR } = useContext(UserContext)
+    const { userR, dispatch, isUserLoading } = useContext(UserContext)
     
     console.log('userR inside profile')
     console.log(userR)
+    console.log(dispatch)
 
     const submit = e => {
         e.preventDefault();
@@ -32,21 +33,24 @@ const Profile = () => {
         Meteor.loginWithPassword(username, password);
     };
 
-    const {user, isUserLoading} = useTracker(() => {
-        const handler = Meteor.subscribe('userData')
-        const noDataAvailable = {user: null};
+    // const {user, isUserLoading} = useTracker(() => {
+    //     const handler = Meteor.subscribe('userData')
+    //     const noDataAvailable = {user: null};
 
-        if (!handler.ready()) {
-            return { ...noDataAvailable, isUserLoading: true };
-        }
-        const user = Meteor.user();
-        return {user}
-    });
+    //     if (!handler.ready()) {
+    //         return { ...noDataAvailable, isUserLoading: true };
+    //     }
+    //     const user = Meteor.user();
+    //     return {user}
+    // });
 
     useEffect(() => {
-        const pic = user?.profile?.picture || "";
-        setProfileUsername(user?.username || "");
+        const pic = userR?.profile?.picture || "";
+        setProfileUsername(userR?.username || "");
         setUImage(() => pic)
+        console.log({pic})
+        console.log({isUserLoading})
+        console.log(userR)
     }, [isUserLoading])
 
     const onSetImage = (uImg) => {
@@ -131,7 +135,7 @@ const Profile = () => {
                 </form>
             </div>
             <div className="text-center pt-3 mb-5">
-                { user ? (
+                { userR ? (
                         <div className="profile-avatar-holder">
                             <UserAvatar 
                                 handleClick={handleAvatarClick}
@@ -141,7 +145,7 @@ const Profile = () => {
                     ) : <div>no user</div>
                 }
                 
-                { user && <input 
+                { userR && <input 
                     className="text-center px-2 py-1 custom-input mb-3"
                     type="text" 
                     value={profileUsername}
@@ -149,7 +153,7 @@ const Profile = () => {
                 />}
 
                 <div className="text-center">
-                    {(user?.username != profileUsername || user.profile.picture != uImage) &&
+                    {(userR?.username != profileUsername || userR.profile.picture != uImage) &&
                         <button
                         className="btn btn-primary px-4 py-2"
                         onClick={handleUpdateClick}>

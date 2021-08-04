@@ -5,7 +5,7 @@ export const userReducer = (state, action) => {
         case 'ADD_DATA':
             console.log("inside ADD_DATA")
             console.log(action.userData)
-            return {userR: action.userData, isUserRLoading: action.isUserLoading }
+            return action.userData
         default :
             return state
     }
