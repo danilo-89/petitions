@@ -21,11 +21,13 @@ const Profile = () => {
     const [profileUsername, setProfileUsername] = useState('');
 
 
-    const { userR, dispatch, isUserLoading } = useContext(UserContext)
+    const { currUser, isUserLoading, isUserLogging, dispatch } = useContext(UserContext)
     
-    console.log('userR inside profile')
-    console.log(userR)
-    console.log(dispatch)
+    // console.log('currUser inside profile')
+    // console.log(currUser)
+    // console.log(dispatch)
+    // console.log('isUserLoading inside profile')
+    // console.log(isUserLoading)
 
     const submit = e => {
         e.preventDefault();
@@ -45,13 +47,11 @@ const Profile = () => {
     // });
 
     useEffect(() => {
-        const pic = userR?.profile?.picture || "";
-        setProfileUsername(userR?.username || "");
+        console.log('useEffect inside profile')
+        const pic = currUser?.profile?.picture || "";
+        setProfileUsername(currUser?.username || "");
         setUImage(() => pic)
-        console.log({pic})
-        console.log({isUserLoading})
-        console.log(userR)
-    }, [isUserLoading])
+    }, [currUser])
 
     const onSetImage = (uImg) => {
         setUImage(()=>uImg)
@@ -135,7 +135,7 @@ const Profile = () => {
                 </form>
             </div>
             <div className="text-center pt-3 mb-5">
-                { userR ? (
+                { currUser ? (
                         <div className="profile-avatar-holder">
                             <UserAvatar 
                                 handleClick={handleAvatarClick}
@@ -145,7 +145,7 @@ const Profile = () => {
                     ) : <div>no user</div>
                 }
                 
-                { userR && <input 
+                { currUser && <input 
                     className="text-center px-2 py-1 custom-input mb-3"
                     type="text" 
                     value={profileUsername}
@@ -153,7 +153,7 @@ const Profile = () => {
                 />}
 
                 <div className="text-center">
-                    {(userR?.username != profileUsername || userR.profile.picture != uImage) &&
+                    {(currUser?.username != profileUsername || currUser.profile.picture != uImage) &&
                         <button
                         className="btn btn-primary px-4 py-2"
                         onClick={handleUpdateClick}>

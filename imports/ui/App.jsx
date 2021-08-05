@@ -16,8 +16,10 @@ export const App = () => {
 
   return (
 
+    
     <Router>
       <Switch>
+      <UserContextProvider>
       <Route path={["/create", "/petition", "/info", "/profile", "/petitionAdmin", "/"]}>
       <Header />
       <Switch>
@@ -32,9 +34,9 @@ export const App = () => {
             <PetitionPage />
         </Route>
         <Route path="/profile">
-            <UserContextProvider>
+            
             <Profile />
-            </UserContextProvider>
+           
         </Route>
         <Route path="/my-petition">
             <MyPetition />
@@ -47,8 +49,10 @@ export const App = () => {
         </Route>
         </Switch>
         </Route>
+        </UserContextProvider>
       </Switch>
     </Router>
+    
   )
 
 };

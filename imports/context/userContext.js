@@ -10,25 +10,20 @@ export const UserContext = createContext();
 const UserContextProvider = (props) => {
 
 
-    const {user, isUserLoading} = useTracker(() => {
+    const {user, isUserLoading, isUserLogging} = useTracker(() => {
         const handler = Meteor.subscribe('userData')
         const noDataAvailable = {user: null};
+        const isUserLogging = Meteor.loggingIn();
+        const userId = Meteor.userId();
 
         if (!handler.ready()) {
-            return { ...noDataAvailable, isUserLoading: true };
+            return { ...noDataAvailable, isUserLoading: false, isUserLogging };
         }
         const user = Meteor.user();
-        // console.log("from tracker")
-        // console.log(user)
-        return {user, isUserLoading: false}
+        return {user, isUserLoading: !!userId, isUserLogging}
     });
 
-    const [userR, dispatch] = useReducer(userReducer, {}, () => {
-        const userData = user;
-        console.log('userData')
-        console.log(userData)
-        return isUserLoading ? {} : userData
-    });
+    const [currUser, dispatch] = useReducer(userReducer, null);
 
 
     useEffect(() => {
@@ -37,14 +32,12 @@ const UserContextProvider = (props) => {
         // setUImage(() => pic)
         // console.log("userR")
         // console.log(userR)
-        const userData = user || {};
+        console.log('useEffect inside context')
         
-        console.log('user')
-        console.log(userData)
+        const userData = user || null;
         dispatch({type: 'ADD_DATA', userData})
-        console.log('userR')
-        console.log(userR)
-    }, [isUserLoading])
+ 
+    }, [isUserLoading, isUserLogging])
 
     // useEffect(() => {
     //     setFields(() => petition.fields)
@@ -56,7 +49,7 @@ const UserContextProvider = (props) => {
     // }, [books])
 
     return (
-        <UserContext.Provider value={{userR, dispatch, isUserLoading}}>
+        <UserContext.Provider value={{currUser, isUserLoading, isUserLogging, dispatch}}>
             { props.children }
         </UserContext.Provider>
     )
