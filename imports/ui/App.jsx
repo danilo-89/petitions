@@ -16,10 +16,9 @@ export const App = () => {
 
   return (
 
-    
+    <UserContextProvider>
     <Router>
       <Switch>
-      <UserContextProvider>
       <Route path={["/create", "/petition", "/info", "/profile", "/petitionAdmin", "/"]}>
       <Header />
       <Switch>
@@ -49,9 +48,9 @@ export const App = () => {
         </Route>
         </Switch>
         </Route>
-        </UserContextProvider>
       </Switch>
     </Router>
+    </UserContextProvider>
     
   )
 
