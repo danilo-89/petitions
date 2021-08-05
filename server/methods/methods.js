@@ -172,7 +172,21 @@ Meteor.methods({
 
                 return { isError: false };
             } else {
-                throw new Meteor.Error("not-logged-in", "You are not logged in");
+                Signatures.insert(
+                    {
+                        ...obj,
+                        createdAt: new Date,
+                        userId: this.userId
+                    }
+                )
+                Petitions.update(  
+                    { _id: petitionId },
+                    {
+                        $set: {totalSignatures : totalSignatures}
+                    }
+                )
+
+                return { isError: false };
             }
         } catch (err) {
             return { isError: true, err };
