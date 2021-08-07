@@ -143,8 +143,8 @@ const Create = () => {
         new Promise((resolve) => {
             Resizer.imageFileResizer(
                 file,
-                500,
-                500,
+                700,
+                700,
                 "JPEG",
                 85,
                 0,
@@ -159,8 +159,8 @@ const Create = () => {
         new Promise((resolve) => {
             Resizer.imageFileResizer(
                 file,
-                500,
-                500,
+                700,
+                700,
                 "JPEG",
                 85,
                 0,
