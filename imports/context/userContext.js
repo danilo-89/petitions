@@ -9,47 +9,36 @@ export const UserContext = createContext();
 
 const UserContextProvider = (props) => {
 
+    const {user, isUserLoading, isUserLogging, picture} = useTracker(() => {
 
-    const {user, isUserLoading, isUserLogging} = useTracker(() => {
-        const handler = Meteor.subscribe('userData')
+        const handler = Meteor.subscribe('userData');
         const noDataAvailable = {user: null};
         const isUserLogging = Meteor.loggingIn();
         const userId = Meteor.userId();
+       
+        console.log('loading user...')
 
         if (!handler.ready()) {
-            return { ...noDataAvailable, isUserLoading: false, isUserLogging };
+           
+            return { ...noDataAvailable, isUserLoading: false, isUserLogging, picture: '' };
         }
-        const user = Meteor.user();
-        return {user, isUserLoading: !!userId, isUserLogging}
+        const user = Meteor.user().profile;
+        const picture = Meteor.user().profile.picture;
+
+        return {user, isUserLoading: !!userId, isUserLogging, picture}
     });
 
-    const [currUser, dispatch] = useReducer(userReducer, null);
+    const [profileData, dispatch] = useReducer(userReducer, null);
 
 
     useEffect(() => {
-        // const pic = user?.profile?.picture || "";
-        // setProfileUsername(user?.username || "");
-        // setUImage(() => pic)
-        // console.log("userR")
-        // console.log(userR)
         console.log('useEffect inside context')
-        
         const userData = user || null;
-        dispatch({type: 'ADD_DATA', userData})
- 
-    }, [isUserLoading, isUserLogging])
-
-    // useEffect(() => {
-    //     setFields(() => petition.fields)
-    //     // console.log(fields)
-    // }, [isLoading])
-
-    // useEffect(() => {
-    //     localStorage.setItem('books', JSON.stringify(books));
-    // }, [books])
+        dispatch({type: 'UPDATE_DATA', userData})
+    }, [isUserLoading, isUserLogging, picture])
 
     return (
-        <UserContext.Provider value={{currUser, isUserLoading, isUserLogging, dispatch}}>
+        <UserContext.Provider value={{profileData, isUserLoading, isUserLogging, dispatch}}>
             { props.children }
         </UserContext.Provider>
     )

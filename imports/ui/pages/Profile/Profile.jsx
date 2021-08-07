@@ -21,10 +21,10 @@ const Profile = () => {
     const [profileUsername, setProfileUsername] = useState('');
 
 
-    const { currUser, isUserLoading, isUserLogging, dispatch } = useContext(UserContext)
+    const { profileData, isUserLoading, isUserLogging, dispatch } = useContext(UserContext)
     
-    // console.log('currUser inside profile')
-    // console.log(currUser)
+    // console.log('profileData inside profile')
+    // console.log(profileData)
     // console.log(dispatch)
     // console.log('isUserLoading inside profile')
     // console.log(isUserLoading)
@@ -48,10 +48,10 @@ const Profile = () => {
 
     useEffect(() => {
         console.log('useEffect inside profile')
-        const pic = currUser?.profile?.picture || "";
-        setProfileUsername(currUser?.username || "");
+        const pic = profileData?.picture || "";
+        setProfileUsername(Meteor.user()?.username || "");
         setUImage(() => pic)
-    }, [currUser])
+    }, [profileData])
 
     const onSetImage = (uImg) => {
         setUImage(()=>uImg)
@@ -135,7 +135,7 @@ const Profile = () => {
                 </form>
             </div>
             <div className="text-center pt-3 mb-5">
-                { currUser ? (
+                { profileData ? (
                         <div className="profile-avatar-holder">
                             <UserAvatar 
                                 handleClick={handleAvatarClick}
@@ -145,7 +145,7 @@ const Profile = () => {
                     ) : <div>no user</div>
                 }
                 
-                { currUser && <input 
+                { profileData && <input 
                     className="text-center px-2 py-1 custom-input mb-3"
                     type="text" 
                     value={profileUsername}
@@ -153,7 +153,7 @@ const Profile = () => {
                 />}
 
                 <div className="text-center">
-                    {(currUser?.username != profileUsername || currUser.profile.picture != uImage) &&
+                    {(Meteor.user()?.username != profileUsername || profileData?.picture != uImage) &&
                         <button
                         className="btn btn-primary px-4 py-2"
                         onClick={handleUpdateClick}>
