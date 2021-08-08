@@ -234,6 +234,7 @@ const Create = () => {
                 details={details}
                 video={video}
                 imageCover={imageCover}
+                imageCoverData={true}
             />
 
             <div className="container">

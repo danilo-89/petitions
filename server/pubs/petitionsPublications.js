@@ -15,8 +15,29 @@ Meteor.publish("chartSignatures", function () {
     // if (!this.userId) {
     //     return this.ready();
     // }
-    return Signatures.find({petitionId: "N48cTF9rEoHnFti9F"});
+
+    const todayDate = new Date()
+    const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+    const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
+    const yearDaysAgo = new Date(Date.now() - 365 * 24 * 60 * 60 * 1000);
+
+    return Signatures.find(
+        {
+            petitionId: "N48cTF9rEoHnFti9F",
+            // createdAt: {
+            //     $gte: yearDaysAgo,
+            //     $lt: todayDate
+            // }
+        },
+        {
+            fields: {Age: 1, City: 1, 'Country of Residence': 1, createdAt: 1}
+        },
+        {
+            sort: {createdAt: -1}
+        }
+    );
 });
+
 
 Meteor.publish("userData", function () {
     if (!this.userId) {

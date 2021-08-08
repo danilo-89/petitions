@@ -9,6 +9,7 @@ const PetitionSingle = (props) => {
     // console.log('props in single')
     // console.log(props)
     // console.log('props in single END')
+    console.log('props.imageCover')
 
     const {userAuthor, isUserAuthorLoading} = useTracker(() => {
         const handler = Meteor.subscribe('userAuthor', props.author)
@@ -62,7 +63,7 @@ const PetitionSingle = (props) => {
                     <div className="cover-holder__wrapper">
                         <img
                             className="cover-holder__cover"
-                            src={helpers.getImgUrlById(props.imageCover)}
+                            src={props.imageCoverData ? props.imageCover : helpers.getImgUrlById(props.imageCover)}
                         
                         />
                         <button className="btn btn-outline-success sign-petition-button sign-petition-button-1 mt-3">Sign this petition</button>

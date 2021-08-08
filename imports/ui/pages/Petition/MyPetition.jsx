@@ -37,11 +37,20 @@ const MyPetition = () => {
     }, [isSignaturesLoading]);
 
     const countObject = (arr) => {
+
+        const sortStringKeys = (a, b) => String(a[0]).localeCompare(b[0])
+
         const newArr = arr.map((item) => item.createdAt.toLocaleDateString())
-        const reduceArr = newArr.reduce((acc, value) => ({
-            ...acc,
-            [value]: (acc[value] || 0) + 1
-        }), {});
+        // const newArr = arr.map((item) => item.createdAt.getFullYear().toString().substr(-2) + "/" + (item.createdAt.getMonth() + 1))
+        // const reduceArr = newArr.reduce((acc, value) => ({
+        //     ...acc,
+        //     [value]: (acc[value] || 0) + 1
+        // }), {});
+
+
+        // preserve order
+        const reduceArr = new Map([...newArr.reduce((acc, value) => acc.set(value, (acc.get(value) || 0) + 1), new Map())].sort(sortStringKeys));
+
         console.log(reduceArr);
         return reduceArr;
     }
@@ -54,14 +63,20 @@ const MyPetition = () => {
         gradient.addColorStop(0.6, 'transparent')
 
         const custom = countObject(signatures);
+        console.log("custom")
+        console.log(custom)
+
+
+        console.log([...custom.keys()])
+        console.log([...custom.values()])
 
         var myChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: Object.keys(custom),
+                labels: [...custom.keys()],
                 datasets: [{
                     label: `test`,
-                    data: Object.values(custom),
+                    data: [...custom.values()],
                     fill: 'start',
 
                     backgroundColor: gradient,
@@ -198,14 +213,14 @@ const MyPetition = () => {
 
 
             <Form.Group>
-               
+
                 <Form.Control as="select">
                     <option>Default select</option>
                     <option>Last 7 days</option>
                     <option>Last 30 days</option>
                     <option>Last 12 months</option>
                 </Form.Control>
-                
+
             </Form.Group>
 
             <canvas id="myChart" width="400" height="400"></canvas>
