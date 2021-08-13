@@ -30,6 +30,12 @@ const MyPetition = () => {
     const genData = () => {
         
         const custom = countObject(signatures);
+
+        var ctx = document.getElementById('signaturesChart').getContext('2d');
+        var gradient = ctx.createLinearGradient(0, 0, 0, 400)
+        gradient.addColorStop(0, 'rgba(22, 219, 147, 0.5)')
+        gradient.addColorStop(0.85, 'rgba(22, 219, 147, 0.4)')
+        gradient.addColorStop(1, 'rgba(22, 219, 147, 0.1)')
         
         return {
           labels: [...custom.keys()],
@@ -37,8 +43,8 @@ const MyPetition = () => {
             {
               label: '# of Votes',
               data: [...custom.values()],
-              fill: false,
-              backgroundColor: '#16DB93',
+              fill: 'start',
+              backgroundColor: gradient,
               borderColor: '#16DB93',
               tension: 0.1,
               borderWidth: 2,
@@ -301,7 +307,11 @@ const MyPetition = () => {
 
 
 
-        <Line data={data1} options={options1} />
+        <Line 
+        id='signaturesChart'
+        data={data1} 
+        options={options1} 
+        />
 
             {
                 isSignaturesLoading ?
