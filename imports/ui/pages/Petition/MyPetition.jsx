@@ -12,24 +12,41 @@ import Form from 'react-bootstrap/Form';
 const MyPetition = () => {
 
     const [dateRange, setDateRange] = useState();
+    const [optionValue, setOptionValue] = useState('day');
     const [data1, setData1] = useState();
 
-    const { signatures, isSignaturesLoading } = useTracker(() => {
-        const handler = Meteor.subscribe('chartSignatures')
+    const { signatures, isSignaturesLoading, handler } = useTracker(() => {
+        const handler = Meteor.subscribe('chartSignatures', optionValue)
+
         const noDataAvailable = { signatures: [] };
 
         if (!handler.ready()) {
-            return { ...noDataAvailable, isSignaturesLoading: true };
+            return { ...noDataAvailable, isSignaturesLoading: true, handler };
         }
         const signatures = Signatures.find().fetch();
         console.log(signatures);
         makeQR(window.location.href)
-        return { signatures, isSignaturesLoading: false }
-    });
+        return { signatures, isSignaturesLoading: false, handler }
+    }, [optionValue]);
+
+    useEffect(() => {
+
+            setData1(genData());
+
+    }, [isSignaturesLoading, optionValue]);
 
     const genData = () => {
         
-        const custom = countObject(signatures);
+ 
+            const custom = countObject(signatures);
+            const dataValue = [...custom.values()];
+            const labelsValue = [...custom.keys()];
+        
+
+        if (dataValue.length === 1) {
+            dataValue.push(dataValue[0])
+            labelsValue.push(labelsValue[0])
+        }
 
         var ctx = document.getElementById('signaturesChart').getContext('2d');
         var gradient = ctx.createLinearGradient(0, 0, 0, 400)
@@ -38,42 +55,29 @@ const MyPetition = () => {
         gradient.addColorStop(1, 'rgba(22, 219, 147, 0.1)')
         
         return {
-          labels: [...custom.keys()],
-          datasets: [
-            {
-              label: '# of Votes',
-              data: [...custom.values()],
-              fill: 'start',
-              backgroundColor: gradient,
-              borderColor: '#16DB93',
-              tension: 0.1,
-              borderWidth: 2,
-            },
-          ],
-      }
-    };
-
-    useEffect(() => {
-        if (isSignaturesLoading == false) {
-
-            setData1(genData());
-            // const checkIfChart = Chart?.instances?.length || false;
-            // console.log(checkIfChart)
-            // if (checkIfChart) {
-            //     console.log("already exists");
-            //     updateData();
-            // } else {
-            //     console.log("chart init");
-            //     createChart();
-            // }
+            labels: labelsValue,
+            datasets: [
+                {
+                label: '# of Votes',
+                data: dataValue,
+                fill: 'start',
+                backgroundColor: gradient,
+                borderColor: '#16DB93',
+                tension: 0.1,
+                borderWidth: 2,
+                },
+            ],
         }
-    }, [isSignaturesLoading]);
+    };
 
     const countObject = (arr) => {
 
+        // console.log("inside countObject, signatures are:");
+        // console.log(signatures);
+
         const sortStringKeys = (a, b) => String(a[0]).localeCompare(b[0])
 
-        const newArr = arr.map((item) => item.createdAt.toLocaleDateString())
+        const newArr = arr.map((item) => item.createdAt.toLocaleDateString('zh-Hans-CN'))
         // const newArr = arr.map((item) => item.createdAt.getFullYear().toString().substr(-2) + "/" + (item.createdAt.getMonth() + 1))
         // const reduceArr = newArr.reduce((acc, value) => ({
         //     ...acc,
@@ -88,198 +92,38 @@ const MyPetition = () => {
         return reduceArr;
     }
 
-    const createChart = () => {
-
-        var ctx = document.getElementById('myChart').getContext('2d');
-        var gradient = ctx.createLinearGradient(0, 0, 0, 400)
-        gradient.addColorStop(0, 'rgba(22, 219, 147, 0.5)')
-        gradient.addColorStop(0.85, 'rgba(22, 219, 147, 0.4)')
-        gradient.addColorStop(1, 'rgba(22, 219, 147, 0.1)')
-
-        var myChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: [],
-                datasets: [{
-                    label: `test`,
-                    data: [],
-                    fill: 'start',
-
-                    backgroundColor: gradient,
-                    borderColor: '#16DB93',
-                    tension: 0.1,
-                    borderWidth: 2,
-                }]
-            },
-            options: {
-                scales: {
-                    xAxes: [{
-                        display: false,
-                        gridLines: {
-                            color: 'green'
-                        }
-                    }]
-                },
-                maintainAspectRatio: false,
-                legend: {
-                    display: false
-                },
-                elements: {
-                    point: {
-                        radius: 0
-                    }
-                },
-            }
-        });
-
-        console.log(Chart?.instances[0]?.chart?.canvas?.id || "no");
-        // CHART.js END
-
-        setTimeout(() => {
-            updateData()
-        }, 5000)
+    
 
 
+    // function updateData() {
+
+    //     console.log('inside update 0')
+
+    //     console.log(Chart)
+    //     console.log(Chart.getChart())
+    //     console.log(Chart?.instances?.length)
+
+    //     if (Chart?.instances?.length) {
+    //         console.log('inside update 1')
+
+    //         Chart.helpers.each(Chart.instances, function (instance) {
 
 
+    //             console.log('inside update 2')
+    //             const chart = instance;
 
-        // setTimeout(() => {
-        //     // CHART.js
-        //     var ctx = document.getElementById('myChart').getContext('2d');
-        //     var gradient = ctx.createLinearGradient(0, 0, 0, 400)
-        //     gradient.addColorStop(0, 'rgba(13, 150, 254, 0.7)')
-        //     gradient.addColorStop(0.6, 'transparent')
-        //     const labels = [];
-        //     var myChart = new Chart(ctx, {
-        //         type: 'line',
-        //         data: {
-        //             labels: labels,
-        //             datasets: [{
-        //                 label: `${FlowRouter.getQueryParam('coin')}/${FlowRouter.getQueryParam('stable')}`,
-        //                 data: [],
-        //                 fill: 'start',
+    //             const custom = countObject(signatures);
+    //             chart.data.labels = [...custom.keys()];
+    //             chart.data.datasets[0].data = [...custom.values()];
 
-        //                 backgroundColor: gradient,
-        //                 borderColor: '#0D95FE',
-        //                 tension: 0.1,
-        //                 borderWidth: 2,
-        //             }]
-        //         },
-        //         options: {
-        //             scales: {
-        //                 xAxes: [{
-        //                     display: false
-        //                 }],
-        //                 yAxes: [{
-        //                     ticks: {
-        //                         fontColor: "lightgray",
-        //                     }
-        //                 }],
-        //                 y: {
-        //                     beginAtZero: true
-        //                 }
-        //             },
-        //             maintainAspectRatio: false,
-        //             responsive: true,
-        //             legend: {
-        //                 display: false
-        //             },
-        //             elements: {
-        //                 point: {
-        //                     radius: 0
-        //                 }
-        //             },
-        //         }
-        //     });
-        //     // CHART.js END
+    //             chart.update()
 
-        //     updateData()
+    //         })
+    //     }
 
-        // }, 0)
+    // }
 
 
-
-        // var ctx = document.getElementById('myChart');
-        // const custom = {
-        //     January: 10,
-        //     February: 20,
-        //     March: 19,
-        //     April: 20,
-        //     May: 10,
-        //     June: 109,
-        // }
-        // var myChart = new Chart(ctx, {
-        //     type: 'bar',
-        //     data: {
-        //         labels: Object.keys(custom),
-        //         datasets: [{
-        //             label: '# of Votes',
-        //             data: Object.values(custom),
-        //             backgroundColor: [
-        //                 'rgba(255, 99, 132, 0.2)',
-        //                 'rgba(54, 162, 235, 0.2)',
-        //                 'rgba(255, 206, 86, 0.2)',
-        //                 'rgba(75, 192, 192, 0.2)',
-        //                 'rgba(153, 102, 255, 0.2)',
-        //                 'rgba(255, 159, 64, 0.2)'
-        //             ],
-        //             borderColor: [
-        //                 'rgba(255, 99, 132, 1)',
-        //                 'rgba(54, 162, 235, 1)',
-        //                 'rgba(255, 206, 86, 1)',
-        //                 'rgba(75, 192, 192, 1)',
-        //                 'rgba(153, 102, 255, 1)',
-        //                 'rgba(255, 159, 64, 1)'
-        //             ],
-        //             borderWidth: 1
-        //         }]
-        //     },
-        //     options: {
-        //         scales: {
-        //             y: {
-        //                 beginAtZero: true
-        //             }
-        //         }
-        //     }
-        // });
-    }
-
-
-    function updateData() {
-
-        console.log('inside update 0')
-
-        console.log(Chart)
-        console.log(Chart.getChart())
-        console.log(Chart?.instances?.length)
-
-        if (Chart?.instances?.length) {
-            console.log('inside update 1')
-
-            Chart.helpers.each(Chart.instances, function (instance) {
-
-
-                console.log('inside update 2')
-                const chart = instance;
-
-                const custom = countObject(signatures);
-                chart.data.labels = [...custom.keys()];
-                chart.data.datasets[0].data = [...custom.values()];
-
-                chart.update()
-
-            })
-        }
-
-    }
-
-
-    // var gradient = ctx.createLinearGradient(0, 0, 0, 400)
-    // gradient.addColorStop(0, 'rgba(22, 219, 147, 0.5)')
-    // gradient.addColorStop(0.85, 'rgba(22, 219, 147, 0.4)')
-    // gradient.addColorStop(1, 'rgba(22, 219, 147, 0.1)')
-
-  
       
       const options1 = {
         scales: {
@@ -287,6 +131,11 @@ const MyPetition = () => {
                 display: false,
                 gridLines: {
                     color: 'green'
+                }
+            }],
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
                 }
             }]
         },
@@ -305,6 +154,19 @@ const MyPetition = () => {
     return (
         <div className="container">
 
+            <div>{optionValue}</div>
+
+            <Form.Group>
+                <Form.Control 
+                as="select"
+                value = {optionValue}
+                onChange = {(e) => {handler.stop(); setOptionValue(e.target.value)}}
+                >
+                    <option value="day">Last 7 days</option>
+                    <option value="month">Last 30 days</option>
+                    <option value="year">Last 12 months</option>
+                </Form.Control>
+            </Form.Group>
 
 
         <Line 
@@ -329,22 +191,9 @@ const MyPetition = () => {
 
             admin
 
+            
 
-
-            <Form.Group>
-
-                <Form.Control as="select">
-                    <option>Default select</option>
-                    <option>Last 7 days</option>
-                    <option>Last 30 days</option>
-                    <option>Last 12 months</option>
-                </Form.Control>
-
-            </Form.Group>
-
-            <canvas id="myChart" width="400" height="400"></canvas>
-
-            <button onClick={createChart}>Create chart</button>
+            {/* <button onClick={createChart}>Create chart</button> */}
         </div>
     );
 }

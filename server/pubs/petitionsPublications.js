@@ -11,23 +11,32 @@ Meteor.publish("userAuthor", function (userId) {
     );
 });
 
-Meteor.publish("chartSignatures", function () {
+Meteor.publish("chartSignatures", function (datePeriod) {
     // if (!this.userId) {
     //     return this.ready();
     // }
-
     const todayDate = new Date()
     const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
     const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
     const yearDaysAgo = new Date(Date.now() - 365 * 24 * 60 * 60 * 1000);
 
+    let fromDate =  '';
+
+    if(datePeriod==='day') {
+        fromDate =  sevenDaysAgo;
+    } else if(datePeriod==='month') {
+        fromDate =  thirtyDaysAgo;
+    } else if (datePeriod==='year') {
+        fromDate =  yearDaysAgo;
+    }
+
     return Signatures.find(
         {
             petitionId: "N48cTF9rEoHnFti9F",
-            // createdAt: {
-            //     $gte: yearDaysAgo,
-            //     $lt: todayDate
-            // }
+            createdAt: {
+                $gte: fromDate,
+                $lt: todayDate
+            }
         },
         {
             fields: {Age: 1, City: 1, 'Country of Residence': 1, createdAt: 1}
