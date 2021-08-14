@@ -22,8 +22,8 @@ const UserContextProvider = (props) => {
            
             return { ...noDataAvailable, isUserLoading: false, isUserLogging, picture: '' };
         }
-        const user = Meteor.user().profile;
-        const picture = Meteor.user().profile.picture;
+        const user = Meteor.user()?.profile;
+        const picture = Meteor.user()?.profile?.picture;
 
         return {user, isUserLoading: !!userId, isUserLogging, picture}
     });

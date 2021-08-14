@@ -67,7 +67,14 @@ Meteor.publish('petitions', function publishPetitions(term="") {
         return Petitions.find({$text: { $search: term }});
         // return Petitions.find({title: {$regex: /^Lore/} });
     }
-    
+});
+
+Meteor.publish('petitionsCount', function publishPetitions(term="") {
+    if (!term.trim()) {
+        return Petitions.find({}).count();
+    } else {
+        return Petitions.find({$text: { $search: term }}).count();
+    }
 });
 
 Meteor.publish('petitionSingle', function publishPetitions(petId) {

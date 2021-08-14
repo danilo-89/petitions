@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useTracker } from 'meteor/react-meteor-data';
-
-import Chart from 'chart.js/auto';
 import { Line } from 'react-chartjs-2';
-
 import Signatures from '../../../../lib/signatures';
 import './MyPetition.css'
 import makeQR from '../../components/GenerateQR';
@@ -23,25 +20,24 @@ const MyPetition = () => {
         if (!handler.ready()) {
             return { ...noDataAvailable, isSignaturesLoading: true, handler };
         }
-        const signatures = Signatures.find().fetch();
+        const signatures = Signatures.find({}).fetch();
         console.log(signatures);
         makeQR(window.location.href)
-        return { signatures, isSignaturesLoading: false, handler }
+        return { signatures, handler }
     }, [optionValue]);
 
     useEffect(() => {
 
-            setData1(genData());
+        setData1(genData());
 
-    }, [isSignaturesLoading, optionValue]);
+    }, [isSignaturesLoading, optionValue, signatures?.length]);
 
     const genData = () => {
-        
- 
-            const custom = countObject(signatures);
-            const dataValue = [...custom.values()];
-            const labelsValue = [...custom.keys()];
-        
+
+        const custom = signatures ? countObject(signatures) : [];
+        const dataValue = signatures ? [...custom.values()] : [];
+        const labelsValue = signatures ? [...custom.keys()] : [];
+
 
         if (dataValue.length === 1) {
             dataValue.push(dataValue[0])
@@ -53,18 +49,18 @@ const MyPetition = () => {
         gradient.addColorStop(0, 'rgba(22, 219, 147, 0.5)')
         gradient.addColorStop(0.85, 'rgba(22, 219, 147, 0.4)')
         gradient.addColorStop(1, 'rgba(22, 219, 147, 0.1)')
-        
+
         return {
             labels: labelsValue,
             datasets: [
                 {
-                label: '# of Votes',
-                data: dataValue,
-                fill: 'start',
-                backgroundColor: gradient,
-                borderColor: '#16DB93',
-                tension: 0.1,
-                borderWidth: 2,
+                    label: '# of Votes',
+                    data: dataValue,
+                    fill: 'start',
+                    backgroundColor: gradient,
+                    borderColor: '#16DB93',
+                    tension: 0.1,
+                    borderWidth: 2,
                 },
             ],
         }
@@ -72,18 +68,9 @@ const MyPetition = () => {
 
     const countObject = (arr) => {
 
-        // console.log("inside countObject, signatures are:");
-        // console.log(signatures);
-
         const sortStringKeys = (a, b) => String(a[0]).localeCompare(b[0])
 
         const newArr = arr.map((item) => item.createdAt.toLocaleDateString('zh-Hans-CN'))
-        // const newArr = arr.map((item) => item.createdAt.getFullYear().toString().substr(-2) + "/" + (item.createdAt.getMonth() + 1))
-        // const reduceArr = newArr.reduce((acc, value) => ({
-        //     ...acc,
-        //     [value]: (acc[value] || 0) + 1
-        // }), {});
-
 
         // preserve order
         const reduceArr = new Map([...newArr.reduce((acc, value) => acc.set(value, (acc.get(value) || 0) + 1), new Map())].sort(sortStringKeys));
@@ -92,40 +79,8 @@ const MyPetition = () => {
         return reduceArr;
     }
 
-    
 
-
-    // function updateData() {
-
-    //     console.log('inside update 0')
-
-    //     console.log(Chart)
-    //     console.log(Chart.getChart())
-    //     console.log(Chart?.instances?.length)
-
-    //     if (Chart?.instances?.length) {
-    //         console.log('inside update 1')
-
-    //         Chart.helpers.each(Chart.instances, function (instance) {
-
-
-    //             console.log('inside update 2')
-    //             const chart = instance;
-
-    //             const custom = countObject(signatures);
-    //             chart.data.labels = [...custom.keys()];
-    //             chart.data.datasets[0].data = [...custom.values()];
-
-    //             chart.update()
-
-    //         })
-    //     }
-
-    // }
-
-
-      
-      const options1 = {
+    const options1 = {
         scales: {
             xAxes: [{
                 display: false,
@@ -154,13 +109,16 @@ const MyPetition = () => {
     return (
         <div className="container">
 
-            <div>{optionValue}</div>
+
+        <div>thtrz</div>
+
+        <div>thtrz</div>
 
             <Form.Group>
-                <Form.Control 
-                as="select"
-                value = {optionValue}
-                onChange = {(e) => {handler.stop(); setOptionValue(e.target.value)}}
+                <Form.Control
+                    as="select"
+                    value={optionValue}
+                    onChange={(e) => { handler.stop(); setOptionValue(e.target.value) }}
                 >
                     <option value="day">Last 7 days</option>
                     <option value="month">Last 30 days</option>
@@ -169,13 +127,13 @@ const MyPetition = () => {
             </Form.Group>
 
 
-        <Line 
-        id='signaturesChart'
-        data={data1} 
-        options={options1} 
-        />
+            <Line
+                id='signaturesChart'
+                data={data1}
+                options={options1}
+            />
 
-            {
+            {/* {
                 isSignaturesLoading ?
                     <div>loading...</div> :
                     <div>
@@ -183,17 +141,8 @@ const MyPetition = () => {
                             signatures.map((item) => <div key={item._id}>"{item.createdAt.toLocaleDateString()}",</div>)
                         }
                     </div>
-            }
+            } */}
 
-            {/* setHours(0, 0, 0) */}
-
-
-
-            admin
-
-            
-
-            {/* <button onClick={createChart}>Create chart</button> */}
         </div>
     );
 }

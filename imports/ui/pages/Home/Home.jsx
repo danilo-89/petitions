@@ -9,6 +9,8 @@ import Form from 'react-bootstrap/Form';
 import FormControl from 'react-bootstrap/FormControl';
 import InputGroup from 'react-bootstrap/InputGroup';
 import { Button } from "react-bootstrap";
+import './Home.css'
+import HomePagination from "./HomePagination";
 
 const Home = () => {
 
@@ -38,13 +40,25 @@ const Home = () => {
         return { petitions };
     });
 
+    const getPaginationLength = (tLength) => {
+        return Math.ceil(tLength/2);
+    }
 
     return (
         <>
 
+            
+
             {isLoading ? <CustomLoader /> : ''}
 
+            
+
+
             <div className="container pt-70px">
+
+                <HomePagination />
+
+                <br />
 
                 <div>
                     <Form.Group>
@@ -59,6 +73,9 @@ const Home = () => {
                         </InputGroup>
                     </Form.Group>
                 </div>
+
+
+                <div>total {getPaginationLength(petitions.length)}</div>
 
                 <div className="row">
 
