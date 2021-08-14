@@ -16,6 +16,7 @@ const Home = () => {
 
 
     const [searchTerm, setSearchTerm] = useState("");
+    const [skipValue, setSkipValue] = useState(0);
 
     const { petitions, isLoading } = useTracker(() => {
         const noDataAvailable = { petitions: [] };
@@ -27,7 +28,7 @@ const Home = () => {
 
         
         console.log('petitions sub')
-        const handler = Meteor.subscribe('petitions', searchTerm);
+        const handler = Meteor.subscribe('petitions', searchTerm, skipValue);
 
         // WHEN SUBSCRIBE IS NOT READY
         if (!handler.ready()) {
@@ -38,7 +39,11 @@ const Home = () => {
 
         // WHEN SUBSCRIBE IS READY (isLoading is absent so it is false)
         return { petitions };
-    });
+    }, [skipValue]);
+
+    const onPageNumClick = (num) => {
+        setSkipValue((currNum) => num)
+    }
 
     const getPaginationLength = (tLength) => {
         return Math.ceil(tLength/2);
@@ -56,7 +61,10 @@ const Home = () => {
 
             <div className="container pt-70px">
 
-                <HomePagination />
+                <HomePagination 
+                    skipValue={skipValue}
+                    onClick={onPageNumClick}
+                />
 
                 <br />
 

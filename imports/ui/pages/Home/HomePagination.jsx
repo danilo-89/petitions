@@ -1,12 +1,22 @@
-import React from 'react';
+import React, {useState} from 'react';
+import './HomePagination.css'
 
-const HomePagination = () => {
+const HomePagination = ({skipValue, onClick}) => {
+
+    const pagination = [0, 1, 2, 3]
+
     return (
         <div className="pagination-wrapper">
-            <span>1</span>
-            <span>2</span>
-            <span>3</span>
-            <span>4</span>
+            <div>{skipValue}</div>
+            {
+                pagination.map(item => 
+                <span 
+                    key={item}
+                    onClick={()=>{onClick(item)}}
+                    >{item}
+                </span>
+                )
+            }
         </div>
     );
 }

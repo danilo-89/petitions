@@ -60,11 +60,17 @@ Meteor.publish('files.all', function () {
     return Images.find().cursor;
 });
 
-Meteor.publish('petitions', function publishPetitions(term="") {
+Meteor.publish('petitions', function publishPetitions(term="", skipValue=0) {
     if (!term.trim()) {
-        return Petitions.find({});
+        return Petitions.find(
+            {},
+            {sort: {createdAt: -1}, limit: 2, skip: skipValue}
+        );
     } else {
-        return Petitions.find({$text: { $search: term }});
+        return Petitions.find(
+            {$text: { $search: term }},
+            {sort: {createdAt: -1}, limit: 2, skip: skipValue}
+        );
         // return Petitions.find({title: {$regex: /^Lore/} });
     }
 });
