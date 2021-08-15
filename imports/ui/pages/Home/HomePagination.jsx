@@ -31,21 +31,27 @@ const HomePagination = ({skipValue, onClick, searchTerm}) => {
     return (
         <div className="pagination-wrapper">
 
-            <div>
+            {/* <div>
                 { isLoading ? "loading" : petitionsCount }
             </div>
             <div>|</div>
+            <div>{skipValue}</div> */}
 
-            <div>{skipValue}</div>
             {
-                pagination.map(item => 
+            isLoading ? 'loading' : <>
+            {
+                Array.from({length:Math.ceil(petitionsCount/6)}, (x,i) => i).map(item => 
                 <span 
+                    className={(item*6 == skipValue) ? 'active' : ''}
                     key={item}
-                    onClick={()=>{onClick(item)}}
+                    onClick={()=>{onClick(item*6)}}
                     >{item}
                 </span>
                 )
             }
+            </>
+            }
+            
         </div>
     );
 }

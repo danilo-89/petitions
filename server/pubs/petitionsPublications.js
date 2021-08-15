@@ -68,12 +68,12 @@ Meteor.publish('petitions', function publishPetitions(term="", skipValue=0) {
     if (!term.trim()) {
         return Petitions.find(
             {},
-            {sort: {createdAt: -1}, limit: 2, skip: skipValue}
+            {sort: {createdAt: -1}, limit: 6, skip: skipValue}
         );
     } else {
         return Petitions.find(
             {$text: { $search: term }},
-            {sort: {createdAt: -1}, limit: 2, skip: skipValue}
+            {sort: {createdAt: -1}, limit: 6, skip: skipValue}
         );
         // return Petitions.find({title: {$regex: /^Lore/} });
     }
@@ -87,51 +87,43 @@ Meteor.publish('petitions', function publishPetitions(term="", skipValue=0) {
 //     }
 // });
 
-Meteor.publish('petitionsCount', function publishPetitionsCount(term="") {
- 
+Meteor.publish('petitionsCount', function publishPetitionsCount(term = "") {
+
     const _id = new Mongo.ObjectID()
 
-  console.log("test")
     let count = 0;
     let initializing = true;
-    console.log("test 1")
+
     // `observeChanges` only returns after the initial `added` callbacks have run.
     // Until then, we don't want to send a lot of `changed` messages—hence
     // tracking the `initializing` state.
-    // if (!term.trim()) {
 
-    // } else {
+    const handle = Petitions.find(term.trim() ? { $text: { $search: term } } : {}, { fields: { _id: 1, title: 1 } }, { sort: { createdAt: -1 } }).observeChanges({
+        added: () => {
+            count += 1;
 
-    // }
-    const handle = Petitions.find(term.trim() ? {$text: { $search: term }} : {} , {fields: {_id: 1, title: 1}}, {sort: {createdAt: -1}}).observeChanges({
-      added: () => {
-        count += 1;
-  
-        if (!initializing) {
-          this.changed('counts', _id, { count });
+            if (!initializing) {
+                this.changed('counts', _id, { count });
+            }
+        },
+
+        removed: () => {
+            count -= 1;
+            this.changed('counts', _id, { count });
         }
-      },
-  
-      removed: () => {
-        count -= 1;
-        this.changed('counts', _id,  { count });
-      }
-  
-      // We don't care about `changed` events.
+
+        // We don't care about `changed` events.
     });
-    console.log("test 2")
+
     // Instead, we'll send one `added` message right after `observeChanges` has
     // returned, and mark the subscription as ready.
     initializing = false;
-    console.log("test 2,5")
     this.added('counts', _id, { count });
-    console.log("test 3")
     this.ready();
-    
+
     console.log(count)
     // Stop observing the cursor when the client unsubscribes. Stopping a
     // subscription automatically takes care of sending the client any `removed`
     // messages.
     this.onStop(() => handle.stop());
-  });
-  
+});

@@ -21,3 +21,9 @@
 .pagination-wrapper span:last-of-type {
     border-radius: 0 5px 5px 0;
 }
+
+.pagination-wrapper span.active {
+    background-color: #1fdc97;
+    color: #ffffff;
+    font-weight: 500;
+};

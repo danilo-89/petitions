@@ -61,11 +61,7 @@ const Home = () => {
 
             <div className="container pt-70px">
 
-                <HomePagination 
-                    skipValue={skipValue}
-                    onClick={onPageNumClick}
-                    searchTerm={searchTerm}
-                />
+                
 
                 <br />
 
@@ -108,6 +104,14 @@ const Home = () => {
                         test
                     </div>
                 </div>
+
+
+                <HomePagination 
+                    skipValue={skipValue}
+                    onClick={onPageNumClick}
+                    searchTerm={searchTerm}
+                />
+
             </div>
         </>
     );

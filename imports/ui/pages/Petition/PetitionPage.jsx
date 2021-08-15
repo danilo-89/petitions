@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Petitions from "../../../../lib/petitions";
 import { useTracker } from 'meteor/react-meteor-data';
 import { useParams } from "react-router-dom";
@@ -6,6 +6,7 @@ import PetitionSingle from './PetitionSingle';
 import PetitionForm from './PetitionForm';
 import CustomLoader from "../../components/CustomLoader";
 import Button from 'react-bootstrap/Button'
+import './PetitionPage.css'
 
 const PetitionPage = () => {
 
@@ -54,6 +55,10 @@ const PetitionPage = () => {
     }, [isLoading])
 
 
+
+    const myRef = useRef(null)
+
+    const executeScroll = () => myRef.current.scrollIntoView({behavior:"smooth"}) 
 
     //   useEffect(() => {
     //     setFields(petition.fields)
@@ -168,6 +173,7 @@ const PetitionPage = () => {
     return (
         <div>
 
+        <button onClick={executeScroll}>scroll</button>
             {/* {console.log('fields')}
             {console.log(fields)} */}
 
@@ -203,10 +209,13 @@ const PetitionPage = () => {
 
                     {fields ?
 
-                        <div className="container">
+                        <div className="container scroll-margin-top"
+                        ref={myRef}
+                        >
 
 
-                            <div className="petition-form-wrapper mx-auto">
+                            <div 
+                            className="petition-form-wrapper mx-auto">
 
                                 <div 
                                 id="petitionWrapper"
@@ -215,7 +224,8 @@ const PetitionPage = () => {
                                 </div>
 
                                 <div className="petition-form-wrapper__main p-3">
-                                    <form onSubmit={handleSubmit}>
+                                    <form 
+                                    onSubmit={handleSubmit}>
                                         <PetitionForm
                                             fields={fields}
                                             onChange={onChangeField}
