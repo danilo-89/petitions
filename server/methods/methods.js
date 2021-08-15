@@ -146,7 +146,6 @@ Meteor.methods({
         //     test: { type: String, min: 5, max: 120 }
         // }).validate({ test });
 
-
         const petitionId = obj.petitionId;
 
         const totalSignatures = Signatures.find({ petitionId }).count() + 1;
@@ -195,8 +194,6 @@ Meteor.methods({
         if (!this.userId) {
             throw new Meteor.Error('Not authorized.');
         }
-
-
     },
 });
 

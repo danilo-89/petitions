@@ -64,6 +64,7 @@ const Home = () => {
                 <HomePagination 
                     skipValue={skipValue}
                     onClick={onPageNumClick}
+                    searchTerm={searchTerm}
                 />
 
                 <br />
