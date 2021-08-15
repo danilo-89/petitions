@@ -64,7 +64,8 @@ Meteor.publish('petitionSingle', function publishPetitions(petId) {
     return Petitions.find({ _id: petId });
 });
 
-Meteor.publish('petitions', function publishPetitions(term="", skipValue=0) {
+Meteor.publish('petitions', function publishPetitions(term='', skipValue=0) {
+
     if (!term.trim()) {
         return Petitions.find(
             {},

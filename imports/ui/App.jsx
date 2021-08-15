@@ -24,7 +24,6 @@ export const App = () => {
       <Switch>
         <Route exact path="/">
           <Home />
-          <div>fghftgh fhf gh</div>
         </Route>
         <Route path="/create">
             <Create />

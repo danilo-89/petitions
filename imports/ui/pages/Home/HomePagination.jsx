@@ -7,9 +7,6 @@ import './HomePagination.css'
 
 const HomePagination = ({skipValue, onClick, searchTerm}) => {
 
-    const pagination = [0, 1, 2, 3]
-
-
     const { petitionsCount , isLoading } = useTracker(() => {
         
 
@@ -25,7 +22,7 @@ const HomePagination = ({skipValue, onClick, searchTerm}) => {
 
         // WHEN SUBSCRIBE IS READY (isLoading is absent so it is false)
         return { petitionsCount };
-    });
+    }, [searchTerm]);
 
 
     return (
@@ -40,6 +37,8 @@ const HomePagination = ({skipValue, onClick, searchTerm}) => {
             {
             isLoading ? 'loading' : <>
             {
+
+                (petitionsCount > 6) &&
                 Array.from({length:Math.ceil(petitionsCount/6)}, (x,i) => i).map(item => 
                 <span 
                     className={(item*6 == skipValue) ? 'active' : ''}

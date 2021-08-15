@@ -39,7 +39,7 @@ const Home = () => {
 
         // WHEN SUBSCRIBE IS READY (isLoading is absent so it is false)
         return { petitions };
-    }, [skipValue]);
+    }, [searchTerm, skipValue]);
 
     const onPageNumClick = (num) => {
         setSkipValue((currNum) => num)
@@ -98,10 +98,10 @@ const Home = () => {
                     }
 
                     <div className="col-12 col-md-6 col-lg-4">
-                        test
+                        
                     </div>
                     <div className="col-12 col-md-6">
-                        test
+                        
                     </div>
                 </div>
 
