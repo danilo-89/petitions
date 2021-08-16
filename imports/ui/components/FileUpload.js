@@ -177,7 +177,7 @@ class FileUploadComponent extends Component {
           </div>
         </div>
 
-      <div className="max-w-100px">
+      <div className="max-w-100px mb-2">
         <div className="row m-t-sm m-b-sm">
           <div className="col-12">
 

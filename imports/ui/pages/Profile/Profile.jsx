@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from 'react';
 import Petitions from '../../../../lib/petitions';
 import { useTracker } from 'meteor/react-meteor-data';
 import './Profile.css';
-import Register from '../SignUp/Register';
 import FileUpload from '../../components/FileUpload';
 import Images from '/lib/dropbox.js';
 import helpers from '../../components/GlobalHelpers';
@@ -12,13 +11,12 @@ import UserAvatar from '../../components/UserAvatar';
 import { Link } from 'react-router-dom';
 
 import { UserContext } from '../../../context/userContext';
-import Login from '../SignUp/Login';
+import LoginOrRegister from '../SignUp/LoginOrRegister';
 
 const Profile = () => {
 
     const [uImage, setUImage] = useState("");
     const [profileUsername, setProfileUsername] = useState('');
-
 
     const { profileData, isUserLoading, isUserLogging, dispatch } = useContext(UserContext)
     
@@ -83,6 +81,11 @@ const Profile = () => {
         });
     }
 
+    const handleResetClick = () => {
+        setUImage(profileData?.picture);
+        setProfileUsername(Meteor.user()?.username);
+    }
+
     const handleAvatarClick = () => {
         console.log("test")
         document.getElementById('fileinput').click();
@@ -91,16 +94,13 @@ const Profile = () => {
     return (
         <div className="container">
 
-            <Login />
-
-           
-
-        <div>picture: {uImage}</div>
-
-            <div>
-                <Register />
+            <div className="pt-3">
+            {!Meteor.userId() && <LoginOrRegister />}
             </div>
-
+            
+            
+            {Meteor.userId() &&
+            <>
             <div className="text-center pt-3 mb-5">
                 { profileData ? (
 
@@ -131,11 +131,19 @@ const Profile = () => {
 
                 <div className="text-center">
                     {(Meteor.user()?.username != profileUsername || profileData?.picture != uImage) &&
-                        <button
-                        className="btn btn-primary px-4 py-2"
-                        onClick={handleUpdateClick}>
-                        Update
-                        </button>
+                        <div>
+                            <button
+                            className="btn btn-secondary min-w-105px px-4 py-2 mr-2"
+                            onClick={handleResetClick}
+                            >
+                            Reset
+                            </button>
+                            <button
+                            className="btn btn-primary min-w-105px px-4 py-2"
+                            onClick={handleUpdateClick}>
+                            Update
+                            </button>
+                        </div>
                     }
                     
                 </div>
@@ -178,6 +186,8 @@ const Profile = () => {
                     </div>
                 </div>
             </div>
+            </>
+            }
         </div>
     );
 }
