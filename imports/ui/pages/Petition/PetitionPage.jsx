@@ -172,8 +172,6 @@ const PetitionPage = () => {
 
     return (
         <div>
-
-        <button onClick={executeScroll}>scroll</button>
             {/* {console.log('fields')}
             {console.log(fields)} */}
 
@@ -201,6 +199,7 @@ const PetitionPage = () => {
                         imageCover={petition.imageCover}
                         milestone={petition.milestone}
                         totalSignatures={petition.totalSignatures}
+                        scrollFunction={executeScroll}
                     />
                     {petition.title}
                     <br />

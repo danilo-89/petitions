@@ -109,11 +109,6 @@ const MyPetition = () => {
     return (
         <div className="container">
 
-
-        <div>thtrz</div>
-
-        <div>thtrz</div>
-
             <Form.Group>
                 <Form.Control
                     as="select"
@@ -123,9 +118,9 @@ const MyPetition = () => {
                     <option value="day">Last 7 days</option>
                     <option value="month">Last 30 days</option>
                     <option value="year">Last 12 months</option>
+                    <option value="all">All</option>
                 </Form.Control>
             </Form.Group>
-
 
             <Line
                 id='signaturesChart'

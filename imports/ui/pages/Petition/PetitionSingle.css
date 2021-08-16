@@ -195,7 +195,7 @@
     margin-right: auto;
     margin-bottom: 12px;
     margin-top: 10px;
-    background: linear-gradient(to right, #16db93, #16db93 60%, rgb(233, 233, 233) 60%);
+    background: linear-gradient(to right, #ffeb3b, #16db93 60%, rgb(233, 233, 233) 60%);
     border-radius: 8px;
     position: relative;
 }

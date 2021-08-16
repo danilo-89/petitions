@@ -55,7 +55,9 @@ const PetitionSingle = (props) => {
 
                             </span>
 
-                            <button className="btn btn-outline-success sign-petition-button mt-3">Sign this petition</button>
+                            <button className="btn btn-outline-success sign-petition-button mt-3"
+                            onClick={props.scrollFunction}
+                            >Sign this petition</button>
                         </div>
                         
                     </div>
@@ -66,7 +68,9 @@ const PetitionSingle = (props) => {
                             src={props.imageCoverData ? props.imageCover : helpers.getImgUrlById(props.imageCover)}
                         
                         />
-                        <button className="btn btn-outline-success sign-petition-button sign-petition-button-1 mt-3">Sign this petition</button>
+                        <button className="btn btn-outline-success sign-petition-button sign-petition-button-1 mt-3"
+                        onClick={props.scrollFunction}
+                        >Sign this petition</button>
                     </div>
                     <div className="title-holder">
                         <div className="title-holder__left">

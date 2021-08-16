@@ -32,9 +32,7 @@ export const App = () => {
             <PetitionPage />
         </Route>
         <Route path="/profile">
-            
             <Profile />
-           
         </Route>
         <Route path="/my-petition">
             <MyPetition />

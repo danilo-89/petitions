@@ -169,7 +169,7 @@ class FileUploadComponent extends Component {
       })
 
       return <div>
-        <div className="row">
+        <div className="row visually-hidden">
           <div className="col-md-12">
             <p>Upload New File:</p>
             <input type="file" id="fileinput" disabled={this.state.inProgress} ref="fileinput"
@@ -177,17 +177,19 @@ class FileUploadComponent extends Component {
           </div>
         </div>
 
+      <div className="max-w-100px">
         <div className="row m-t-sm m-b-sm">
-          <div className="col-md-6">
+          <div className="col-12">
 
             {this.showUploads()}
 
           </div>
-          <div className="col-md-6">
+          <div className="col-12">
           </div>
         </div>
+      </div>
 
-        {display}
+        {/* {display} */}
 
       </div>
     }

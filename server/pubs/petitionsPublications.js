@@ -31,7 +31,9 @@ Meteor.publish("chartSignatures", function (datePeriod) {
     }
 
     return Signatures.find(
-        {
+        datePeriod === 'all' ? {
+            petitionId: "N48cTF9rEoHnFti9F",
+        } : {
             petitionId: "N48cTF9rEoHnFti9F",
             createdAt: {
                 $gte: fromDate,

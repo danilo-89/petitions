@@ -33,7 +33,7 @@ const PetitionCard = ({ props }) => {
                 className="article__bar__inside"
                 style= {
                     {
-                        background: `linear-gradient(to right, #16db93, #16db93 ${calcPercent(props.totalSignatures, props.milestone) }%, rgb(233, 233, 233) ${calcPercent(props.totalSignatures, props.milestone) }%)`
+                        background: `linear-gradient(to right, #ffeb3b, #16db93 ${calcPercent(props.totalSignatures, props.milestone) }%, rgb(233, 233, 233) ${calcPercent(props.totalSignatures, props.milestone) }%)`
                     }
                 }
                 >

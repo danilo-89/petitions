@@ -12,12 +12,11 @@ import UserAvatar from '../../components/UserAvatar';
 import { Link } from 'react-router-dom';
 
 import { UserContext } from '../../../context/userContext';
+import Login from '../SignUp/Login';
 
 const Profile = () => {
 
     const [uImage, setUImage] = useState("");
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
     const [profileUsername, setProfileUsername] = useState('');
 
 
@@ -29,11 +28,6 @@ const Profile = () => {
     // console.log('isUserLoading inside profile')
     // console.log(isUserLoading)
 
-    const submit = e => {
-        e.preventDefault();
-
-        Meteor.loginWithPassword(username, password);
-    };
 
     // const {user, isUserLoading} = useTracker(() => {
     //     const handler = Meteor.subscribe('userData')
@@ -97,51 +91,33 @@ const Profile = () => {
     return (
         <div className="container">
 
-            
+            <Login />
 
-            <FileUpload 
-                uImage={uImage}
-                setImage={onSetImage}
-            />
+           
 
         <div>picture: {uImage}</div>
 
             <div>
                 <Register />
             </div>
-            <div>
-                <form onSubmit={submit} className="login-form">
-                    <label htmlFor="username">Username</label>
 
-                    <input
-                        type="text"
-                        placeholder="Username"
-                        name="username"
-                        required
-                        onChange={e => setUsername(e.target.value)}
-                    />
-
-                    <label htmlFor="password">Password</label>
-
-                    <input
-                        type="password"
-                        placeholder="Password"
-                        name="password"
-                        required
-                        onChange={e => setPassword(e.target.value)}
-                    />
-
-                    <button type="submit">Log In</button>
-                </form>
-            </div>
             <div className="text-center pt-3 mb-5">
                 { profileData ? (
+
+                    <>
                         <div className="profile-avatar-holder">
                             <UserAvatar 
                                 handleClick={handleAvatarClick}
                                 img={helpers.getImgUrlById(uImage)}
                             />
                         </div>
+
+                        <FileUpload 
+                            uImage={uImage}
+                            setImage={onSetImage}
+                        />
+                    </>
+
                     ) : <div>no user</div>
                 }
                 
@@ -151,6 +127,7 @@ const Profile = () => {
                     value={profileUsername}
                     onChange={(e) => setProfileUsername(e.target.value)} 
                 />}
+
 
                 <div className="text-center">
                     {(Meteor.user()?.username != profileUsername || profileData?.picture != uImage) &&
