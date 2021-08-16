@@ -11,11 +11,14 @@ const NavigationWide = () => {
 
     return ( 
         <div className="navigation-wide">
-        <Link to="/" className="nav-link">Home</Link>
-        <Link to="/create" className="nav-link">Start a petition</Link>
-        <Link to="/create" className="nav-link">About</Link>
-        <Link to="/create" className="nav-link">Sign up</Link>
-        <NavLink to="/profile" className="nav-link" activeClassName="circle-active">
+        <NavLink exact to="/" activeClassName="nav-active" className="nav-link">Home</NavLink>
+        <NavLink exact to="/create"
+        activeClassName="nav-active" className="nav-link">Start a petition</NavLink>
+        <NavLink exact to="/create"
+        activeClassName="nav-active" className="nav-link">About</NavLink>
+        <NavLink exact to="/create"
+        activeClassName="nav-active" className="nav-link">Sign up</NavLink>
+        <NavLink exact to="/profile" className="nav-link" activeClassName="circle-active">
             <img className="nav-avatar" src={profileData?.picture ? helpers.getImgUrlById(profileData?.picture || '') : '/abstract-user-flat-4.svg'} alt="user profile picture" />
         </NavLink>
         </div>

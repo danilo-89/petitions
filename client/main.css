@@ -61,6 +61,13 @@ body {
   box-shadow: 0 0 0 1.5px #16db93;
 }
 
+.nav-active {
+  color: #16db93;
+}
+
+a.nav-link.nav-active {
+  color: #16db93;
+}
 
 .visually-hidden {
   visibility: hidden;

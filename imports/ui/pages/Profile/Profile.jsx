@@ -12,6 +12,7 @@ import { Link } from 'react-router-dom';
 
 import { UserContext } from '../../../context/userContext';
 import LoginOrRegister from '../SignUp/LoginOrRegister';
+import { CardList } from 'react-bootstrap-icons';
 
 const Profile = () => {
 
@@ -101,6 +102,16 @@ const Profile = () => {
             
             {Meteor.userId() &&
             <>
+
+            <div className="text-center">
+                <button
+                className="btn btn-outline-dark min-w-105px px-4 py-2"
+                onClick={() => {Meteor.logout()}}
+                >
+                Log out
+                </button>
+            </div>
+
             <div className="text-center pt-3 mb-5">
                 { profileData ? (
 
@@ -150,6 +161,11 @@ const Profile = () => {
             </div>
             <div>
                 <div className="row">
+                    <div className="col-12">
+                        <div className="el-title-holder d-flex align-items-center">
+                           <CardList /> <span className="ml-1">My petitions</span>
+                        </div>
+                    </div>
                     <div className="col-12">
 
 
