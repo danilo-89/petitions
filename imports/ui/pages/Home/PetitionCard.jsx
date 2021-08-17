@@ -18,8 +18,8 @@ const PetitionCard = ({ props }) => {
             <div className="article__middle">
                 
                 <div className="article__middle__cover p-1">
-                    <div className="article__middle__cover__pic">
-                        <img src={helpers.getImgUrlById(props.imageCover)} alt="petition cover picture" />
+                    <div className={`article__middle__cover__pic ${!props.imageCover && 'no-cover'}`}>
+                        {props.imageCover && <img src={helpers.getImgUrlById(props.imageCover)} alt="petition cover picture" />}
                     </div>
                     
                 </div>

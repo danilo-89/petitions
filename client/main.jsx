@@ -4,7 +4,6 @@ import { render } from 'react-dom';
 import { App } from '/imports/ui/App';
 import './bootstrap.css';
 
-
 Meteor.startup(() => {
   render(<App/>, document.getElementById('react-target'));
 });

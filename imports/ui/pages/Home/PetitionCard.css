@@ -72,6 +72,10 @@
   background-repeat: no-repeat;
 }
 
+.article__middle__cover__pic.no-cover {
+  background-image: url('/logo.svg');
+}
+
 .article__middle__cover__pic img {
   width: 100%;
   height: 100%;

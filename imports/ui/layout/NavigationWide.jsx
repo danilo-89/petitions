@@ -16,8 +16,6 @@ const NavigationWide = () => {
         activeClassName="nav-active" className="nav-link">Start a petition</NavLink>
         <NavLink exact to="/create"
         activeClassName="nav-active" className="nav-link">About</NavLink>
-        <NavLink exact to="/create"
-        activeClassName="nav-active" className="nav-link">Sign up</NavLink>
         <NavLink exact to="/profile" className="nav-link" activeClassName="circle-active">
             <img className="nav-avatar" src={profileData?.picture ? helpers.getImgUrlById(profileData?.picture || '') : '/abstract-user-flat-4.svg'} alt="user profile picture" />
         </NavLink>

@@ -52,7 +52,7 @@ const Profile = () => {
 
     const { petitions, isLoading } = useTracker(() => {
         const noDataAvailable = { petitions: [] };
-        const handler = Meteor.subscribe('petitions')
+        const handler = Meteor.subscribe('petitionsAuthor')
 
         if (!handler.ready()) {
             return { ...noDataAvailable, isLoading: true };
@@ -180,8 +180,10 @@ const Profile = () => {
                                     >
                                         <div className="my-petiton__cover"
                                             style={
-                                                {
+                                                pet.imageCover ? {
                                                     backgroundImage: `url(${helpers.getImgUrlById(pet.imageCover)})`
+                                                } : {
+                                                    backgroundImage: `url(/logo.svg)`
                                                 }
                                             }
                                         >

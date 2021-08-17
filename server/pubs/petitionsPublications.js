@@ -82,6 +82,13 @@ Meteor.publish('petitions', function publishPetitions(term='', skipValue=0) {
     }
 });
 
+Meteor.publish('petitionsAuthor', function publishPetitions() {
+        return Petitions.find(
+            {userId: this.userId},
+            {sort: {createdAt: -1}}
+        );
+});
+
 // Meteor.publish('petitionsCount', function publishPetitionsCount(term="") {
 //     if (!term.trim()) {
 //         return Petitions.find({}, {fields: {_id: 1, title: 1}}, {sort: {createdAt: -1}});

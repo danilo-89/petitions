@@ -80,20 +80,26 @@ Meteor.methods({
     },
 
     'update.account'(username, pic) {
-        try {
-            if (this.userId) {
-                Meteor.users.update({_id: this.userId},{
-                    $set: { 
-                        username: username,
-                        'profile.picture': pic
-                     }
-                });
-                return { isError: false };
-            } else {
-                throw new Meteor.Error("not-logged-in", "You are not logged in");
+        const checkUsername = Meteor.users.findOne({ username });
+        console.log(checkUsername)
+        if(!checkUsername && username.trim()) {
+            try {
+                if (this.userId) {
+                    Meteor.users.update({_id: this.userId},{
+                        $set: { 
+                            username: username,
+                            'profile.picture': pic
+                        }
+                    });
+                    return { isError: false };
+                } else {
+                    throw new Meteor.Error("not-logged-in", "You are not logged in");
+                }
+            } catch (err) {
+                return { isError: true, err };
             }
-        } catch (err) {
-            return { isError: true, err };
+        } else {
+            return { isError: true, err:{reason:"Something is wrong!"} }
         }
     },
 

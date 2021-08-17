@@ -106,6 +106,6 @@ a.main-header__logo {
     transform: rotate(-45deg);
 }
 
-.PrivateSwipeArea-root-1 {
+[class^="PrivateSwipeArea"]{
   margin-top: 56px;
 }
