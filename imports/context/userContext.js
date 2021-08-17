@@ -9,7 +9,7 @@ export const UserContext = createContext();
 
 const UserContextProvider = (props) => {
 
-    const {user, isUserLoading, isUserLogging, picture} = useTracker(() => {
+    const {user, userId, isUserLoading, isUserLogging, picture} = useTracker(() => {
 
         const handler = Meteor.subscribe('userData');
         const noDataAvailable = {user: null};
@@ -20,12 +20,12 @@ const UserContextProvider = (props) => {
 
         if (!handler.ready()) {
 
-            return { ...noDataAvailable, isUserLoading: false, isUserLogging, picture: '' };
+            return { ...noDataAvailable, userId: null, isUserLoading: true, isUserLogging, picture: '' };
         }
         const user = Meteor.user()?.profile;
         const picture = Meteor.user()?.profile?.picture;
 
-        return {user, isUserLoading: !!userId, isUserLogging, picture}
+        return {user, userId, isUserLoading: false, isUserLogging, picture}
     });
 
     const [profileData, dispatch] = useReducer(userReducer, null);
@@ -35,10 +35,10 @@ const UserContextProvider = (props) => {
         console.log('useEffect inside context')
         const userData = user || null;
         dispatch({type: 'UPDATE_DATA', userData})
-    }, [isUserLoading, isUserLogging, picture])
+    }, [isUserLoading, isUserLogging, userId, picture])
 
     return (
-        <UserContext.Provider value={{profileData, isUserLoading, isUserLogging, dispatch}}>
+        <UserContext.Provider value={{profileData, userId, isUserLoading, isUserLogging, dispatch}}>
             { props.children }
         </UserContext.Provider>
     )

@@ -23,32 +23,15 @@ const Profile = () => {
     const [uImage, setUImage] = useState("");
     const [profileUsername, setProfileUsername] = useState('');
 
-    const { profileData, isUserLoading, isUserLogging, dispatch } = useContext(UserContext)
-    
-    // console.log('profileData inside profile')
-    // console.log(profileData)
-    // console.log(dispatch)
-    // console.log('isUserLoading inside profile')
-    // console.log(isUserLoading)
+    const { profileData, userId, isUserLoading, isUserLogging, dispatch } = useContext(UserContext)
 
-
-    // const {user, isUserLoading} = useTracker(() => {
-    //     const handler = Meteor.subscribe('userData')
-    //     const noDataAvailable = {user: null};
-
-    //     if (!handler.ready()) {
-    //         return { ...noDataAvailable, isUserLoading: true };
-    //     }
-    //     const user = Meteor.user();
-    //     return {user}
-    // });
 
     useEffect(() => {
         console.log('useEffect inside profile')
         const pic = profileData?.picture || "";
         setProfileUsername(Meteor.user()?.username || "");
         setUImage(() => pic)
-    }, [profileData, isUserLoading])
+    }, [profileData, userId, isUserLoading])
 
     const onSetImage = (uImg) => {
         setUImage(()=>uImg)
@@ -100,6 +83,8 @@ const Profile = () => {
 
     return (
         <div className="container">
+
+            {isUserLoading ? 'user loading true' : 'user loading false'}
 
         <CustomToaster />
 
