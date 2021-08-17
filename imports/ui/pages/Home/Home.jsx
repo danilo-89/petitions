@@ -35,7 +35,7 @@ const Home = () => {
             return { ...noDataAvailable, isLoading: true };
         }
 
-        const petitions = Petitions.find().fetch();
+        const petitions = Petitions.find({},{sort: {createdAt: -1}}).fetch();
 
         // WHEN SUBSCRIBE IS READY (isLoading is absent so it is false)
         return { petitions };

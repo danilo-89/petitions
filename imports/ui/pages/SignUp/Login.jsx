@@ -1,18 +1,30 @@
 import React, { useState } from 'react';
+import toast from 'react-hot-toast';
+import CustomToaster from '../../components/CustomToaster';
 
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
 
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        Meteor.loginWithPassword(username, password);
+        Meteor.loginWithPassword(username, password, () => {
+           if(Meteor.userId()) {
+                toast.success(`Welcome ${Meteor.user().username}!`)
+            } else {
+                toast.error('Oops... Something went wrong!')
+            }
+        });
     }
 
     return (
 
         <div className="form-wrapper mx-auto">
+
+            <CustomToaster />
+
             <div className="form-wrapper__title">Login</div>
             <div className="p-3">
                 <form id="registerForm" onSubmit={handleSubmit}>

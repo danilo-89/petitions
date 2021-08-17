@@ -11,43 +11,49 @@ import PetitionPage from './pages/Petition/PetitionPage';
 import MyPetition from './pages/Petition/MyPetition';
 
 import Header from './layout/Header.jsx';
+import ProtectedRoute from './ProtectedRoute.jsx';
 
 export const App = () => {
 
   return (
 
-    <UserContextProvider>
+    
     <Router>
       <Switch>
-      <Route path={["/create", "/petition", "/info", "/profile", "/petitionAdmin", "/"]}>
-      <Header />
+        <Route path={["/create", "/petition", "/info", "/profile", "/petitionAdmin", "/"]}>
+        <UserContextProvider>
+          <Header />
+          <Switch>
+            <Route exact path="/">
+              <Home />
+            </Route>
+            <Route path="/create">
+                <Create />
+            </Route>
+            <Route path="/petition/:id">
+                <PetitionPage />
+            </Route>
+            <Route path="/profile">
+                <Profile />
+            </Route>
+            <Route path="/my-petition">
+                <MyPetition />
+            </Route>
+            <Route path="/info">
+              <div>
+                <h1>Info page</h1>
+                <Info />
+              </div>
+            </Route>
+            </Switch>
+          </UserContextProvider>
+          </Route>
+      </Switch>
       <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <Route path="/create">
-            <Create />
-        </Route>
-        <Route path="/petition/:id">
-            <PetitionPage />
-        </Route>
-        <Route path="/profile">
-            <Profile />
-        </Route>
-        <Route path="/my-petition">
-            <MyPetition />
-        </Route>
-        <Route path="/info">
-          <div>
-            <h1>Info page</h1>
-            <Info />
-          </div>
-        </Route>
-        </Switch>
-        </Route>
+        <ProtectedRoute />
       </Switch>
     </Router>
-    </UserContextProvider>
+    
     
   )
 

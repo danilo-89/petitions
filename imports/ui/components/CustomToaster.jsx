@@ -13,10 +13,12 @@ const CustomToaster = () => {
                 },
                 // Default options for specific types
                 success: {
-                    duration: 3000,
+                    duration: 2000,
+                    position:"top-center",
                 },
                 error: {
-                    duration: 3000,
+                    duration: 2000,
+                    position:"top-center",
                 },
             }}
         />
