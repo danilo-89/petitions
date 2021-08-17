@@ -15,6 +15,7 @@ import LoginOrRegister from './pages/SignUp/LoginOrRegister.jsx';
 import Header from './layout/Header.jsx';
 import ProtectedRoute from './ProtectedRoute.jsx';
 import CustomLoader from './components/CustomLoader.jsx';
+import About from './pages/About/About.jsx';
 
 // import { createBrowserHistory } from "history";
 
@@ -64,15 +65,12 @@ export const App = () => {
      : 
     <Router>
       <Switch>
-        <Route path={["/create", "/petition", "/info", "/profile", "/petitionAdmin", "/test", "/"]}>
+        <Route path={["/create", "/about", "/petition", "/info", "/profile", "/petitionAdmin", "/test", "/"]}>
         <UserContextProvider>
           <Header />
           <Switch>
             <Route exact path="/">
               <Home />
-            </Route>
-            <Route path="/create">
-                <Create />
             </Route>
             <Route path="/petition/:id">
                 <PetitionPage />
@@ -83,12 +81,16 @@ export const App = () => {
             <Route path="/my-petition">
                 <MyPetition />
             </Route>
+            <Route path="/about">
+                <About />
+            </Route>
             <Route path="/info">
               <div>
                 <h1>Info page</h1>
               </div>
             </Route>
             <ProtectedRoute path="/test" component={LoginOrRegister} isAuth={isAuth}/>
+            <ProtectedRoute path="/create" component={Create} isAuth={isAuth}/>
           </Switch>
           </UserContextProvider>
           </Route>

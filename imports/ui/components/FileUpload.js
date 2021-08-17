@@ -153,20 +153,20 @@ class FileUploadComponent extends Component {
 
       // Run through each file that the user has stored
       // (make sure the subscription only sends files owned by this user)
-      let display = fileCursors.map((aFile, key) => {
-        // console.log('A file: ', aFile.link(), aFile.get('name'))
-        let link = Images.findOne({_id: aFile._id}).link();  //The "view/download" link
+      // let display = fileCursors.map((aFile, key) => {
+      //   // console.log('A file: ', aFile.link(), aFile.get('name'))
+      //   let link = Images.findOne({_id: aFile._id}).link();  //The "view/download" link
 
-        // Send out components that show details of each file
-        return <div key={'file' + key}>
-          <IndividualFile
-            fileName={aFile.name}
-            fileUrl={link}
-            fileId={aFile._id}
-            fileSize={aFile.size}
-          />
-        </div>
-      })
+      //   // Send out components that show details of each file
+      //   return <div key={'file' + key}>
+      //     <IndividualFile
+      //       fileName={aFile.name}
+      //       fileUrl={link}
+      //       fileId={aFile._id}
+      //       fileSize={aFile.size}
+      //     />
+      //   </div>
+      // })
 
       return <div>
         <div className="row visually-hidden">

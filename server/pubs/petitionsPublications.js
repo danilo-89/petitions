@@ -59,7 +59,8 @@ Meteor.publish("userData", function () {
 });
 
 Meteor.publish('files.all', function () {
-    return Images.find().cursor;
+    // return Images.find({userId: this.userId}).cursor;
+    return this.ready();
 });
 
 Meteor.publish('petitionSingle', function publishPetitions(petId) {

@@ -19,7 +19,7 @@ const UserContextProvider = (props) => {
         console.log('loading user...')
 
         if (!handler.ready()) {
-           
+
             return { ...noDataAvailable, isUserLoading: false, isUserLogging, picture: '' };
         }
         const user = Meteor.user()?.profile;

@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Route, Redirect } from 'react-router';
-import LoginOrRegister from './pages/SignUp/LoginOrRegister';
 
 const ProtectedRoute = ({ isAuth: isAuth, component: Component, ...rest}) => {
   return ( 
@@ -12,7 +11,7 @@ const ProtectedRoute = ({ isAuth: isAuth, component: Component, ...rest}) => {
         }
         else {
           return (
-            <Redirect to={{ pathname: "/", state: {from: props.location} }} />
+            <Redirect to={{ pathname: "/profile", state: {from: props.location} }} />
           )
         }
       }
