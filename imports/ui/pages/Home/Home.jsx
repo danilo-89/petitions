@@ -65,6 +65,8 @@ const Home = () => {
 
                 <br />
 
+                <Link to="/test">Go to test</Link>
+
                 <div>
                     <Form.Group>
                         <InputGroup className="mb-3">
