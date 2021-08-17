@@ -13,6 +13,10 @@ import { Link } from 'react-router-dom';
 import { UserContext } from '../../../context/userContext';
 import LoginOrRegister from '../SignUp/LoginOrRegister';
 import { CardList } from 'react-bootstrap-icons';
+import toast from 'react-hot-toast';
+import CustomToaster from '../../components/CustomToaster';
+import CustomLoader from '../../components/CustomLoader';
+
 
 const Profile = () => {
 
@@ -44,7 +48,7 @@ const Profile = () => {
         const pic = profileData?.picture || "";
         setProfileUsername(Meteor.user()?.username || "");
         setUImage(() => pic)
-    }, [profileData])
+    }, [profileData, isUserLoading])
 
     const onSetImage = (uImg) => {
         setUImage(()=>uImg)
@@ -68,15 +72,17 @@ const Profile = () => {
         Meteor.call('update.account', profileUsername, uImage, (err, res) => {
             if (err) {
                 console.log(err.reason)
+                toast.error(err.reason)
             } else {
                 if (res.isError) {
                     // Bert.alert(res.err.reason, 'danger');
                     console.log(res.err.reason)
+                    toast.error(res.err.reason)
                 } else {
-                    // Bert.alert('Success', 'success');
                     // resetForm();
                     // FlowRouter.go('/myRecipes');
                     console.log('success')
+                    toast.success('success')
                 }
             }
         });
@@ -94,6 +100,8 @@ const Profile = () => {
 
     return (
         <div className="container">
+
+        <CustomToaster />
 
             <div className="pt-3">
             {!Meteor.userId() && <LoginOrRegister />}
@@ -113,13 +121,13 @@ const Profile = () => {
             </div>
 
             <div className="text-center pt-3 mb-5">
-                { profileData ? (
+               
 
                     <>
                         <div className="profile-avatar-holder">
                             <UserAvatar 
                                 handleClick={handleAvatarClick}
-                                img={helpers.getImgUrlById(uImage)}
+                                img={uImage ? helpers.getImgUrlById(uImage) : '/abstract-user-flat-4.svg'}
                             />
                         </div>
 
@@ -129,15 +137,13 @@ const Profile = () => {
                         />
                     </>
 
-                    ) : <div>no user</div>
-                }
-                
-                { profileData && <input 
+               
+                <input 
                     className="text-center px-2 py-1 custom-input mb-3"
                     type="text" 
                     value={profileUsername}
                     onChange={(e) => setProfileUsername(e.target.value)} 
-                />}
+                />
 
 
                 <div className="text-center">
@@ -160,16 +166,19 @@ const Profile = () => {
                 </div>
             </div>
             <div>
+
+            {isLoading ? <div>
+                <CustomLoader />
+            </div> :
                 <div className="row">
+                
                     <div className="col-12">
                         <div className="el-title-holder d-flex align-items-center">
-                           <CardList /> <span className="ml-1">My petitions</span>
+                            <CardList /> <span className="ml-1">My petitions</span>
                         </div>
                     </div>
                     <div className="col-12">
-
-
-                        {isLoading ? <div>loading...</div> :
+                            {petitions.length ? (
 
                             petitions.map((pet) => {
                                 return (
@@ -197,12 +206,17 @@ const Profile = () => {
                                 )
                             })
 
-                        }
+                            ) : <div className="text-center">
+                                You havent created any petition, yet.
+                                <br />
+                                <Link to='/create'>Create petition</Link>
+                                </div>
 
-
-
+                            }
                     </div>
+
                 </div>
+                }
             </div>
             </>
             }

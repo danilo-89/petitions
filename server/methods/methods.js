@@ -81,8 +81,9 @@ Meteor.methods({
 
     'update.account'(username, pic) {
         const checkUsername = Meteor.users.findOne({ username });
+        const isThisUsername = Meteor.users.findOne({ _id: this.userId }).username === username;
         console.log(checkUsername)
-        if(!checkUsername && username.trim()) {
+        if((!checkUsername && username.trim()) || isThisUsername) {
             try {
                 if (this.userId) {
                     Meteor.users.update({_id: this.userId},{
@@ -114,7 +115,11 @@ Meteor.methods({
         //     test: { type: String, min: 5, max: 120 }
         // }).validate({ test });
 
+        const checkPetitionCount = Petitions.find({ userId: this.userId }).count();
 
+        if (checkPetitionCount > 20) {
+            return { isError: true, err:{reason:"Maximum number petititions per user is 20!"}}
+        }
 
         try {
 
@@ -135,9 +140,9 @@ Meteor.methods({
             return { isError: true, err };
         }
 
-        // if (!this.userId) {
-        //     throw new Meteor.Error('Not authorized.');
-        // }
+        if (!this.userId) {
+            throw new Meteor.Error('Not authorized.');
+        }
 
 
     },

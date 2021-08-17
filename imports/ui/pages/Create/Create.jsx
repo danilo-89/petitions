@@ -10,6 +10,8 @@ import FormControl from 'react-bootstrap/FormControl';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Table from 'react-bootstrap/Table';
 import FileUpload from "../../components/FileUpload";
+import toast from 'react-hot-toast';
+import CustomToaster from "../../components/CustomToaster";
 
 
 const Create = () => {
@@ -189,16 +191,16 @@ const Create = () => {
 
         Meteor.call('create.petition', obj, (err, res) => {
             if (err) {
-                Bert.alert(err.reason, 'danger');
+                toast.error(err.reason);
             } else {
                 if (res.isError) {
                     // Bert.alert(res.err.reason, 'danger');
-                    console.log(res.err.reason)
+                    toast.error(res.err.reason)
                 } else {
                     // Bert.alert('Success', 'success');
                     // resetForm();
                     // FlowRouter.go('/myRecipes');
-                    console.log('success')
+                    toast.success('petition created')
                 }
             }
         });
@@ -215,6 +217,7 @@ const Create = () => {
     return (
         <div>
 
+            <CustomToaster />
 
             {console.log({ title })}
 
