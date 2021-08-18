@@ -117,7 +117,7 @@ const Profile = () => {
                         </div>
 
                         <FileUpload 
-                            uImage={uImage}
+                            // uImage={uImage}
                             setImage={onSetImage}
                         />
                     </>

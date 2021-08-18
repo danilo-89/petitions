@@ -1,0 +1,12 @@
+#signaturesChart {
+    max-height: 500px;
+    width: 100%;
+}
+
+.petition-chart-container {
+    padding: 15px;
+    width: 100%;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    background-color: #ffffff;
+}

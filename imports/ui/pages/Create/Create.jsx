@@ -225,9 +225,10 @@ const Create = () => {
 
 
             <FileUpload 
-                uImage={uImage}
+                // uImage={uImage}
                 setImage={onSetImage}
             />
+            <div>uImage</div>
             <div>{uImage}</div>
 
             <PetitionSingle

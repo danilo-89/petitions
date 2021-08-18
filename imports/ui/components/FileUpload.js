@@ -13,7 +13,7 @@ class FileUploadComponent extends Component {
   constructor(props) {
     super(props);
 
-    console.log('props', props)
+    
     this.state = {
       uploading: [],
       progress: 0,
@@ -29,7 +29,7 @@ class FileUploadComponent extends Component {
   uploadIt = async (e) => {
     e.preventDefault();
 
-
+    console.log('props', this.props)
     
 
 
@@ -149,7 +149,7 @@ class FileUploadComponent extends Component {
     debug("Rendering FileUpload",this.props.docsReadyYet);
     if (this.props.files && this.props.docsReadyYet) {
 
-      let fileCursors = this.props.files;
+      // let fileCursors = this.props.files;
 
       // Run through each file that the user has stored
       // (make sure the subscription only sends files owned by this user)
