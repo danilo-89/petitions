@@ -4,4 +4,17 @@
     border: 1px solid #ced4da;
     border-radius: 0.25rem;
     background-color: #ffffff;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.my-data-author-avatar {
+    width: 110px;
+    margin-right: 5px;
+}
+
+.my-data-percent {
+    font-size: 33px;
+    font-weight: 500;
 }

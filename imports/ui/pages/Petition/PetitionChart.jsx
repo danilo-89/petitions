@@ -108,11 +108,12 @@ const PetitionChart = () => {
 
     return (
         <div>
-            fefghf
+
             <Form.Group className="mb-0">
                 <Form.Control
                     as="select"
                     value={optionValue}
+                    className="list-1-custom"
                     onChange={(e) => { handler.stop(); setOptionValue(e.target.value) }}
                 >
                     <option value="day">Last 7 days</option>
