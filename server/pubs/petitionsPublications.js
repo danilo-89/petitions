@@ -4,9 +4,8 @@ import Images from '/lib/dropbox.js';
 import Signatures from '/lib/signatures.js'
 
 Meteor.publish("userAuthor", function (userId) {
-    console.log("inside2")
     return Meteor.users.find(
-        {_id: 'GXGWrxofJ5yGNnCxs'},
+        {_id: userId},
         { fields: { username: 1, 'profile.picture': 1 } }
     );
 });

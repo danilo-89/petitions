@@ -37,10 +37,13 @@ const MyPetition = () => {
         const handler = Meteor.subscribe('userAuthor', petition?.userId)
         const noDataAvailable = { userAuthor: null };
 
+
+
         if (!handler.ready()) {
             return { ...noDataAvailable, isUserAuthorLoading: true };
         }
         const userAuthor = Meteor.users.findOne({ _id: petition?.userId });
+        console.log('pet author:', petition?.userId);
         console.log(userAuthor)
         return { userAuthor }
     }, [petition?.userId]);
@@ -61,13 +64,13 @@ const MyPetition = () => {
                                     <div className="my-data-container">
 
 
-                                        <div className="f-bold text-center mb-2">Petition author:</div>
+                                        <div className="text-center text-gray mb-2">Petition author:</div>
                                         <div className="d-flex align-items-center flex-column">
-                                            <div className="my-data-author-avatar">
+                                            <div className="my-data-author-avatar mb-1">
                                                 {userAuthor &&
                                                     (<UserAvatar
-                                                        img={helpers.getImgUrlById(userAuthor?.profile?.picture)}
-                                                        padding={'2px'}
+                                                        img={ (userAuthor?.profile?.picture!=false) ? helpers.getImgUrlById(userAuthor?.profile?.picture) : '/abstract-user-flat-4.svg' }
+                                                        padding={'5px'}
                                                         mBottom='0px'
                                                     />)
                                                 }
@@ -75,23 +78,32 @@ const MyPetition = () => {
                                             <div className="mb-1">{userAuthor?.username}</div>
                                         </div>
 
+                                        <div className="mt-auto">
                                         <hr className="w-100"/>
                                         <span>
-                                            <span className="f-bold">Created at:</span> {helpers.formatDateWithTime(petition.createdAt)}
+                                            <span className="text-gray">Created at:</span> {helpers.formatDateWithTime(petition.createdAt)}
                                         </span>
-                                        
-                                       
-                                        
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="col-12 col-md-6 mb-4">
                                     <div className="my-data-container">
-                                        <div className="my-data-percent text-center">56.99%</div>
-                                        <hr className="w-100" />
-                                        <div>
-                                            <span className="f-bold">Total signatures:</span> <span>{petition.totalSignatures}</span>
-                                            <br />
-                                            <span className="f-bold">Required signatures:</span> <span>{petition.milestone}</span>
+                                        
+                                        <div className="mt-auto">
+                                        <div className="text-gray text-center">Goal percentage:</div>
+                                        <div className="my-data-percent text-center">
+                                        {helpers.calcPercent(petition.totalSignatures, petition.milestone)}%
+                                        </div>
+                                        </div>
+                                        
+                                        <div className="mt-auto">
+                                            <hr className="w-100" />
+                                            
+                                            <div className="mb-1">
+                                                <span className="text-gray">Total signatures:</span> <span>{petition.totalSignatures}</span>
+                                            </div>
+                                            
+                                            <span className="text-gray">Required signatures:</span> <span>{petition.milestone}</span>
                                         </div>
                                     </div>
                                 </div>

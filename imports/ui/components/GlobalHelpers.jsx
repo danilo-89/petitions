@@ -37,6 +37,10 @@ const helpers = {
     formatDateWithTime: function(d){
         return `${this.ye(d)}/${this.mo(d)}/${this.da(d)} ${this.tm(d)}`
     },
+    calcPercent: function(total, nedeed) {
+        const percentNum = (total/nedeed) * 100;
+        return (percentNum || 0).toFixed(2);
+    },
 
     helper2: function(param1){
 

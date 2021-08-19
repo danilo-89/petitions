@@ -142,3 +142,10 @@ a.article-wrapper {
   font-weight: 500;
 }
 
+.text-gray-dark {
+  color: var(--gray-dark);
+}
+
+.text-gray {
+  color: var(--gray);
+}
