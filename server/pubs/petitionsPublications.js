@@ -131,7 +131,7 @@ Meteor.publish('petitionsCount', function publishPetitionsCount(term = "") {
     this.added('counts', _id, { count });
     this.ready();
 
-    console.log(count)
+    // console.log(count)
     // Stop observing the cursor when the client unsubscribes. Stopping a
     // subscription automatically takes care of sending the client any `removed`
     // messages.

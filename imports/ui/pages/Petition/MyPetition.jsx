@@ -90,7 +90,7 @@ const MyPetition = () => {
                                     <div className="my-data-container">
                                         
                                         <div className="mt-auto">
-                                        <div className="text-gray text-center">Goal percentage:</div>
+                                        <div className="text-gray text-center">Petition goal percentage:</div>
                                         <div className="my-data-percent text-center">
                                         {helpers.calcPercent(petition.totalSignatures, petition.milestone)}%
                                         </div>
