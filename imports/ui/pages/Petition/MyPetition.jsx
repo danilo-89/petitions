@@ -50,14 +50,15 @@ const MyPetition = () => {
 
     return (
         <>
-            <div className="container">
+            <div className="container pb-3">
 
                 {
                     isLoading ? 'loading' :
 
                         <>
-                            <h2 className="cover-holder__title-name pt-3 mb-4">{petition.title}</h2>
-
+                            <h2 className="cover-holder__title-name pt-3 mb-1">{petition.title}</h2>
+                            <hr className="mt-1 mb-2" />
+                            <p className="mb-4 px-1">Petition Analytics</p>
 
                             <div className="row">
                                 <div className="col-12 col-md-6 mb-4">
@@ -100,7 +101,7 @@ const MyPetition = () => {
                                             <hr className="w-100" />
                                             
                                             <div className="mb-1">
-                                                <span className="text-gray">Total signatures:</span> <span>{petition.totalSignatures}</span>
+                                                <span className="text-gray">Total signatures:</span> <span>{petition.totalSignatures || 0}</span>
                                             </div>
                                             
                                             <span className="text-gray">Required signatures:</span> <span>{petition.milestone}</span>
