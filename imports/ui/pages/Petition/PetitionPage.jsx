@@ -191,6 +191,7 @@ const PetitionPage = () => {
 
                     <PetitionSingle
                         title={petition.title}
+                        petitionId={petition._id}
                         author={petition.userId}
                         towards={petition.towards}
                         overview={petition.overview}

@@ -1,145 +1,145 @@
 .petition-header {
-    background-color: white;
-    /* border-bottom: 1px solid black; */
-    margin-bottom: 20px;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.02);
+  background-color: white;
+  /* border-bottom: 1px solid black; */
+  margin-bottom: 20px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.02);
 }
 
 .cover-holder {
-    max-width: 940px;
-    width: 100%;
-    position: relative;
-    margin-right: auto;
-    margin-left: auto;
-    /* padding-top: 15px; */
+  max-width: 940px;
+  width: 100%;
+  position: relative;
+  margin-right: auto;
+  margin-left: auto;
+  /* padding-top: 15px; */
 }
 
 .cover-holder__top {
-    /* height: 60px; */
-    width: 100%;
-    /* border: 2px solid #16db93; */
-    padding-left: 15px;
-    padding-right: 15px;
-    /* background: linear-gradient( 
+  /* height: 60px; */
+  width: 100%;
+  /* border: 2px solid #16db93; */
+  padding-left: 15px;
+  padding-right: 15px;
+  /* background: linear-gradient( 
 180deg
  , rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.85), #fafafa ); */
-    padding-bottom: 15px;
-    padding-top: 12px;
-    /* border-bottom: 1px solid #e8e8e8; */
-    display: flex;
-    align-items: center;
-    /* justify-content: space-between; */
-    /* border-top: 1px solid #eaeaea;*/
-    justify-content: center;
+  padding-bottom: 15px;
+  padding-top: 12px;
+  /* border-bottom: 1px solid #e8e8e8; */
+  display: flex;
+  align-items: center;
+  /* justify-content: space-between; */
+  /* border-top: 1px solid #eaeaea;*/
+  justify-content: center;
 }
 
 .cover-holder__top__pet-status {
-    background-color: rgba(255, 255, 255, 0.8);
-    /* border: 2px solid #16db93; */
-    border-radius: 5px;
-    padding: 10px;
-    padding-right: 15px;
-    padding-left: 15px;
-    font-size: 21px;
-    border: 2px solid #ffffff;
+  background-color: rgba(255, 255, 255, 0.8);
+  /* border: 2px solid #16db93; */
+  border-radius: 5px;
+  padding: 10px;
+  padding-right: 15px;
+  padding-left: 15px;
+  font-size: 21px;
+  border: 2px solid #ffffff;
 }
 
 .cover-holder__wrapper {
-    width: 100%;
-    height: 100%;
-    padding-top: 58%;
-    background-size: 18%;
-    background-color: #f8f8f8;
-    background-position: 50%;
-    background-repeat: no-repeat;
-    border-radius: 0;
-    position: relative;
-    background-image: url('/logo-animated.svg');
+  width: 100%;
+  height: 100%;
+  padding-top: 58%;
+  background-size: 18%;
+  background-color: #f8f8f8;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  border-radius: 0;
+  position: relative;
+  background-image: url("/logo-animated.svg");
 }
 
 .cover-holder__cover {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .sign-petition-button {
-    font-size: 21px;
-    background-color: #ffffff;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    display: none;
+  font-size: 21px;
+  background-color: #ffffff;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  display: none;
 }
 
 .sign-petition-button-1 {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    display: block;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: block;
 }
 
 @media screen and (min-width: 991px) {
-    .cover-holder__cover {
-        border-radius: 0 0 15px 15px;
-    }
-    .cover-holder__top {
-        z-index: 1;
-        margin-bottom: 14px;
-        position: absolute;
-    }
-    .cover-holder__wrapper .sign-petition-button {
-        display: none;
-    }
-
-    .sign-petition-button-1 {
-        display: block;
-    }
+  .cover-holder__cover {
+    border-radius: 0 0 15px 15px;
+  }
+  .cover-holder__top {
+    z-index: 1;
+    margin-bottom: 14px;
+    position: absolute;
+  }
+  .cover-holder__wrapper .sign-petition-button {
+    display: none;
   }
 
+  .sign-petition-button-1 {
+    display: block;
+  }
+}
+
 .title-holder {
-    display: flex;
+  display: flex;
 }
 
 .title-holder__left {
-    padding-left: 15px;
+  padding-left: 15px;
 }
 
 .title-holder__left-avatar {
-    height: 90px;
-    width: 90px;
-    transform: translateY(-20%);
+  height: 90px;
+  width: 90px;
+  transform: translateY(-20%);
 }
 
 .title-holder__right {
-    padding-left: 15px;
-    padding-top: 5px;
+  padding-left: 15px;
+  padding-top: 5px;
 }
 
 .title-holder__right h3 {
-    font-size: 21px;
+  font-size: 21px;
 }
 
 .cover-holder__title {
-    padding: 15px;
-    padding-bottom: 0;
-    /* background-color: #f3f3f3; */
-    border-radius: 15px 15px 0 0;
+  padding: 15px;
+  padding-bottom: 0;
+  /* background-color: #f3f3f3; */
+  border-radius: 15px 15px 0 0;
 }
 
 .towards-holder {
-    /* border-top: 1px solid #bdbdbd; */
-    padding-bottom: 15px;
-    border-bottom: 1px solid #f1f1f1;
-    margin-bottom: 15px;
+  /* border-top: 1px solid #bdbdbd; */
+  padding-bottom: 15px;
+  border-bottom: 1px solid #f1f1f1;
+  margin-bottom: 15px;
 }
 
 .towards-holder__for-span {
-    color: gray;
+  color: gray;
 }
 
 /* .cover-holder__top {
@@ -152,50 +152,99 @@
     border-bottom: 1px solid #fff;
 } */
 
-
 .cover-holder__title-name {
-    margin-bottom: 15px;
-    font-weight: 600;
+  margin-bottom: 15px;
+  font-weight: 600;
 }
 
-
-
 .petition-content {
-    background-color: white;
-    max-width: 940px;
-    width: 100%;
-    position: relative;
-    margin-right: auto;
-    margin-left: auto;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.02);
-    padding: 15px;
-    padding-top: 15px;
-    border-radius: 15px;
+  background-color: white;
+  max-width: 940px;
+  width: 100%;
+  position: relative;
+  margin-right: auto;
+  margin-left: auto;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.02);
+  padding: 15px;
+  padding-top: 15px;
+  border-radius: 15px;
 }
 
 .petition-content__overview {
-    font-size: 19.2px;
-    font-weight: 600;
-    margin-bottom: 20px;
-    line-height: 1.35em;
+  font-size: 19.2px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  line-height: 1.35em;
 }
 
 .petition-content__details {
-    font-size: 16px;
-    line-height: 1.6em;
+  font-size: 16px;
+  line-height: 1.6em;
 }
 
 .petition-video-wrapper {
-    text-align: center;
+  text-align: center;
 }
 
 .cover-holder__progress-bar-line {
-    height: 8px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 12px;
-    margin-top: 10px;
-    background: linear-gradient(to right, #ffeb3b, #16db93 60%, rgb(233, 233, 233) 60%);
-    border-radius: 8px;
-    position: relative;
+  height: 8px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 12px;
+  margin-top: 10px;
+  background: linear-gradient(
+    to right,
+    #ffeb3b,
+    #16db93 60%,
+    rgb(233, 233, 233) 60%
+  );
+  border-radius: 8px;
+  position: relative;
+}
+
+.dropbtn {
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+    background-color: rgb(248 248 248);
+    border: 1px solid #cfcfcf;
+    cursor: pointer;
+    color: #b8b8b8;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 180px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  right: 0;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+
 }

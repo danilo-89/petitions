@@ -4,6 +4,8 @@ import { useTracker } from 'meteor/react-meteor-data';
 import './PetitionSingle.css'
 import UserAvatar from '../../components/UserAvatar';
 import helpers from '../../components/GlobalHelpers';
+import { BarChart, Share, ThreeDots } from 'react-bootstrap-icons';
+import { Link } from 'react-router-dom';
 
 const PetitionSingle = (props) => {
     // console.log('props in single')
@@ -25,18 +27,38 @@ const PetitionSingle = (props) => {
 
     return (
         <>
+
+
             <div className="petition-header">
+
 
                 <div
                     className="cover-holder"
                 >
 
-                    <div className="cover-holder__title">
+                    <div className="cover-holder__title d-flex justify-content-between">
 
                         <h2 className="cover-holder__title-name">
                             {props.title}
                         </h2>
 
+                        <div>
+                            
+                                    <div className="dropdown">
+                                        <button className="dropbtn ml-2">
+                                            <ThreeDots />
+                                        </button>
+                                        <div className="dropdown-content">
+                                            <Link to={`/my-petition?p=${props.petitionId}`}>
+                                                <BarChart /> Petition Analytics
+                                            </Link>
+                                            <Link to="#">
+                                                <Share /> Share Petition
+                                            </Link>
+                                        </div>
+                                    </div>
+                                </div>
+                            
                     </div>
 
                     <div className="cover-holder__top">

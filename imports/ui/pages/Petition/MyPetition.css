@@ -17,3 +17,15 @@
     font-size: 33px;
     font-weight: 500;
 }
+
+a.arrow-back-link {
+    display: flex;
+    color: #1edc97;
+    font-size: 27px;
+    text-decoration: none;
+}
+
+a.arrow-back-link:hover {
+    color: #1edc97;
+    text-decoration: none;
+}
