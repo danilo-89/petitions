@@ -19,13 +19,18 @@
 }
 
 a.arrow-back-link {
-    display: flex;
-    color: #1edc97;
-    font-size: 27px;
+    color: #000000;
     text-decoration: none;
 }
 
 a.arrow-back-link:hover {
-    color: #1edc97;
+    color: #000000;
     text-decoration: none;
+}
+
+.arrow-back-link-arrow {
+    display: inline-block;
+    color: #b8b8b8;
+    text-decoration: none;
+    padding-bottom: 5px;
 }

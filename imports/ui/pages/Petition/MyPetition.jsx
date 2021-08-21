@@ -9,6 +9,7 @@ import UserAvatar from '../../components/UserAvatar';
 import { ArrowLeftCircle } from 'react-bootstrap-icons';
 import { Link } from 'react-router-dom';
 
+
 const MyPetition = () => {
 
     function useQuery() {
@@ -58,11 +59,11 @@ const MyPetition = () => {
                     isLoading ? 'loading' :
 
                         <>
-                            <h2 className="cover-holder__title-name d-flex align-items-center pt-3 mb-1">
+                            <h2 className="cover-holder__title-name pt-3 mb-1">
                                 <Link className="arrow-back-link" to={`/petition/${petition._id}`}>
-                                    <ArrowLeftCircle />
-                                </Link>
+                                    <ArrowLeftCircle className="arrow-back-link-arrow" />
                                 <span className="ml-1">{petition.title}</span>
+                                </Link>
                             </h2>
                             <hr className="mt-1 mb-2" />
                             <p className="mb-4 px-1">Petition Analytics</p>
@@ -119,7 +120,10 @@ const MyPetition = () => {
                         </>
                 }
 
-                <PetitionChart />
+                <PetitionChart 
+                    title={petition.title}
+                />
+
             </div>
 
         </>

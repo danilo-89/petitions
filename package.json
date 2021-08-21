@@ -24,6 +24,7 @@
     "react-bootstrap": "^1.6.1",
     "react-bootstrap-icons": "^1.5.0",
     "react-chartjs-2": "^3.0.4",
+    "react-csv-downloader": "^2.7.0",
     "react-dom": "^16.13.1",
     "react-hot-toast": "^2.1.0",
     "react-image-file-resizer": "^0.4.7",

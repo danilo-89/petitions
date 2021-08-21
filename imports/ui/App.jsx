@@ -65,7 +65,7 @@ export const App = () => {
      : 
     <Router>
       <Switch>
-        <Route path={["/create", "/about", "/petition", "/info", "/profile", "/petitionAdmin", "/test", "/"]}>
+        <Route path={["/create", "/about", "/petition", "/info", "/profile", "/petitionAdmin", "/"]}>
         <UserContextProvider>
           <Header />
           <Switch>
@@ -89,7 +89,6 @@ export const App = () => {
                 <h1>Info page</h1>
               </div>
             </Route>
-            <ProtectedRoute path="/test" component={LoginOrRegister} isAuth={isAuth}/>
             <ProtectedRoute path="/create" component={Create} isAuth={isAuth}/>
           </Switch>
           </UserContextProvider>

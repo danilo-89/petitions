@@ -1,3 +1,24 @@
+@font-face {
+  font-family: "Roboto-Medium";
+  src: local("Roboto-Medium"),
+    url("/font/Roboto-Medium.ttf") format("truetype");
+  font-weight: medium;
+}
+
+@font-face {
+  font-family: "Roboto-Regular";
+  src: local("Roboto-Regular"),
+    url("/font/Roboto-Regular.ttf") format("truetype");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "Roboto-Bold";
+  src: local("Roboto-Bold"),
+    url("/font/Roboto-Bold.ttf") format("truetype");
+  font-weight: bold;
+}
+
 /* CSS Minimal Reset - START */
 html {
   box-sizing: border-box;
@@ -108,7 +129,8 @@ a.nav-link.nav-active {
   border: 2px solid white;
   margin-left: auto;
   margin-right: auto;
-  box-shadow: inset 1px 1px 2px 0 rgba(169, 169, 169, 0.17), inset -1px -1px 2px 0 rgba(169, 169, 169, 0.12);
+  box-shadow: inset 1px 1px 2px 0 rgba(169, 169, 169, 0.17),
+    inset -1px -1px 2px 0 rgba(169, 169, 169, 0.12);
   background-color: #f9f9f9;
 }
 

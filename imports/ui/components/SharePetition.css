@@ -1,0 +1,86 @@
+.soc-share-container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    max-width: 205px;
+    margin: 0 auto;
+}
+
+.soc-share-container a,  
+.soc-share-container a:hover,
+.soc-share-container a:active,
+.soc-share-container a:visited {
+    color: #ffffff;
+}
+
+.soc-share-btn {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    width: 42px;
+    height: 42px;
+    font-size: 25px;
+    color: white;
+    cursor: pointer;
+    border-radius: 2px;
+    margin: 0 5px;
+    margin-bottom: 10px;
+    -webkit-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+}
+
+.soc-share-btn:hover {
+    background-color:#373737;
+    color: #ffffff;
+    -webkit-box-shadow: none;
+            box-shadow: none;
+}
+
+.soc-fb {
+    background-color: #4267B2;
+}
+
+.soc-pin {
+    background-color: #bd081c;
+}
+
+.soc-linkd {
+    background-color: #0a66c2;
+}
+
+.soc-twitter {
+    background-color: #1da1f2;
+}
+
+.soc-wapp {
+    background-color: #25d366;
+}
+
+.soc-viber {
+    background-color: #665CAC;
+}
+
+.soc-mail {
+    background-color: #EA4335;
+}
+
+.soc-link {
+    color: #5386e4;
+    -webkit-box-shadow: inset 0px 0px 0px 1px #5386e4;
+    box-shadow:         inset 0px 0px 0px 1px #5386e4;
+}

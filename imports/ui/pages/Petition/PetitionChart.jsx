@@ -5,10 +5,10 @@ import Signatures from '../../../../lib/signatures';
 import './PetitionChart.css'
 import makeQR from '../../components/GenerateQR';
 import Form from 'react-bootstrap/Form';
+import CsvDownloader from 'react-csv-downloader';
 
-const PetitionChart = () => {
+const PetitionChart = (props) => {
 
-    const [dateRange, setDateRange] = useState();
     const [optionValue, setOptionValue] = useState('day');
     const [data1, setData1] = useState();
 
@@ -105,7 +105,6 @@ const PetitionChart = () => {
         },
     }
 
-
     return (
         <div>
 
@@ -129,6 +128,22 @@ const PetitionChart = () => {
                     data={data1}
                     options={options1}
                 />
+
+                <CsvDownloader 
+                    filename={`${props.title}_signatures_${
+                        (optionValue==='day')?'last 7 days'
+                        :(optionValue==='month')?'last 30 days'
+                        :(optionValue==='year')?'last 365 days'
+                        :'full data'
+                    }`}
+                    extension=".csv"
+                    separator=";"
+                    wrapColumnChar=""
+                    datas={signatures}
+                    className="text-center mt-3"
+                >
+                    <button className="btn btn-primary">Download CSV</button>
+                </CsvDownloader>
             </div>
 
             {/* {

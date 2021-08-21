@@ -6,18 +6,10 @@ const makeQR = (linkText) => {
 
     if (!linkText.trim()) {return ""}
 
-    QRCode.toDataURL(linkText)
-    .then(url => {
-        console.log(url)
-    })
-    .catch(err => {
-        console.error(err)
-    })
-
     // With async/await
-    const generateQR = async text => {
+    const generateQR = async linkText => {
         try {
-            console.log(await QRCode.toDataURL(text))
+            console.log(await QRCode.toDataURL(linkText))
         } catch (err) {
             console.error(err)
         }

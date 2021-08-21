@@ -6,6 +6,9 @@ import UserAvatar from '../../components/UserAvatar';
 import helpers from '../../components/GlobalHelpers';
 import { BarChart, Share, ThreeDots } from 'react-bootstrap-icons';
 import { Link } from 'react-router-dom';
+import toast from 'react-hot-toast';
+import CustomToaster from '../../components/CustomToaster';
+import SharePetition from '../../components/SharePetition';
 
 const PetitionSingle = (props) => {
     // console.log('props in single')
@@ -25,6 +28,22 @@ const PetitionSingle = (props) => {
         return {userAuthor}
     });
 
+    const openShare = () => {
+        toast((t) => (
+            <div className="text-center">
+                <div className="mb-3">Share this petition on other apps and networks</div>
+                <SharePetition/>
+                <button className="btn btn-light" onClick={() => toast.dismiss(t.id)}>
+                Close
+                </button>
+            </div>
+        ), {
+            id: 'shareIt',
+            position: 'top-center',
+        });
+    }
+
+
     return (
         <>
 
@@ -43,7 +62,7 @@ const PetitionSingle = (props) => {
                         </h2>
 
                         <div>
-                            
+                        <CustomToaster />
                                     <div className="dropdown">
                                         <button className="dropbtn ml-2">
                                             <ThreeDots />
@@ -52,9 +71,9 @@ const PetitionSingle = (props) => {
                                             <Link to={`/my-petition?p=${props.petitionId}`}>
                                                 <BarChart /> Petition Analytics
                                             </Link>
-                                            <Link to="#">
+                                            <span onClick={openShare}>
                                                 <Share /> Share Petition
-                                            </Link>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
