@@ -7,6 +7,7 @@ import PetitionForm from './PetitionForm';
 import CustomLoader from "../../components/CustomLoader";
 import Button from 'react-bootstrap/Button'
 import './PetitionPage.css'
+import SharePetition from '../../components/SharePetition';
 
 const PetitionPage = () => {
 
@@ -42,7 +43,8 @@ const PetitionPage = () => {
     })
 
 
-    const [fields, setFields] = useState([])
+    const [fields, setFields] = useState([]);
+    const [signed, setSigned] = useState(false);
 
 
     // const memo = useMemo(() => {
@@ -153,6 +155,7 @@ const PetitionPage = () => {
                     // resetForm();
                     // FlowRouter.go('/myRecipes');
                     console.log('success')
+                    setSigned(true)
                 }
             }
         });
@@ -217,12 +220,19 @@ const PetitionPage = () => {
                             <div 
                             className="petition-form-wrapper mx-auto">
 
+                            {signed ? 
+                            
+                                <div className="pt-3">
+                                    <div className="px-3 mb-3 text-center">Great job! Now you can share this petition on other apps and networks</div>
+                                    <SharePetition />
+                                </div>
+                                :
+                                <>
                                 <div 
                                 id="petitionWrapper"
                                 className="petition-form-wrapper__title">
                                     Sign the petition
                                 </div>
-
                                 <div className="petition-form-wrapper__main p-3">
                                     <form 
                                     onSubmit={handleSubmit}>
@@ -234,10 +244,12 @@ const PetitionPage = () => {
                                         <Button variant="primary" type="submit">
                                             Submit
                                         </Button>
-
                                     </form>
                                 </div>
-
+                                </>
+                        
+                            }
+                                
 
                             </div>
 

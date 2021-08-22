@@ -84,3 +84,14 @@
     -webkit-box-shadow: inset 0px 0px 0px 1px #5386e4;
     box-shadow:         inset 0px 0px 0px 1px #5386e4;
 }
+
+.resetinput {
+    border: none;
+    background-image: none;
+    background: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    color: #aba8b2;
+    background-color: transparent;
+    font-size: 12px;
+}

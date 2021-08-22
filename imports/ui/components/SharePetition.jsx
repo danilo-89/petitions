@@ -45,10 +45,11 @@ const SharePetition = () => {
                 <div className="soc-share-btn soc-link">
                     <Link45deg />
                 </div>
+                <input className="resetinput w-100" type="text" name="" id="addressLinkInput" value={window.location.href} readOnly/>
 
                 {QRData && <img src={QRData} alt="QR code" />}
+                <button className="btn mb-3">Download QR Code</button>
                 
-                {/* <input className="resetinput w-100" type="text" name="" id="addressLinkInput" value="{{props.petitionId}}" readonly/> */}
             </div>
 
         </div>

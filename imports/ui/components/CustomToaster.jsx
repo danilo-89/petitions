@@ -1,3 +1,4 @@
+import { red } from '@material-ui/core/colors';
 import React from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 
@@ -21,6 +22,13 @@ const CustomToaster = () => {
                     position:"top-center",
                 },
             }}
+            // containerStyle={{
+            //     top: 20,
+            //     left: 20,
+            //     bottom: 20,
+            //     right: 20,
+            //     background: 'red',
+            // }}
         />
      );
 }
