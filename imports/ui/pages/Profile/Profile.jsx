@@ -45,7 +45,7 @@ const Profile = () => {
             return { ...noDataAvailable, isLoading: true };
         }
 
-        const petitions = Petitions.find().fetch();
+        const petitions = Petitions.find({},{sort: {createdAt: -1}}).fetch();
 
         return { petitions, isLoading: false };
     })

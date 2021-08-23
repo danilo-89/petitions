@@ -14,6 +14,11 @@ Meteor.methods({
     'UploadFile'(file) {
         // Using callback
 
+
+        if (!this.userId) {
+            throw new Meteor.Error('Not authorized.');
+        }
+
         const buffer=Buffer.from(file,'binary');
         // Images.insert({
         //     file: file,
@@ -49,6 +54,11 @@ Meteor.methods({
 
     'RemoveFile'(id) {
         // Using callback
+
+        if (!this.userId) {
+            throw new Meteor.Error('Not authorized.');
+        }
+
         Images.remove({_id: id}, (error) => {
             if (error) {
             console.error(`File wasn't removed, error:  ${error.reason}`);
@@ -67,6 +77,11 @@ Meteor.methods({
         //     console.info('File successfully removed');
         //     }
         // });
+
+        if (!this.userId) {
+            throw new Meteor.Error('Not authorized.');
+        }
+
         Images.update({ _id: id }, {
             $set: { name: imageName }
         })
@@ -146,6 +161,29 @@ Meteor.methods({
 
 
     },
+
+    'delete.petition'(petitionId) {
+
+        const checkPetition = Petitions.find({_id: petitionId, userId: this.userId}).count();
+
+        if (checkPetition!==1) {
+            return { isError: true, err: {reason: 'Not authorized.'} };
+            throw new Meteor.Error('Not authorized.');
+        }
+
+        try {
+            if (this.userId) {
+                Petitions.remove({_id: petitionId, userId: this.userId})
+                return { isError: false };
+            } else {
+                throw new Meteor.Error("not-logged-in", "You are not logged in");
+            }
+        } catch (err) {
+            return { isError: true, err };
+        }
+
+    },
+
     'sign.petition'(obj) {
         // validate: new SimpleSchema({
         //     email: { type: String, regEx: SimpleSchema.RegEx.Email },

@@ -4,8 +4,8 @@ import { useTracker } from 'meteor/react-meteor-data';
 import './PetitionSingle.css'
 import UserAvatar from '../../components/UserAvatar';
 import helpers from '../../components/GlobalHelpers';
-import { BarChart, Share, ThreeDots } from 'react-bootstrap-icons';
-import { Link } from 'react-router-dom';
+import { BarChart, Share, PencilSquare, Trash, ThreeDots } from 'react-bootstrap-icons';
+import { Link, useHistory } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import CustomToaster from '../../components/CustomToaster';
 import SharePetition from '../../components/SharePetition';
@@ -15,6 +15,8 @@ const PetitionSingle = (props) => {
     // console.log(props)
     // console.log('props in single END')
     console.log('props.imageCover')
+
+    const history = useHistory();
 
     const {userAuthor, isUserAuthorLoading} = useTracker(() => {
         const handler = Meteor.subscribe('userAuthor', props.author)
@@ -43,6 +45,25 @@ const PetitionSingle = (props) => {
         });
     }
 
+    calcPercent = (total, nedeed) => {
+        const percentNum = (total/nedeed) * 100;
+        return percentNum || 0;
+    }
+
+    deletePetition = () => {
+        Meteor.call('delete.petition', props.petitionId, (err, res) => {
+            if (err) {
+                Bert.alert(err.reason, 'danger');
+            } else {
+                if (res.isError) {
+                    console.log(res.err.reason)
+                } else {
+                    history.push("/");
+                    console.log('success')
+                }
+            }
+        });
+    }
 
     return (
         <>
@@ -74,6 +95,13 @@ const PetitionSingle = (props) => {
                                             <span onClick={openShare}>
                                                 <Share /> Share Petition
                                             </span>
+                                            <span onClick={deletePetition}>
+                                                <PencilSquare /> Edit Petition
+                                            </span>
+                                            <hr className="my-0"/>
+                                            <span onClick={deletePetition}>
+                                                <Trash /> Delete Petition
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -83,7 +111,13 @@ const PetitionSingle = (props) => {
                     <div className="cover-holder__top">
                         <div className="cover-holder__top__pet-status">
                             <div className="cover-holder__progress-bar">
-                                <div className="cover-holder__progress-bar-line">
+                                <div className="cover-holder__progress-bar-line"
+                                style= {
+                                    {
+                                        background: `linear-gradient(to right, #ffeb3b, #16db93 ${calcPercent(props.totalSignatures, props.milestone) }%, rgb(233, 233, 233) ${calcPercent(props.totalSignatures, props.milestone) }%)`
+                                    }
+                                }
+                                >
                                 </div>
                             </div>
                             <span className="">

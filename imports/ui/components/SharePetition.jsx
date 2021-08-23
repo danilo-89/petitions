@@ -18,6 +18,13 @@ const SharePetition = () => {
     })
 
 
+    const downloadQR = () => {
+        const a = document.createElement("a"); //Create <a>
+        a.href = QRData; //Image Base64 Goes here
+        a.download = "QR_Code.png"; //File name Here
+        a.click(); 
+    }
+
 
     return ( 
         <div>
@@ -48,7 +55,12 @@ const SharePetition = () => {
                 <input className="resetinput w-100" type="text" name="" id="addressLinkInput" value={window.location.href} readOnly/>
 
                 {QRData && <img src={QRData} alt="QR code" />}
-                <button className="btn mb-3">Download QR Code</button>
+                <button 
+                className="btn mb-3"
+                onClick={downloadQR}
+                >
+                    Download QR Code
+                </button>
                 
             </div>
 

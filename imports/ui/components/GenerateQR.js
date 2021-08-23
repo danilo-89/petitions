@@ -1,21 +1,21 @@
-import QRCode from 'qrcode'
+// import QRCode from 'qrcode'
 
-// With promises
+// // With promises
 
-const makeQR = (linkText) => {
+// const makeQR = (linkText) => {
 
-    if (!linkText.trim()) {return ""}
+//     if (!linkText.trim()) {return ""}
 
-    // With async/await
-    const generateQR = async linkText => {
-        try {
-            console.log(await QRCode.toDataURL(linkText))
-        } catch (err) {
-            console.error(err)
-        }
-    }
+//     // With async/await
+//     const generateQR = async linkText => {
+//         try {
+//             console.log(await QRCode.toDataURL(linkText))
+//         } catch (err) {
+//             console.error(err)
+//         }
+//     }
 
-    return generateQR;
-}
+//     return generateQR;
+// }
 
-export default makeQR;
+// export default makeQR;
