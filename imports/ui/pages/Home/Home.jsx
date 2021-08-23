@@ -15,6 +15,7 @@ import HomePagination from "./HomePagination";
 const Home = () => {
 
 
+    const [searchInputValue, setSearchInputValue] = useState("");
     const [searchTerm, setSearchTerm] = useState("");
     const [skipValue, setSkipValue] = useState(0);
 
@@ -54,7 +55,7 @@ const Home = () => {
 
             
 
-            {isLoading ? <CustomLoader /> : ''}
+            
 
             
 
@@ -70,17 +71,37 @@ const Home = () => {
                         <InputGroup className="mb-3">
                             <Form.Control
                                 id="searchInput"
-                                type="search"
-                                value={searchTerm}
-                                onChange={(e)=>setSearchTerm(e.target.value)}
+                                type="text"
+                                placeholder="Search petitions by name"
+                                value={searchInputValue}
+                                onChange={(e)=>setSearchInputValue(e.target.value)}
                             />
-                        <Button className="searchBtn" variant="primary">Search</Button>
+                        <Button 
+                            className="searchBtn" variant="primary"
+                            onClick={()=>setSearchTerm(searchInputValue)}
+                        >Search
+                        </Button>
                         </InputGroup>
                     </Form.Group>
                 </div>
 
+                {searchTerm && 
+                <div className="text-center mb-3">
+                    <Button 
+                            className="text-break"
+                            variant="outline-secondary"
+                            onClick={()=>{setSearchTerm(''); setSearchInputValue('')}}
+                            >
+                               <span className="f-bold">Clear search</span> "{searchTerm}"
+                    </Button>
+                </div>
+                }
 
-                <div>total {getPaginationLength(petitions.length)}</div>
+                {isLoading ? <CustomLoader /> : ''}
+
+                
+
+                {/* <div>total {getPaginationLength(petitions.length)}</div> */}
 
                 <div className="row">
 
