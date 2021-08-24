@@ -66,7 +66,7 @@ const Home = () => {
 
                
 
-                <div>
+                <Form>
                     <Form.Group>
                         <InputGroup className="mb-3">
                             <Form.Control
@@ -78,12 +78,13 @@ const Home = () => {
                             />
                         <Button 
                             className="searchBtn" variant="primary"
-                            onClick={()=>setSearchTerm(searchInputValue)}
+                            type="submit"
+                            onClick={(e)=>{e.preventDefault(); setSearchTerm(searchInputValue.trim())}}
                         >Search
                         </Button>
                         </InputGroup>
                     </Form.Group>
-                </div>
+                </Form>
 
                 {searchTerm && 
                 <div className="text-center mb-3">
@@ -103,9 +104,11 @@ const Home = () => {
 
                 {/* <div>total {getPaginationLength(petitions.length)}</div> */}
 
+                
+
                 <div className="row">
 
-                    {
+                    {   
                         petitions.map((petition) => {
                             return (
                                 <Link
@@ -115,7 +118,7 @@ const Home = () => {
                                     <PetitionCard props={petition} />
                                 </Link>
                             )
-                        })
+                        }) 
                     }
 
                     <div className="col-12 col-md-6 col-lg-4">
@@ -126,6 +129,9 @@ const Home = () => {
                     </div>
                 </div>
 
+                {!isLoading && !petitions.length && searchTerm &&
+                <div className="text-green f-bold text-center">Sorry, no results</div>
+                }
 
                 <HomePagination 
                     skipValue={skipValue}

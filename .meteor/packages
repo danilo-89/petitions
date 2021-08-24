@@ -25,3 +25,4 @@ ddp-rate-limiter@1.1.0
 accounts-password@2.0.0
 ostrio:files
 underscore@1.0.10
+aldeed:schema-index

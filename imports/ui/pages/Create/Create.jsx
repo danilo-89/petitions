@@ -12,6 +12,7 @@ import Table from 'react-bootstrap/Table';
 import FileUpload from "../../components/FileUpload";
 import toast from 'react-hot-toast';
 import CustomToaster from "../../components/CustomToaster";
+import helpers from "../../components/GlobalHelpers";
 
 
 const Create = () => {
@@ -24,8 +25,6 @@ const Create = () => {
     const changeHandler = (e) => {
         let selected = e.target.files[0];
 
-
-
         console.log(selected)
         if (selected && types.includes(selected.type)) {
             setFile(selected);
@@ -36,14 +35,11 @@ const Create = () => {
         }
     }
 
-
-
     const [title, setTitle] = useState('Test')
     const [towards, setTowards] = useState('')
     const [overview, setOverview] = useState('')
     const [details, setDetails] = useState('')
     const [imageCover, setImageCover] = useState('');
-    const [uImage, setUImage] = useState('test img');
     const [video, setVideo] = useState('')
     const [milestone, setMilestone] = useState(0);
 
@@ -77,8 +73,8 @@ const Create = () => {
         setFields(newFields)
     }
 
-    const onSetImage = (uImg) => {
-        setUImage(uImg)
+    const onSetImage = (imageCover) => {
+        setImageCover(imageCover)
     }
 
     const handleCheckboxClick = (index, checkName) => {
@@ -217,6 +213,9 @@ const Create = () => {
     return (
         <div>
 
+
+            <button onClick={() => document.getElementById('fileinput').click()}>Test</button>
+
             <CustomToaster />
 
             {console.log({ title })}
@@ -228,8 +227,6 @@ const Create = () => {
                 // uImage={uImage}
                 setImage={onSetImage}
             />
-            <div>uImage</div>
-            <div>{uImage}</div>
 
             <PetitionSingle
                 title={title}
@@ -237,7 +234,7 @@ const Create = () => {
                 overview={overview}
                 details={details}
                 video={video}
-                imageCover={imageCover}
+                imageCover={imageCover ? helpers.getImgUrlById(imageCover) : '/abstract-user-flat-4.svg'}
                 imageCoverData={true}
             />
 

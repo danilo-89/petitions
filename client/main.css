@@ -74,6 +74,10 @@ body {
   color: var(--blue);
 }
 
+.text-green {
+  color: var(--green);
+}
+
 .shadow-frame-green {
   box-shadow: 0 0 0 1.5px #16db93;
 }
