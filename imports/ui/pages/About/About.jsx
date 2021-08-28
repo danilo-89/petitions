@@ -1,5 +1,4 @@
 import React from 'react';
-import './About.css';
 import { Github } from 'react-bootstrap-icons';
 
 const About = () => {
@@ -28,5 +27,6 @@ const About = () => {
         </div>
     );
 }
+
 
 export default About;
