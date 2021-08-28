@@ -35,7 +35,7 @@ const Create = () => {
         }
     }
 
-    const [title, setTitle] = useState('Test')
+    const [title, setTitle] = useState('')
     const [towards, setTowards] = useState('')
     const [overview, setOverview] = useState('')
     const [details, setDetails] = useState('')
@@ -213,8 +213,7 @@ const Create = () => {
     return (
         <div>
 
-
-            <button onClick={() => document.getElementById('fileinput').click()}>Test</button>
+            
 
             <CustomToaster />
 
@@ -223,12 +222,9 @@ const Create = () => {
 
 
 
-            <FileUpload 
-                // uImage={uImage}
-                setImage={onSetImage}
-            />
+            
 
-            <PetitionSingle
+            {/* <PetitionSingle
                 title={title}
                 towards={towards}
                 overview={overview}
@@ -236,16 +232,16 @@ const Create = () => {
                 video={video}
                 imageCover={imageCover ? helpers.getImgUrlById(imageCover) : '/abstract-user-flat-4.svg'}
                 imageCoverData={true}
-            />
+            /> */}
 
-            <div className="container">
+            {/* <div className="container">
                 <PetitionForm
                     fields={fields}
                     onChange={onChangeField}
                 />
             </div>
 
-            <button onClick={onChangeField}>Test</button>
+            <button onClick={onChangeField}>Test</button> */}
 
             <h2>Form in progress</h2>
 
@@ -253,59 +249,107 @@ const Create = () => {
             <div className="container">
 
                 <form onSubmit={handleSubmit}>
-                    <div className="form-group mb-0">
-                        <label htmlFor="petitionTitle">Petition title</label>
-                        <input
-                            type="text"
-                            id="petitionTitle"
-                            name="petitionTitle"
-                            required
-                            value={title}
-                            onChange={(e) => setTitle(e.target.value)}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="petitionFor">Petition for</label>
-                        <input
-                            type="text"
-                            id="petitionFor"
-                            name="petitionFor"
-                            required
-                            onChange={(e) => setTowards(e.target.value)}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="petitionCover">Choose a petition cover picture:</label>
-                        <input type="file"
-                            id="petitionCover"
-                            name="petitionCover"
-                            accept="image/png, image/jpeg, image/jpg, image/webp"
-                            // value={imageCover}
-                            onChange={(e) => handleImage(e)}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="petitionOverview">Petition overview</label>
-                        <textarea
-                            type="text"
-                            id="petitionOverview"
-                            name="petitionOverview"
-                            required
-                            value={overview}
-                            onChange={(e) => setOverview(e.target.value)}
-                        ></textarea>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="petitionDetails">Petition Details</label>
-                        <textarea
-                            type="text"
-                            id="petitionDetails"
-                            name="petitionDetails"
-                            required
-                            value={details}
-                            onChange={(e) => setDetails(e.target.value)}
-                        ></textarea>
-                    </div>
+
+
+                <Form.Group>
+                        <Form.Label htmlFor="petitionTitle">Petition Title</Form.Label>
+                        <InputGroup className="mb-3">
+                            <FormControl
+                                id="petitionTitle"
+                                name="petitionTitle"
+                                aria-describedby="petition title"
+                                value={title}
+                                required={true}
+                                onChange={(e) => setTitle(e.target.value)}
+                            />
+                        </InputGroup>
+                    </Form.Group>
+
+                    <Form.Group>
+                        <Form.Label htmlFor="petitionFor">Petition for</Form.Label>
+                        <InputGroup className="mb-3">
+                            <FormControl
+                                id="petitionFor"
+                                name="petitionFor"
+                                aria-describedby="petition towards"
+                                value={towards}
+                                required={true}
+                                onChange={(e) => setTowards(e.target.value)}
+                            />
+                        </InputGroup>
+                    </Form.Group>
+
+                    <Form.Group>
+                        <Form.Label>Cover picture</Form.Label>
+                        <InputGroup>
+                            <InputGroup.Prepend>
+                                <InputGroup.Text 
+                                id="inputGroupPrepend"
+                                className=" bg-white btn"
+                                >
+                                    <span 
+                                    className="px-2"
+                                    onClick={() => document.getElementById('fileinput').click()}
+                                    >
+                                        Browse
+                                    </span>
+                                </InputGroup.Text>
+                            </InputGroup.Prepend>
+                            <Form.Control
+                                type="text"
+                                placeholder="Choose a petition cover picture"
+                                aria-describedby="inputGroupPrepend"
+                                name="petitionCover"
+                                id="petitionCover"
+                                readOnly={true}
+                                onClick={() => document.getElementById('fileinput').click()}
+                                // value={values.username}
+                                // onChange={handleChange}
+                                // isInvalid={!!errors.username}
+                            />
+                            <Form.Control.Feedback type="invalid" tooltip>
+                                {/* {errors.username} */}
+                            </Form.Control.Feedback>
+                        </InputGroup>
+                    </Form.Group>
+
+                    <FileUpload 
+                        // uImage={uImage}
+                        setImage={onSetImage}
+                    />
+
+
+                    <Form.Group>
+                        <Form.Label htmlFor="petitionOverview">Petition overview</Form.Label>
+                        <InputGroup className="mb-3">
+                            <FormControl
+                                id="petitionOverview"
+                                name="petitionOverview"
+                                as="textarea"
+                                rows={3}
+                                aria-describedby="petition overview"
+                                value={overview}
+                                required={true}
+                                onChange={(e) => setOverview(e.target.value)}
+                            />
+                        </InputGroup>
+                    </Form.Group>
+
+                    <Form.Group>
+                        <Form.Label htmlFor="petitionDetails">Petition details</Form.Label>
+                        <InputGroup className="mb-3">
+                            <FormControl
+                                id="petitionDetails"
+                                name="petitionDetails"
+                                as="textarea"
+                                rows={3}
+                                aria-describedby="petition details"
+                                value={details}
+                                required={true}
+                                onChange={(e) => setDetails(e.target.value)}
+                            />
+                        </InputGroup>
+                    </Form.Group>
 
                     <Form.Group>
                         <Form.Label htmlFor="petitionVideo">Petition Video link</Form.Label>
@@ -333,7 +377,7 @@ const Create = () => {
                         </InputGroup>
                     </Form.Group>
 
-                    <div className="container">
+                    <div>
                         <Table bordered hover>
                             <thead>
                                 <tr>

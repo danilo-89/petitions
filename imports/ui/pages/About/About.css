@@ -1,0 +1,18 @@
+.about__logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.about__logo img {
+    display: block;
+    height: 32px;
+    padding-right: 4px;
+}
+
+.about__logo .logo-title {
+    display: block;
+    color: #16DB93;
+    font-weight: 700;
+    font-size: 19.2px;
+}
