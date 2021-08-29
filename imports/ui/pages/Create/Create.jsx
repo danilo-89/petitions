@@ -13,6 +13,7 @@ import FileUpload from "../../components/FileUpload";
 import toast from 'react-hot-toast';
 import CustomToaster from "../../components/CustomToaster";
 import helpers from "../../components/GlobalHelpers";
+import { useHistory } from 'react-router-dom';
 
 
 const Create = () => {
@@ -21,6 +22,8 @@ const Create = () => {
     const [error, setError] = useState(null);
 
     const types = ['image/png', 'image/jpeg', 'image/webp'];
+
+    const history = useHistory();
 
     const changeHandler = (e) => {
         let selected = e.target.files[0];
@@ -196,7 +199,9 @@ const Create = () => {
                     // Bert.alert('Success', 'success');
                     // resetForm();
                     // FlowRouter.go('/myRecipes');
-                    toast.success('petition created')
+                    toast.success('petition created');
+                    console.log(res)
+                    history.push(`petition/${res.newPetition}`);
                 }
             }
         });
@@ -243,13 +248,13 @@ const Create = () => {
 
             <button onClick={onChangeField}>Test</button> */}
 
-            <h2>Form in progress</h2>
-
             {/* <canvas id="canvas"></canvas> */}
             <div className="container">
 
-                <form onSubmit={handleSubmit}>
-
+                <form 
+                className="pt-3"
+                onSubmit={handleSubmit}
+                >
 
                 <Form.Group>
                         <Form.Label htmlFor="petitionTitle">Petition Title</Form.Label>
@@ -312,6 +317,10 @@ const Create = () => {
                             </Form.Control.Feedback>
                         </InputGroup>
                     </Form.Group>
+
+                    {imageCover && <div className="text-center mb-3">
+                        <img className="prev-image" src={helpers.getImgUrlById(imageCover)} alt="" />
+                    </div>}
 
                     <FileUpload 
                         // uImage={uImage}
@@ -423,9 +432,15 @@ const Create = () => {
                         <CustomLoader />
                     </div>
 
-                    <button type="submit">
-                        Submit
-                    </button>
+
+                    <div className="text-center pb-5">
+                        <button
+                        type="submit"
+                        className="btn btn-primary"
+                        >
+                            Submit
+                        </button>
+                    </div>
                 </form >
             </div>
 

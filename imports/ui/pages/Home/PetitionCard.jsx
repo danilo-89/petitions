@@ -1,6 +1,7 @@
 import React from 'react';
 import './PetitionCard.css'
 import helpers from '/imports/ui/components/GlobalHelpers'
+import { PeopleFill } from 'react-bootstrap-icons';
 
 const PetitionCard = ({ props }) => {
 
@@ -43,16 +44,41 @@ const PetitionCard = ({ props }) => {
             <div className="article__bottom">
                
                 <div className="article__bottom__sig">
-                    <span className="article__bottom__sig__top">
-                        {props.totalSignatures || 0}
-                    </span>
-                    <span className="article__bottom__sig__bottom">
+                    <div className="article__bottom__sig__top">
+                        <span className="f-21-px f-bold text-green d-flex align-items-center">
+                            <PeopleFill 
+                            className="mr-1 f-19-px"
+                            />
+                            <span className="text-shadow-1">{props.totalSignatures || 0}
+                            </span>
+                        </span>
+                        <span className="text-gray">Supporters</span>
+                    </div>
+                    <div className="article__bottom__sig__bottom">
                         {
 
-props.milestone ?  <> of {props.milestone} <br /> required signatures</> : <>total <br /> signatures</>
+props.milestone ?  
+<> 
+    <span className="f-21-px f-bold text-gray d-flex align-items-center d-flex w-100 justify-content-end">
+        <PeopleFill 
+            className="mr-1 f-19-px"
+        />
+        <span>{props.milestone}</span>
+    </span> 
+    <span className="text-gray">Required</span>
+</> : 
+<>
+    <span className="f-21-px f-bold text-gray d-flex align-items-center d-flex w-100 justify-content-end">
+        <PeopleFill 
+            className="mr-1 f-19-px"
+        />
+        <span>/</span>
+    </span>
+    <span className="text-gray">Required</span>
+</>
                         }
                         
-                    </span>
+                    </div>
                 </div>
                 {/* {helpers.formatDateObj(props.createdAt)} */}
             </div>

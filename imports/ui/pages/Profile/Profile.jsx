@@ -84,7 +84,7 @@ const Profile = () => {
     return (
         <div className="container">
 
-            {isUserLoading ? 'user loading true' : 'user loading false'}
+            {/* {isUserLoading ? 'user loading true' : 'user loading false'} */}
 
         <CustomToaster />
 

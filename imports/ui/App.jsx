@@ -90,6 +90,9 @@ export const App = () => {
               </div>
             </Route>
             <ProtectedRoute path="/create" component={Create} isAuth={isAuth}/>
+            <Route path='*'>
+              <About/>
+            </Route>
           </Switch>
           </UserContextProvider>
           </Route>

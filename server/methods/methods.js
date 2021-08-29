@@ -139,7 +139,7 @@ Meteor.methods({
         try {
 
             if (this.userId) {
-                Petitions.insert(
+                const newPetition = Petitions.insert(
                     {
                         ...obj,
                         createdAt: new Date,
@@ -147,7 +147,7 @@ Meteor.methods({
                     }
                 )
 
-                return { isError: false };
+                return { isError: false, newPetition };
             } else {
                 throw new Meteor.Error("not-logged-in", "You are not logged in");
             }

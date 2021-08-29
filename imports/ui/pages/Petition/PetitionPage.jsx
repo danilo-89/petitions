@@ -212,7 +212,7 @@ const PetitionPage = () => {
 
                     {fields ?
 
-                        <div className="container scroll-margin-top"
+                        <div className="container scroll-margin-top pb-4"
                         ref={myRef}
                         >
 
