@@ -48,6 +48,13 @@ Meteor.publish("chartSignatures", function (datePeriod) {
     );
 });
 
+Meteor.publish("chartSignaturesLast", function(petitionId) {
+    return Signatures.find(
+        { petitionId: petitionId },
+        { fields: {'First Name': 1, createdAt: 1} },
+        { sort: {createdAt: -1} }
+    );
+});
 
 Meteor.publish("userData", function () {
     if (!this.userId) {

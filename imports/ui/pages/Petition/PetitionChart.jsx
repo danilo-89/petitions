@@ -3,7 +3,7 @@ import { useTracker } from 'meteor/react-meteor-data';
 import { Line } from 'react-chartjs-2';
 import Signatures from '../../../../lib/signatures';
 import './PetitionChart.css'
-import makeQR from '../../components/GenerateQR';
+// import makeQR from '../../components/GenerateQR';
 import Form from 'react-bootstrap/Form';
 import CsvDownloader from 'react-csv-downloader';
 
@@ -22,7 +22,7 @@ const PetitionChart = (props) => {
         }
         const signatures = Signatures.find({}).fetch();
         console.log(signatures);
-        makeQR(window.location.href)
+        // makeQR(window.location.href)
         return { signatures, handler }
     }, [optionValue]);
 

@@ -387,6 +387,7 @@ const Create = () => {
                     </Form.Group>
 
                     <div>
+                        <p className="mb-2">Petiton signing fields</p>
                         <Table bordered hover>
                             <thead>
                                 <tr>

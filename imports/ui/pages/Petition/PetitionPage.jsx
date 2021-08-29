@@ -8,6 +8,7 @@ import CustomLoader from "../../components/CustomLoader";
 import Button from 'react-bootstrap/Button'
 import './PetitionPage.css'
 import SharePetition from '../../components/SharePetition';
+import PetitionSignaturesLast from './PetitionSignaturesLast';
 
 const PetitionPage = () => {
 
@@ -262,7 +263,7 @@ const PetitionPage = () => {
 
                     }
 
-
+                    <PetitionSignaturesLast />
 
 
                 </>
