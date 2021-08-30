@@ -263,7 +263,9 @@ const PetitionPage = () => {
 
                     }
 
-                    <PetitionSignaturesLast />
+                    <PetitionSignaturesLast 
+                    addressId={addressId}
+                    />
 
 
                 </>

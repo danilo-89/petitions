@@ -40,10 +40,7 @@ Meteor.publish("chartSignatures", function (datePeriod) {
             }
         },
         {
-            fields: {Age: 1, City: 1, 'Country of Residence': 1, createdAt: 1}
-        },
-        {
-            sort: {createdAt: -1}
+            fields: {Age: 1, City: 1, 'Country of Residence': 1, createdAt: 1}, sort: {createdAt: -1}
         }
     );
 });
@@ -51,8 +48,7 @@ Meteor.publish("chartSignatures", function (datePeriod) {
 Meteor.publish("chartSignaturesLast", function(petitionId) {
     return Signatures.find(
         { petitionId: petitionId },
-        { fields: {'First Name': 1, createdAt: 1} },
-        { sort: {createdAt: -1} }
+        { fields: {'First Name': 1, Comment: 1, createdAt: 1}, sort: {createdAt: -1}, limit: 5 }
     );
 });
 
@@ -115,7 +111,7 @@ Meteor.publish('petitionsCount', function publishPetitionsCount(term = "") {
     // Until then, we don't want to send a lot of `changed` messages—hence
     // tracking the `initializing` state.
 
-    const handle = Petitions.find(term.trim() ? { $text: { $search: term } } : {}, { fields: { _id: 1, title: 1 } }, { sort: { createdAt: -1 } }).observeChanges({
+    const handle = Petitions.find(term.trim() ? { $text: { $search: term } } : {}, { fields: { _id: 1, title: 1 }, sort: { createdAt: -1 } }).observeChanges({
         added: () => {
             count += 1;
 
