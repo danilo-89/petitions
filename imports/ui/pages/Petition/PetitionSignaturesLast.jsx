@@ -1,6 +1,8 @@
 import React from 'react';
 import Signatures from '../../../../lib/signatures';
 import { useTracker } from 'meteor/react-meteor-data';
+import './PetitionSignaturesLast.css'
+import helpers from '../../components/GlobalHelpers';
 
 const PetitionSignaturesLast = (props) => {
 
@@ -22,13 +24,17 @@ const PetitionSignaturesLast = (props) => {
     
     return ( 
         <div className="container">
+            <p>Newest signatures</p>
             {isSignaturesLoading ? 
                 "loading" : 
                 <div>
                     {signatures.map((signature) => 
-                        (<div>
-                            <div>{signature['First Name']}</div>
-                            <div>{signature['Comment']}</div>
+                        (<div className="small-signature-card">
+                            <div className="small-signature-card__date">{helpers.formatDateWithTime(signature['createdAt'])}</div>
+                            <div className="small-signature-card__name">{signature['First Name'] ? signature['First Name'] : 'No name displayed'}</div>
+                            {signature['Comment'] && <div className="small-signature-card__comment">
+                                {signature['Comment']}
+                            </div>}
                         </div>)
                     )
                     }

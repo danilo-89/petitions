@@ -193,6 +193,7 @@ const PetitionPage = () => {
                     {/* {console.log('petition.props')}
             {console.log(petition)} */}
 
+                    <div className="mb-3">
                     <PetitionSingle
                         title={petition.title}
                         petitionId={petition._id}
@@ -206,11 +207,7 @@ const PetitionPage = () => {
                         totalSignatures={petition.totalSignatures}
                         scrollFunction={executeScroll}
                     />
-                    {petition.title}
-                    <br />
-                    {addressId}
-                    <br />
-
+                    </div>
                     {fields ?
 
                         <div className="container scroll-margin-top pb-4"
