@@ -132,6 +132,13 @@ a.nav-link.nav-active {
   overflow: hidden;
 }
 
+.max-w-450px {
+  max-width: 450px;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+}
+
 .min-w-105px {
   min-width: 105px;
 }

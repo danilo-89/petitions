@@ -23,13 +23,17 @@ const PetitionSignaturesLast = (props) => {
     }, [props.addressId])
     
     return ( 
+        <>
+        { isSignaturesLoading ?  "loading" : 
         <div className="container">
-            <p>Newest signatures</p>
-            {isSignaturesLoading ? 
-                "loading" : 
+
+            { (signatures.length>0) &&
+            <>
+            <p className="signatures-section-title">Newest signatures</p>
+            
                 <div>
                     {signatures.map((signature) => 
-                        (<div className="small-signature-card">
+                        (<div key={signature._id} className="small-signature-card">
                             <div className="small-signature-card__date">{helpers.formatDateWithTime(signature['createdAt'])}</div>
                             <div className="small-signature-card__name">{signature['First Name'] ? signature['First Name'] : 'No name displayed'}</div>
                             {signature['Comment'] && <div className="small-signature-card__comment">
@@ -40,8 +44,12 @@ const PetitionSignaturesLast = (props) => {
                     }
                     
                 </div>
+            </>
             }
+
         </div>
+    }
+    </>
      );
 }
  
