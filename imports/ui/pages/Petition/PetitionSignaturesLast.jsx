@@ -50,7 +50,7 @@ const PetitionSignaturesLast = (props) => {
         </div>
     }
     </>
-     );
+    );
 }
- 
+
 export default PetitionSignaturesLast;

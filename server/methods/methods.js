@@ -203,45 +203,24 @@ Meteor.methods({
 
         try {
 
-            if (!this.userId) {
-                Signatures.insert(
-                    {
-                        ...obj,
-                        createdAt: new Date,
-                        userId: this.userId
-                    }
-                )
-                Petitions.update(  
-                    { _id: petitionId },
-                    {
-                        $set: {totalSignatures : totalSignatures}
-                    }
-                )
+            Signatures.insert(
+                {
+                    ...obj,
+                    createdAt: new Date,
+                    userId: this.userId || ""
+                }
+            )
+            Petitions.update(  
+                { _id: petitionId },
+                {
+                    $set: {totalSignatures : totalSignatures}
+                }
+            )
 
-                return { isError: false };
-            } else {
-                Signatures.insert(
-                    {
-                        ...obj,
-                        createdAt: new Date,
-                        userId: this.userId
-                    }
-                )
-                Petitions.update(  
-                    { _id: petitionId },
-                    {
-                        $set: {totalSignatures : totalSignatures}
-                    }
-                )
-
-                return { isError: false };
-            }
+            return { isError: false };
+            
         } catch (err) {
             return { isError: true, err };
-        }
-
-        if (!this.userId) {
-            throw new Meteor.Error('Not authorized.');
         }
     },
 });
