@@ -11,6 +11,9 @@ import CustomToaster from '../../components/CustomToaster';
 import SharePetition from '../../components/SharePetition';
 import { Modal } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
+import Form from 'react-bootstrap/Form';
+import FormControl from 'react-bootstrap/FormControl';
+import InputGroup from 'react-bootstrap/InputGroup';
 
 const PetitionSingle = (props) => {
     // console.log('props in single')
@@ -100,14 +103,31 @@ const PetitionSingle = (props) => {
                         <Modal.Title>Edit petition</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        Are you sure?
+                        
+                        <div className="container">
+                            <form>
+                                <Form.Group>
+                                    <Form.Label htmlFor="petitionMilestone">Petition Milestone</Form.Label>
+                                    <InputGroup className="mb-3">
+                                        <FormControl
+                                            id="petitionMilestone"
+                                            name="petitionMilestone"
+                                            aria-describedby="petition milestone"
+                                            value={props.milestone || 0}
+                                            required={true}
+                                            // onChange={(e) => setTitle(e.target.value)}
+                                        />
+                                    </InputGroup>
+                                </Form.Group>
+                            </form>
+                        </div>
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={() => setShowEdit(false)}>
                             Close
                         </Button>
-                        <Button variant="danger" onClick={deletePetition}>
-                            Edit
+                        <Button variant="primary" onClick={deletePetition}>
+                            Confirm
                         </Button>
                     </Modal.Footer>
                 </Modal>
