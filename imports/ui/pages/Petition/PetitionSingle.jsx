@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { useTracker } from 'meteor/react-meteor-data';
 import './PetitionSingle.css'
@@ -9,12 +9,19 @@ import { Link, useHistory } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import CustomToaster from '../../components/CustomToaster';
 import SharePetition from '../../components/SharePetition';
+import { Modal } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 
 const PetitionSingle = (props) => {
     // console.log('props in single')
     // console.log(props)
     // console.log('props in single END')
     console.log('props.imageCover')
+
+
+    const [showShare, setShowShare] = useState(false);
+    const [showDelete, setShowDelete] = useState(false);
+
 
     const history = useHistory();
 
@@ -29,21 +36,6 @@ const PetitionSingle = (props) => {
         console.log(userAuthor)
         return {userAuthor}
     });
-
-    const openShare = () => {
-        toast((t) => (
-            <div className="text-center">
-                <div className="mb-3">Share this petition on other apps and networks</div>
-                <SharePetition/>
-                <button className="btn btn-light" onClick={() => toast.dismiss(t.id)}>
-                Close
-                </button>
-            </div>
-        ), {
-            id: 'shareIt',
-            position: 'top-center',
-        });
-    }
 
     calcPercent = (total, nedeed) => {
         const percentNum = (total/nedeed) * 100;
@@ -71,6 +63,36 @@ const PetitionSingle = (props) => {
 
             <div className="petition-header">
 
+                {/* share petition MODAL - start */}
+                <Modal show={showShare} onHide={() => setShowShare(false)}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Share petition</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <SharePetition/>
+                    </Modal.Body>
+                </Modal>
+                {/* share petition MODAL - end */}
+
+                {/* share petition MODAL - start */}
+                <Modal show={showDelete} onHide={() => setShowDelete(false)}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Delete petition</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        Are you sure?
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={() => setShowDelete(false)}>
+                            Close
+                        </Button>
+                        <Button variant="danger" onClick={deletePetition}>
+                            Delete
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+                {/* share petition MODAL - end */}
+
 
                 <div
                     className="cover-holder"
@@ -92,14 +114,14 @@ const PetitionSingle = (props) => {
                                             <Link to={`/my-petition?p=${props.petitionId}`}>
                                                 <BarChart /> Petition Analytics
                                             </Link>
-                                            <span onClick={openShare}>
+                                            <span onClick={() => setShowShare(true)}>
                                                 <Share /> Share Petition
                                             </span>
-                                            <span onClick={deletePetition}>
+                                            <span onClick={() => setShowDelete(true)}>
                                                 <PencilSquare /> Edit Petition
                                             </span>
                                             <hr className="my-0"/>
-                                            <span onClick={deletePetition}>
+                                            <span onClick={() => setShowDelete(true)}>
                                                 <Trash /> Delete Petition
                                             </span>
                                         </div>

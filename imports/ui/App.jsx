@@ -66,8 +66,10 @@ export const App = () => {
     <Router>
       <Switch>
         <Route path={["/create", "/about", "/petition", "/info", "/profile", "/petitionAdmin", "/"]}>
-        <UserContextProvider>
+        
+          <UserContextProvider>
           <Header />
+          </UserContextProvider>
           <Switch>
             <Route exact path="/">
               <Home />
@@ -76,7 +78,9 @@ export const App = () => {
                 <PetitionPage />
             </Route>
             <Route path="/profile">
+                <UserContextProvider>
                 <Profile />
+                </UserContextProvider>
             </Route>
             <Route path="/my-petition">
                 <MyPetition />
@@ -94,7 +98,7 @@ export const App = () => {
               <About/>
             </Route>
           </Switch>
-          </UserContextProvider>
+          
           </Route>
       </Switch>
     </Router>
