@@ -21,6 +21,7 @@ const PetitionSingle = (props) => {
 
     const [showShare, setShowShare] = useState(false);
     const [showDelete, setShowDelete] = useState(false);
+    const [showEdit, setShowEdit] = useState(false);
 
 
     const history = useHistory();
@@ -74,7 +75,7 @@ const PetitionSingle = (props) => {
                 </Modal>
                 {/* share petition MODAL - end */}
 
-                {/* share petition MODAL - start */}
+                {/* delete petition MODAL - start */}
                 <Modal show={showDelete} onHide={() => setShowDelete(false)}>
                     <Modal.Header closeButton>
                         <Modal.Title>Delete petition</Modal.Title>
@@ -91,7 +92,26 @@ const PetitionSingle = (props) => {
                         </Button>
                     </Modal.Footer>
                 </Modal>
-                {/* share petition MODAL - end */}
+                {/* delete petition MODAL - end */}
+
+                {/* edit petition MODAL - start */}
+                <Modal show={showEdit} onHide={() => setShowEdit(false)}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Edit petition</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        Are you sure?
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={() => setShowEdit(false)}>
+                            Close
+                        </Button>
+                        <Button variant="danger" onClick={deletePetition}>
+                            Edit
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+                {/* edit petition MODAL - end */}
 
 
                 <div
@@ -117,7 +137,7 @@ const PetitionSingle = (props) => {
                                             <span onClick={() => setShowShare(true)}>
                                                 <Share /> Share Petition
                                             </span>
-                                            <span onClick={() => setShowDelete(true)}>
+                                            <span onClick={() => setShowEdit(true)}>
                                                 <PencilSquare /> Edit Petition
                                             </span>
                                             <hr className="my-0"/>
