@@ -24,16 +24,48 @@ const Sidebar = ({toggleDrawer, state}) => {
                         <NavLink exact to="/profile" className="nav-link profile-small" activeClassName="circle-active">
                             <img className="nav-avatar" src={profileData?.picture ? helpers.getImgUrlById(profileData?.picture || '') : '/abstract-user-flat-4.svg'} alt="user profile picture" />
                         </NavLink>
+                        <NavLink exact to="/profile"
+                        onClick={toggleDrawer(false)}
+                        className="nav-link profile-small-1"
+                        activeClassName="nav-active"
+                        >
                         {Meteor.user().username}
+                        </NavLink>
                         </>
                         :
-                        <span className="pl-3">Sign up</span>
+                        <NavLink exact to="/profile" className="nav-link profile-small"
+                        activeClassName="nav-active"
+                        onClick={toggleDrawer(false)}
+                        >
+                            <span className="text-white">Sign in</span>
+                        </NavLink>
                         } 
                     </li>
-                    <li className="side-menu__item"><a href="">Home</a></li>
-                    <li className="side-menu__item"><a href="">Start a petition</a></li>
-                    <li className="side-menu__item"><a href="">About</a></li>
-                    <li className="side-menu__item"><a href="">Log out</a></li>
+                    <li className="side-menu__item">
+                        <NavLink exact to="/" className="nav-link profile-small"
+                        activeClassName="nav-active"
+                        onClick={toggleDrawer(false)}
+                        >
+                        Home
+                        </NavLink>
+                    </li>
+                    <li className="side-menu__item">
+                        <NavLink exact to="/create" className="nav-link profile-small"
+                        activeClassName="nav-active"
+                        onClick={toggleDrawer(false)}
+                        >
+                        Start a petition
+                        </NavLink>
+                    </li>
+                    <li className="side-menu__item">
+                        <NavLink exact to="/about" className="nav-link profile-small"
+                        activeClassName="nav-active"
+                        onClick={toggleDrawer(false)}
+                        >
+                        About
+                        </NavLink>
+                    </li>
+                    {Meteor.userId() ? <li className="side-menu__item"><span onClick={()=>{Meteor.logout(); toggleDrawer(false)}}>Log out</span></li> : ""}
                     
                 </ul>
             </div>

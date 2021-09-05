@@ -1,7 +1,7 @@
 .side-menu {
     max-width: 320px;
     width: 67%;
-    min-width: 200px;
+    min-width: 230px;
 }
 
 .side-menu__item {
@@ -25,15 +25,21 @@
     padding-left: 0;
 }
 
-.side-menu__item a{
+.side-menu__item a, .side-menu__item span {
     width: 100%;
     padding-left: 10px;
     text-decoration: none;
     height: 100%;
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
 
 a.nav-link.profile-small {
     padding: 0.5rem 0.7rem;
+}
+
+a.nav-link.profile-small-1 {
+    padding: 0;
+    color: #ffffff;
 }

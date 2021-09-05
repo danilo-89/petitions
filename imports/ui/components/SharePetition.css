@@ -94,4 +94,7 @@
     color: #aba8b2;
     background-color: transparent;
     font-size: 12px;
+    opacity: 0;
+    height: 1px;
+    overflow: hidden;
 }

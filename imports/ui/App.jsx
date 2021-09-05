@@ -16,6 +16,7 @@ import Header from './layout/Header.jsx';
 import ProtectedRoute from './ProtectedRoute.jsx';
 import CustomLoader from './components/CustomLoader.jsx';
 import About from './pages/About/About.jsx';
+import Page404 from './pages/404/Page404.jsx';
 
 // import { createBrowserHistory } from "history";
 
@@ -95,7 +96,7 @@ export const App = () => {
             </Route>
             <ProtectedRoute path="/create" component={Create} isAuth={isAuth}/>
             <Route path='*'>
-              <About/>
+              <Page404 />
             </Route>
           </Switch>
           

@@ -257,7 +257,7 @@ const Create = () => {
                 >
 
                 <Form.Group>
-                        <Form.Label htmlFor="petitionTitle">Petition Title</Form.Label>
+                        <Form.Label htmlFor="petitionTitle">Petition Title *</Form.Label>
                         <InputGroup className="mb-3">
                             <FormControl
                                 id="petitionTitle"
@@ -271,7 +271,7 @@ const Create = () => {
                     </Form.Group>
 
                     <Form.Group>
-                        <Form.Label htmlFor="petitionFor">Petition for</Form.Label>
+                        <Form.Label htmlFor="petitionFor">Petition for *</Form.Label>
                         <InputGroup className="mb-3">
                             <FormControl
                                 id="petitionFor"
@@ -285,7 +285,7 @@ const Create = () => {
                     </Form.Group>
 
                     <Form.Group>
-                        <Form.Label>Cover picture</Form.Label>
+                        <Form.Label>Cover picture *</Form.Label>
                         <InputGroup>
                             <InputGroup.Prepend>
                                 <InputGroup.Text 
@@ -329,7 +329,7 @@ const Create = () => {
 
 
                     <Form.Group>
-                        <Form.Label htmlFor="petitionOverview">Petition overview</Form.Label>
+                        <Form.Label htmlFor="petitionOverview">Petition overview *</Form.Label>
                         <InputGroup className="mb-3">
                             <FormControl
                                 id="petitionOverview"
@@ -345,7 +345,7 @@ const Create = () => {
                     </Form.Group>
 
                     <Form.Group>
-                        <Form.Label htmlFor="petitionDetails">Petition details</Form.Label>
+                        <Form.Label htmlFor="petitionDetails">Petition details *</Form.Label>
                         <InputGroup className="mb-3">
                             <FormControl
                                 id="petitionDetails"
@@ -373,7 +373,7 @@ const Create = () => {
                         </InputGroup>
                     </Form.Group>
                     <Form.Group>
-                        <Form.Label htmlFor="petitionMilestone">Petition Milestone</Form.Label>
+                        <Form.Label htmlFor="petitionMilestone">Petition Milestone *</Form.Label>
                         <InputGroup className="mb-3">
                             <FormControl
                                 id="petitionMilestone"
@@ -387,7 +387,7 @@ const Create = () => {
                     </Form.Group>
 
                     <div>
-                        <p className="mb-2">Petiton signing fields</p>
+                        <p className="mb-2">Petiton signing fields *</p>
                         <Table bordered hover>
                             <thead>
                                 <tr>
@@ -430,7 +430,6 @@ const Create = () => {
                                 }
                             </tbody>
                         </Table>
-                        <CustomLoader />
                     </div>
 
 

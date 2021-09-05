@@ -9,6 +9,7 @@ import Button from 'react-bootstrap/Button'
 import './PetitionPage.css'
 import SharePetition from '../../components/SharePetition';
 import PetitionSignaturesLast from './PetitionSignaturesLast';
+import Page404 from '../404/Page404';
 
 const PetitionPage = () => {
 
@@ -53,7 +54,9 @@ const PetitionPage = () => {
     // }, [isLoading])
 
     useEffect(() => {
-        setFields(() => petition.fields)
+        if (petition?._id) {
+            setFields(() => petition.fields)
+        }
         // console.log(fields)
     }, [isLoading])
 
@@ -183,15 +186,8 @@ const PetitionPage = () => {
 
             {isLoading ? <CustomLoader /> :
 
-
+                petition?._id ?
                 <>
-                    {/* <h1>hajde {petition.fields[0].value}</h1> */}
-
-
-
-
-                    {/* {console.log('petition.props')}
-            {console.log(petition)} */}
 
                     <div className="mb-3">
                     <PetitionSingle
@@ -265,7 +261,7 @@ const PetitionPage = () => {
                     />
 
 
-                </>
+                </> : <Page404 />
             }
 
 

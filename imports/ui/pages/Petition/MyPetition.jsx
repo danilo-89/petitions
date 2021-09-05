@@ -8,6 +8,7 @@ import helpers from '../../components/GlobalHelpers'
 import UserAvatar from '../../components/UserAvatar';
 import { ArrowLeftCircle } from 'react-bootstrap-icons';
 import { Link } from 'react-router-dom';
+import CustomLoader from '../../components/CustomLoader';
 
 
 const MyPetition = () => {
@@ -56,7 +57,9 @@ const MyPetition = () => {
             <div className="container pb-3">
 
                 {
-                    isLoading ? 'loading' :
+                    isLoading ? 
+                    <CustomLoader />
+                    :
 
                         <>
                             <h2 className="cover-holder__title-name pt-3 mb-1">

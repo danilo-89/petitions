@@ -5,6 +5,7 @@ import toast, { Toaster } from 'react-hot-toast';
 const CustomToaster = () => {
     return ( 
         <Toaster
+            containerClassName="toast-back"
             toastOptions={{
                 // Define default options
                 className: '',
