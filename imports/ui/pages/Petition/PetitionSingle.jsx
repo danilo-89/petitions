@@ -157,6 +157,8 @@ const PetitionSingle = (props) => {
                                             <span onClick={() => setShowShare(true)}>
                                                 <Share /> Share Petition
                                             </span>
+                                            { (props.author == Meteor?.userId()) &&
+                                            <>
                                             <span onClick={() => setShowEdit(true)}>
                                                 <PencilSquare /> Edit Petition
                                             </span>
@@ -164,6 +166,8 @@ const PetitionSingle = (props) => {
                                             <span onClick={() => setShowDelete(true)}>
                                                 <Trash /> Delete Petition
                                             </span>
+                                            </>
+                                            }
                                         </div>
                                     </div>
                                 </div>
