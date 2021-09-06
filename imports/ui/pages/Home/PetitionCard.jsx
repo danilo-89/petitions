@@ -6,9 +6,15 @@ import { PeopleFill } from 'react-bootstrap-icons';
 const PetitionCard = ({ props }) => {
 
 
-    calcPercent = (total, nedeed) => {
+    calcPercent = (total=0, nedeed) => {
         const percentNum = (total/nedeed) * 100;
-        return percentNum || 0;
+        if (percentNum < 0) {
+            return 0
+        } else if (percentNum > 100) {
+            return 100
+        } else {
+            return percentNum
+        }
     }
 
     return (

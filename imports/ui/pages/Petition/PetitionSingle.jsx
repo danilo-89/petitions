@@ -25,6 +25,7 @@ const PetitionSingle = (props) => {
     const [showShare, setShowShare] = useState(false);
     const [showDelete, setShowDelete] = useState(false);
     const [showEdit, setShowEdit] = useState(false);
+    const [newMilestone, setNewMilestone] = useState(0);
 
 
     const history = useHistory();
@@ -41,21 +42,44 @@ const PetitionSingle = (props) => {
         return {userAuthor}
     });
 
-    calcPercent = (total, nedeed) => {
+    calcPercent = (total=0, nedeed) => {
+        console.log({total});
+        console.log({nedeed});
         const percentNum = (total/nedeed) * 100;
-        return percentNum || 0;
+        if (percentNum < 0) {
+            return 0
+        } else if (percentNum > 100) {
+            return 100
+        } else {
+            return percentNum
+        }
     }
 
     deletePetition = () => {
         Meteor.call('delete.petition', props.petitionId, (err, res) => {
             if (err) {
-                Bert.alert(err.reason, 'danger');
+                oast.error(err.reason);
             } else {
                 if (res.isError) {
-                    console.log(res.err.reason)
+                    toast.error(res.err.reason)
                 } else {
                     history.push("/");
-                    console.log('success')
+                    toast.success('petition deleted')
+                }
+            }
+        });
+    }
+
+    changeMilestone = () => {
+        Meteor.call('change.milestone', props.petitionId, newMilestone, (err, res) => {
+            if (err) {
+                toast.error(err.reason);
+            } else {
+                if (res.isError) {
+                    toast.error(res.err.reason)
+                } else {
+                    toast.success('petition milestone changed');
+                    setShowEdit(false);
                 }
             }
         });
@@ -64,6 +88,7 @@ const PetitionSingle = (props) => {
     return (
         <>
 
+            <CustomToaster />
 
             <div className="petition-header">
 
@@ -85,6 +110,7 @@ const PetitionSingle = (props) => {
                     </Modal.Header>
                     <Modal.Body>
                         Are you sure?
+                        <CustomToaster />
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={() => setShowDelete(false)}>
@@ -113,20 +139,21 @@ const PetitionSingle = (props) => {
                                             id="petitionMilestone"
                                             name="petitionMilestone"
                                             aria-describedby="petition milestone"
-                                            value={props.milestone || 0}
+                                            defaultValue={props.milestone || 0}
                                             required={true}
-                                            // onChange={(e) => setTitle(e.target.value)}
+                                            onChange={(e) => setNewMilestone(e.target.value)}
                                         />
                                     </InputGroup>
                                 </Form.Group>
                             </form>
                         </div>
+                        <CustomToaster />
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={() => setShowEdit(false)}>
                             Close
                         </Button>
-                        <Button variant="primary" onClick={deletePetition}>
+                        <Button variant="primary" onClick={changeMilestone}>
                             Confirm
                         </Button>
                     </Modal.Footer>
@@ -145,7 +172,6 @@ const PetitionSingle = (props) => {
                         </h2>
 
                         <div>
-                        <CustomToaster />
                                     <div className="dropdown">
                                         <button className="dropbtn ml-2">
                                             <ThreeDots />
@@ -159,7 +185,7 @@ const PetitionSingle = (props) => {
                                             </span>
                                             { (props.author == Meteor?.userId()) &&
                                             <>
-                                            <span onClick={() => setShowEdit(true)}>
+                                            <span onClick={() => {setNewMilestone(props.milestone); setShowEdit(true)}}>
                                                 <PencilSquare /> Edit Petition
                                             </span>
                                             <hr className="my-0"/>
@@ -255,7 +281,7 @@ const PetitionSingle = (props) => {
             </div>
 
             {/* <img src={props.imageCover} alt="" /> */}
-
+            
         </>
     );
 }

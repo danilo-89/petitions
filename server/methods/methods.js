@@ -184,6 +184,33 @@ Meteor.methods({
 
     },
 
+    'change.milestone'(petitionId, newMilestone) {
+
+        const checkPetition = Petitions.find({_id: petitionId, userId: this.userId}).count();
+
+        if (checkPetition!==1) {
+            return { isError: true, err: {reason: 'Not authorized.'} };
+            throw new Meteor.Error('Not authorized.');
+        }
+
+        try {
+            if (this.userId) {
+                Petitions.update(
+                    {_id: petitionId, userId: this.userId},
+                    {
+                        $set: {milestone : newMilestone}
+                    }
+                    )
+                return { isError: false };
+            } else {
+                throw new Meteor.Error("not-logged-in", "You are not logged in");
+            }
+        } catch (err) {
+            return { isError: true, err };
+        }
+
+    },
+
     'sign.petition'(obj) {
         // validate: new SimpleSchema({
         //     email: { type: String, regEx: SimpleSchema.RegEx.Email },

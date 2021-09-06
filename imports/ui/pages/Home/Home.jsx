@@ -11,6 +11,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import { Button } from "react-bootstrap";
 import './Home.css'
 import HomePagination from "./HomePagination";
+import CustomToaster from "../../components/CustomToaster";
 
 const Home = () => {
 
@@ -53,18 +54,9 @@ const Home = () => {
     return (
         <>
 
-            
-
-            
-
-            
-
+            <CustomToaster />
 
             <div className="container pt-70px">
-
-                
-
-               
 
                 <Form>
                     <Form.Group>

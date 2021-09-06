@@ -37,11 +37,16 @@ const helpers = {
     formatDateWithTime: function(d){
         return `${this.ye(d)}/${this.mo(d)}/${this.da(d)} ${this.tm(d)}`
     },
-    calcPercent: function(total, nedeed) {
+    calcPercent: function(total=0, nedeed) {
         const percentNum = (total/nedeed) * 100;
-        return (percentNum || 0).toFixed(2);
+        if (percentNum < 0) {
+            return 0
+        } else if (percentNum > 100) {
+            return 100
+        } else {
+            return percentNum.toFixed(2)
+        }
     },
-
     helper2: function(param1){
 
     },

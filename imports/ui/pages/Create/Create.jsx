@@ -306,6 +306,7 @@ const Create = () => {
                                 aria-describedby="inputGroupPrepend"
                                 name="petitionCover"
                                 id="petitionCover"
+                                required={true}
                                 readOnly={true}
                                 onClick={() => document.getElementById('fileinput').click()}
                                 // value={values.username}
@@ -367,7 +368,7 @@ const Create = () => {
                                 id="petitionVideo"
                                 aria-describedby="petition video"
                                 value={video}
-                                required={true}
+                                required={false}
                                 onChange={(e) => setVideo(e.target.value)}
                             />
                         </InputGroup>
