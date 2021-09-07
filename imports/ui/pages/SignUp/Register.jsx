@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import toast from 'react-hot-toast';
+import CustomToaster from '../../components/CustomToaster';
 
 const Register = () => {
 
@@ -9,23 +11,23 @@ const Register = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(username, password, repeatPassword);
-        Meteor.call('create.account', username, password, (err, res) => {
-            if (err) {
-                // Bert.alert(err.reason, 'danger');
-            } else {
-                if (res.isError) {
-                    // Bert.alert(res.err.reason, 'danger');
-                    console.log(res.err.reason)
+        if(password===repeatPassword) {
+            Accounts.createUser({username, password}, (err, res) => {
+                if (err) {
+                    toast.error(err.reason);
                 } else {
-                    console.log('success')
+                    toast.success('Account created');
                 }
-            }
-        });
+            });
+        } else {
+            toast.error('Repeated password not same as password!');
+        }
     }
 
     return (
+
         <div className="form-wrapper mx-auto">
+            <CustomToaster />
             <div className="form-wrapper__title">Register</div>
             <div className="p-3">
                 <form id="registerForm" onSubmit={handleSubmit}>

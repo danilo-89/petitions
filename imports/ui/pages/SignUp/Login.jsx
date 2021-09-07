@@ -10,11 +10,11 @@ const Login = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        Meteor.loginWithPassword(username, password, () => {
+        Meteor.loginWithPassword(username, password, (err) => {
            if(Meteor.userId()) {
                 toast.success(`Welcome ${Meteor.user().username}!`)
             } else {
-                toast.error('Oops... Something went wrong!')
+                toast.error(err.message)
             }
         });
     }

@@ -186,7 +186,7 @@ const PetitionSingle = (props) => {
                                             { (props.author == Meteor?.userId()) &&
                                             <>
                                             <span onClick={() => {setNewMilestone(props.milestone); setShowEdit(true)}}>
-                                                <PencilSquare /> Edit Petition
+                                                <PencilSquare /> Change milestone
                                             </span>
                                             <hr className="my-0"/>
                                             <span onClick={() => setShowDelete(true)}>
