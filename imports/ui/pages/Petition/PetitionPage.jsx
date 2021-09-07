@@ -11,122 +11,45 @@ import SharePetition from '../../components/SharePetition';
 import PetitionSignaturesLast from './PetitionSignaturesLast';
 import Page404 from '../404/Page404';
 
+
+const usePetition = (addressId) => useTracker(() => {
+
+    const noDataAvailable = { petition: null };
+    const handler = Meteor.subscribe('petitionSingle', addressId)
+
+    if (!handler.ready()) {
+        return { ...noDataAvailable, isLoading: !handler.ready() };
+    }
+
+    const petition = Petitions.find({_id:addressId}).fetch()[0];
+
+    return { petition, isLoading: !handler.ready()};
+
+}, [addressId])
+
+
 const PetitionPage = () => {
 
-    // const user = useTracker(() => Meteor.user());
 
     const { id: addressId } = useParams();
-    // console.log(useParams())
 
-
-
-    const { petition, isLoading } = useTracker(() => {
-
-        const noDataAvailable = { petition: {} };
-        const handler = Meteor.subscribe('petitionSingle', addressId, () => {
-            // setFields(Petitions.findOne().fields)
-        })
-
-        if (!handler.ready()) {
-            return { ...noDataAvailable, isLoading: true };
-        }
-
-        const petition = Petitions.findOne();
-
-        // console.log('petition.fields')
-        // console.log(petition.fields)
-        // setFields(petition.fields)
-        // console.log(fields)
-
-        // WHEN SUBSCRIBE IS READY (isLoading is absent so it is false)
-
-        return { petition, isLoading: false};
-
-    })
-
-
-    const [fields, setFields] = useState([]);
+    const [fields, setFields] = useState(null);
     const [signed, setSigned] = useState(false);
 
-
-    // const memo = useMemo(() => {
-    //     return { isLoading }
-    // }, [isLoading])
+    const { petition, isLoading } = usePetition(addressId)
 
     useEffect(() => {
         if (petition?._id) {
             setFields(() => petition.fields)
+        } else {
+            setFields(() => null)
         }
         // console.log(fields)
     }, [isLoading])
 
-
-
     const myRef = useRef(null)
 
     const executeScroll = () => myRef.current.scrollIntoView({behavior:"smooth"}) 
-
-    //   useEffect(() => {
-    //     setFields(petition.fields)
-
-    // }, [isLoading])
-
-    // const getData = useTracker(() => Petitions.findOne().fields)
-
-    // const setData = useTracker(() => {
-    //     setFields(petition.fields)
-    // }, [memo])
-
-
-
-
-    // useEffect(() => {
-    //     console.log(fields)
-    // }, [petition])
-
-    // const fixit = useMemo(() => {
-    //     return { petition }
-    //   }, [petition])
-
-    // const setData = useTracker(() => {
-    //     setFields(petition.fields)
-    //     console.log(fields)
-    // }, [fixit])
-
-    // useEffect(() => {
-    //     setFields(petition.fields)
-    //     console.log(fields)
-    // }, [fixit])
-
-    // const setData = useTracker(() => {
-    //     setFields(petition.fields)
-    //     console.log(fields)
-    // }, [petition])
-
-    // useEffect(() => {
-    //     setFields(petition.fields)
-    //     console.log(fields)
-    // }, [petition])
-
-    //  useEffect(() => {
-    //     setFields(petition.fields)
-    //     console.log(fields)
-    // }, [isLoading])
-
-    // const tasks = useTracker(() => {
-    //     setTimeout(
-    //         () => {
-    //             setFields[petition.fields];
-    //             console.log(fields)
-    //         },
-    //         1000
-    //       )
-
-
-    // }, [petition]);
-
-    // setFields([...petition.fields])
-
 
     const onChangeField = (targetValue, index) => {
         const newFields = [...fields];
@@ -165,24 +88,10 @@ const PetitionPage = () => {
         });
     }
 
-    // if(!isLoading) {
-    //     console.log(petition)
-    //     setFields([...petition.fields])
-
-    //     const onChangeField = (targetValue, index) => {
-    //         const newFields = [...fields];
-    //         const fieldIndex = [index - 1];
-    //         newFields[fieldIndex] = { ...newFields[fieldIndex], value: targetValue }
-    //         setFields(newFields)
-    //     }
-    // }
-
     return (
         <div>
             {/* {console.log('fields')}
             {console.log(fields)} */}
-
-
 
             {isLoading ? <CustomLoader /> :
 
