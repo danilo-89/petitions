@@ -1,6 +1,5 @@
 import { Meteor } from 'meteor/meteor';
 import Petitions from './../../lib/petitions'
-import Images from '/lib/dropbox.js';
 import Signatures from '/lib/signatures.js'
 
 Meteor.publish("userAuthor", function (userId) {
@@ -10,10 +9,7 @@ Meteor.publish("userAuthor", function (userId) {
     );
 });
 
-Meteor.publish("chartSignatures", function (datePeriod) {
-    // if (!this.userId) {
-    //     return this.ready();
-    // }
+Meteor.publish("chartSignatures", function (petitionId, datePeriod) {
     const todayDate = new Date()
     const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
     const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
@@ -31,9 +27,9 @@ Meteor.publish("chartSignatures", function (datePeriod) {
 
     return Signatures.find(
         datePeriod === 'all' ? {
-            petitionId: "N48cTF9rEoHnFti9F",
+            petitionId: petitionId,
         } : {
-            petitionId: "N48cTF9rEoHnFti9F",
+            petitionId: petitionId,
             createdAt: {
                 $gte: fromDate,
                 $lt: todayDate
@@ -56,12 +52,10 @@ Meteor.publish("userData", function () {
     if (!this.userId) {
         return this.ready();
     }
-    console.log("inside user pub")
     return Meteor.users.find({_id: this.userId});
 });
 
 Meteor.publish('files.all', function () {
-    // return Images.find({userId: this.userId}).cursor;
     return this.ready();
 });
 
@@ -81,7 +75,6 @@ Meteor.publish('petitions', function publishPetitions(term='', skipValue=0) {
             {$text: { $search: term }},
             {sort: {createdAt: -1}, limit: 6, skip: skipValue}
         );
-        // return Petitions.find({title: {$regex: /^Lore/} });
     }
 });
 
@@ -91,14 +84,6 @@ Meteor.publish('petitionsAuthor', function publishPetitions() {
             {sort: {createdAt: -1}}
         );
 });
-
-// Meteor.publish('petitionsCount', function publishPetitionsCount(term="") {
-//     if (!term.trim()) {
-//         return Petitions.find({}, {fields: {_id: 1, title: 1}}, {sort: {createdAt: -1}});
-//     } else {
-//         return Petitions.find({$text: { $search: term }}, {fields: {_id: 1, title: 1}}, {sort: {createdAt: -1}});
-//     }
-// });
 
 Meteor.publish('petitionsCount', function publishPetitionsCount(term = "") {
 

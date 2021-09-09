@@ -13,7 +13,6 @@ const SharePetition = () => {
     // With promises
     QRCode.toDataURL(window.location.href)
     .then(url => {
-        console.log(url)
         setQRData(url)
     })
     .catch(err => {

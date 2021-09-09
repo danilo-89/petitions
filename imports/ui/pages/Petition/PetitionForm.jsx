@@ -5,9 +5,6 @@ import FormControl from 'react-bootstrap/FormControl';
 import InputGroup from 'react-bootstrap/InputGroup';
 
 const PetitionForm = ({ fields, onChange }) => {
-    console.log('props')
-    console.log(fields)
-
 
     const inputField = (field) => {
         if (field.type === 'textarea') {
@@ -43,18 +40,6 @@ const PetitionForm = ({ fields, onChange }) => {
                     if (field.include) {
                         return (
                             <React.Fragment key={field.id}>
-                                {/* <label className="custom-label-1" htmlFor={`field_${field.id}`}>
-                                    {`${field.field} ${field.mandatory ? "*" : ""}`}
-                                </label>
-                                <input
-                                    className="custom-input-1"
-                                    id={`field_${field.id}`}
-                                    required={field.mandatory ? true : false}
-                                    type={field.type}
-                                    
-                                >
-
-                                </input> */}
 
                                 <Form.Group>
                                     <Form.Label htmlFor={`field_${field.id}`}>
@@ -67,9 +52,6 @@ const PetitionForm = ({ fields, onChange }) => {
 
                                     </InputGroup>
                                 </Form.Group>
-
-
-                             
 
                             </React.Fragment>
                         )

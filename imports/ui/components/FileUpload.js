@@ -29,10 +29,6 @@ class FileUploadComponent extends Component {
   uploadIt = async (e) => {
     e.preventDefault();
 
-    console.log('props', this.props)
-    
-
-
     let self = this;
     
 
@@ -64,7 +60,7 @@ class FileUploadComponent extends Component {
       var file = await resizeFile(fileReal);
 
       if (file) {
-        console.log('locator', self.props.fileLocator);
+        // console.log('locator', self.props.fileLocator);
         let uploadInstance = Images.insert({
           file: file,
           meta: {
@@ -109,7 +105,7 @@ class FileUploadComponent extends Component {
         });
 
         uploadInstance.on('progress', function (progress, fileObj) {
-          console.log('Upload Percentage: ' + progress)
+          // console.log('Upload Percentage: ' + progress)
           // Update our progress bar
           self.setState({
             progress: progress
@@ -126,7 +122,7 @@ class FileUploadComponent extends Component {
   // This is our progress bar, bootstrap styled
   // Remove this function if not needed
   showUploads() {
-    console.log('**********************************', this.state.uploading);
+    // console.log('**********************************', this.state.uploading);
 
     if (!_.isEmpty(this.state.uploading)) {
       return <div>

@@ -1,8 +1,8 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import './Sidebar.css';
 import { UserContext } from '../../context/userContext';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import helpers from '../components/GlobalHelpers';
 
 const Sidebar = ({toggleDrawer, state}) => {

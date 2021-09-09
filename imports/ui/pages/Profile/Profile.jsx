@@ -3,13 +3,9 @@ import Petitions from '../../../../lib/petitions';
 import { useTracker } from 'meteor/react-meteor-data';
 import './Profile.css';
 import FileUpload from '../../components/FileUpload';
-import Images from '/lib/dropbox.js';
 import helpers from '../../components/GlobalHelpers';
-import { getCipherInfo } from 'crypto';
-import { getegid } from 'process';
 import UserAvatar from '../../components/UserAvatar';
 import { Link } from 'react-router-dom';
-
 import { UserContext } from '../../../context/userContext';
 import LoginOrRegister from '../SignUp/LoginOrRegister';
 import { CardList } from 'react-bootstrap-icons';
@@ -27,7 +23,6 @@ const Profile = () => {
 
 
     useEffect(() => {
-        console.log('useEffect inside profile')
         const pic = profileData?.picture || "";
         setProfileUsername(Meteor.user()?.username || "");
         setUImage(() => pic)
@@ -51,20 +46,13 @@ const Profile = () => {
     })
 
     const handleUpdateClick = () => {
-        console.log("test")
         Meteor.call('update.account', profileUsername, uImage, (err, res) => {
             if (err) {
-                console.log(err.reason)
                 toast.error(err.reason)
             } else {
                 if (res.isError) {
-                    // Bert.alert(res.err.reason, 'danger');
-                    console.log(res.err.reason)
                     toast.error(res.err.reason)
                 } else {
-                    // resetForm();
-                    // FlowRouter.go('/myRecipes');
-                    console.log('success')
                     toast.success('success')
                 }
             }
@@ -77,14 +65,11 @@ const Profile = () => {
     }
 
     const handleAvatarClick = () => {
-        console.log("test")
         document.getElementById('fileinput').click();
     }
 
     return (
         <div className="container">
-
-            {/* {isUserLoading ? 'user loading true' : 'user loading false'} */}
 
         <CustomToaster />
 
@@ -117,7 +102,6 @@ const Profile = () => {
                         </div>
 
                         <FileUpload 
-                            // uImage={uImage}
                             setImage={onSetImage}
                         />
                     </>

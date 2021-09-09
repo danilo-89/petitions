@@ -16,11 +16,6 @@ import FormControl from 'react-bootstrap/FormControl';
 import InputGroup from 'react-bootstrap/InputGroup';
 
 const PetitionSingle = (props) => {
-    // console.log('props in single')
-    // console.log(props)
-    // console.log('props in single END')
-    console.log('props.imageCover')
-
 
     const [showShare, setShowShare] = useState(false);
     const [showDelete, setShowDelete] = useState(false);
@@ -38,13 +33,10 @@ const PetitionSingle = (props) => {
             return { ...noDataAvailable, isUserAuthorLoading: true };
         }
         const userAuthor = Meteor.users.findOne({_id: props.author});
-        console.log(userAuthor)
         return {userAuthor}
     });
 
     calcPercent = (total=0, nedeed) => {
-        console.log({total});
-        console.log({nedeed});
         const percentNum = (total/nedeed) * 100;
         if (percentNum < 0) {
             return 0
@@ -272,12 +264,13 @@ const PetitionSingle = (props) => {
                 </h4>
                 <p className="petition-content__details">
                     {props.details}
-                    {props.video}
                 </p>
-                {/* <div id="sRVideo" className="petition-video-wrapper href-effect">
-                            <iframe width="420" height="345" src="https://www.youtube.com/embed/awE_8ZG6DCw" allowFullScreen={true}>
+                {props.video && 
+                <div className="petition-video-wrapper">
+                            <iframe width="450" height="345" src={`https://www.youtube.com/embed/${props.video}`} allowFullScreen={true}>
                             </iframe>
-                </div> */}
+                </div>
+                }
             </div>
 
             {/* <img src={props.imageCover} alt="" /> */}

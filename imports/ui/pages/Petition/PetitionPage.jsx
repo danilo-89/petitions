@@ -10,6 +10,8 @@ import './PetitionPage.css'
 import SharePetition from '../../components/SharePetition';
 import PetitionSignaturesLast from './PetitionSignaturesLast';
 import Page404 from '../404/Page404';
+import toast from 'react-hot-toast';
+import CustomToaster from '../../components/CustomToaster';
 
 
 const usePetition = (addressId) => useTracker(() => {
@@ -44,7 +46,6 @@ const PetitionPage = () => {
         } else {
             setFields(() => null)
         }
-        // console.log(fields)
     }, [isLoading])
 
     const myRef = useRef(null)
@@ -68,20 +69,14 @@ const PetitionPage = () => {
         obj["petitionId"] = addressId;
         obj["userId"] = Meteor.userId() || null;
 
-        console.log(obj);
-
         Meteor.call('sign.petition', obj, (err, res) => {
             if (err) {
-                Bert.alert(err.reason, 'danger');
+                toast.error(err.reason);
             } else {
                 if (res.isError) {
-                    // Bert.alert(res.err.reason, 'danger');
-                    console.log(res.err.reason)
+                    toast.error(res.err.reason)
                 } else {
-                    // Bert.alert('Success', 'success');
-                    // resetForm();
-                    // FlowRouter.go('/myRecipes');
-                    console.log('success')
+                    toast.success('petition successfully signed')
                     setSigned(true)
                 }
             }
@@ -90,8 +85,7 @@ const PetitionPage = () => {
 
     return (
         <div>
-            {/* {console.log('fields')}
-            {console.log(fields)} */}
+            <CustomToaster />
 
             {isLoading ? <CustomLoader /> :
 
@@ -144,9 +138,11 @@ const PetitionPage = () => {
                                             onChange={onChangeField}
                                         />
 
-                                        <Button variant="primary" type="submit">
-                                            Submit
-                                        </Button>
+                                        <div className="text-center">
+                                            <Button variant="primary" type="submit">
+                                                Submit
+                                            </Button>
+                                        </div>
                                     </form>
                                 </div>
                                 </>

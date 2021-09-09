@@ -1,11 +1,8 @@
 import { Meteor } from "meteor/meteor";
 import Petitions from "./../../lib/petitions"
 import Signatures from "./../../lib/signatures"
-import SimpleSchema from 'simpl-schema';
 import { check } from "meteor/check";
 import Images from '/lib/dropbox.js';
-import { FilesCollection } from 'meteor/ostrio:files';
-// import { projectStorage } from './../firebase/config'
 
 Meteor.methods({
 
@@ -20,16 +17,6 @@ Meteor.methods({
         }
 
         const buffer=Buffer.from(file,'binary');
-        // Images.insert({
-        //     file: file,
-        //     meta: {
-        //       userId: Meteor.userId() // Optional, used to check on server for file tampering
-        //     },
-        //     chunkSize: 'dynamic',
-        //     allowWebWorkers: true // If you see issues with uploads, change this to false
-        //   }, false)
-
-
 
         Images.write(buffer, {
             fileName: 'sample.jpeg',
@@ -97,7 +84,6 @@ Meteor.methods({
     'update.account'(username, pic) {
         const checkUsername = Meteor.users.findOne({ username });
         const isThisUsername = Meteor.users.findOne({ _id: this.userId }).username === username;
-        console.log(checkUsername)
         if((!checkUsername && username.trim()) || isThisUsername) {
             try {
                 if (this.userId) {
@@ -120,21 +106,29 @@ Meteor.methods({
     },
 
     'create.petition'(obj) {
-        // validate: new SimpleSchema({
-        //     email: { type: String, regEx: SimpleSchema.RegEx.Email },
-        //     description: { type: String, min: 5 },
-        //     amount: { type: String, regEx: /^\d*\.(\d\d)?$/ }
-        //   }).validator()
-
-        // new SimpleSchema({
-        //     test: { type: String, min: 5, max: 120 }
-        // }).validate({ test });
 
         const checkPetitionCount = Petitions.find({ userId: this.userId }).count();
 
         if (checkPetitionCount > 20) {
             return { isError: true, err:{reason:"Maximum number petititions per user is 20!"}}
         }
+
+        const checkIfValid = obj.fields.filter((field)=> field.include && field.mandatory).length;
+
+        if (!checkIfValid) {
+            return { isError: true, err:{reason:"You must check at least one petiton signing field that is mandatory!"}}
+        }
+
+        var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+        var match = obj.video ? obj.video.match(regExp) : '';
+
+        if(obj.video && !match) {
+            return { isError: true, err:{reason:"Please enter proper YouTube link or leave it blank!"}}
+        } else if(obj.video && match) {
+            obj = {...obj, video: match[2]}
+        }
+
+
 
         try {
 
@@ -212,15 +206,6 @@ Meteor.methods({
     },
 
     'sign.petition'(obj) {
-        // validate: new SimpleSchema({
-        //     email: { type: String, regEx: SimpleSchema.RegEx.Email },
-        //     description: { type: String, min: 5 },
-        //     amount: { type: String, regEx: /^\d*\.(\d\d)?$/ }
-        //   }).validator()
-
-        // new SimpleSchema({
-        //     test: { type: String, min: 5, max: 120 }
-        // }).validate({ test });
 
         const petitionId = obj.petitionId;
 
@@ -251,18 +236,3 @@ Meteor.methods({
         }
     },
 });
-
-
-
-// const PAGE_SIZE = 100;
-
-// Meteor.methods({
-//   getItems(page) {
-//     check(page, Number);
-//     const skip = Math.max(page - 1, 0) * PAGE_SIZE;
-//     const limit = PAGE_SIZE;
-//     const sort = {createdAt: -1};
-
-//     const cursor = Items.find({}, {skip, limit, sort});
-//     return {count: cursor.count(), data: cursor.fetch()};
-// });

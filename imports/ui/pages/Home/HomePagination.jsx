@@ -9,8 +9,6 @@ const HomePagination = ({skipValue, onClick, searchTerm}) => {
 
     const { petitionsCount , isLoading } = useTracker(() => {
         
-
-        console.log('petitions sub')
         const handler = Meteor.subscribe('petitionsCount', searchTerm);
 
         // WHEN SUBSCRIBE IS NOT READY

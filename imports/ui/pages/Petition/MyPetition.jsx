@@ -31,8 +31,6 @@ const MyPetition = () => {
 
         const petition = Petitions.findOne();
 
-        console.log(petition);
-
         return { petition, isLoading: false };
 
     }, [postId])
@@ -47,8 +45,6 @@ const MyPetition = () => {
             return { ...noDataAvailable, isUserAuthorLoading: true };
         }
         const userAuthor = Meteor.users.findOne({ _id: petition?.userId });
-        console.log('pet author:', petition?.userId);
-        console.log(userAuthor)
         return { userAuthor }
     }, [petition?.userId]);
 
@@ -125,6 +121,7 @@ const MyPetition = () => {
 
                 <PetitionChart 
                     title={petition.title}
+                    petitionId={petition._id}
                 />
 
             </div>

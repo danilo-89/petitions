@@ -244,3 +244,7 @@ a.article-wrapper {
 .toast-back {
   z-index: 99999999;
 }
+
+tr.inactive {
+  background: #e3e3e3;
+}

@@ -3,17 +3,18 @@ import { useTracker } from 'meteor/react-meteor-data';
 import { Line } from 'react-chartjs-2';
 import Signatures from '../../../../lib/signatures';
 import './PetitionChart.css'
-// import makeQR from '../../components/GenerateQR';
 import Form from 'react-bootstrap/Form';
 import CsvDownloader from 'react-csv-downloader';
 
 const PetitionChart = (props) => {
 
-    const [optionValue, setOptionValue] = useState('day');
+    console.log(props)
+
+    const [optionValue, setOptionValue] = useState('all');
     const [data1, setData1] = useState();
 
     const { signatures, isSignaturesLoading, handler } = useTracker(() => {
-        const handler = Meteor.subscribe('chartSignatures', optionValue)
+        const handler = Meteor.subscribe('chartSignatures', props.petitionId, optionValue)
 
         const noDataAvailable = { signatures: [] };
 
@@ -21,8 +22,6 @@ const PetitionChart = (props) => {
             return { ...noDataAvailable, isSignaturesLoading: true, handler };
         }
         const signatures = Signatures.find({}).fetch();
-        console.log(signatures);
-        // makeQR(window.location.href)
         return { signatures, handler }
     }, [optionValue]);
 
@@ -75,7 +74,6 @@ const PetitionChart = (props) => {
         // preserve order
         const reduceArr = new Map([...newArr.reduce((acc, value) => acc.set(value, (acc.get(value) || 0) + 1), new Map())].sort(sortStringKeys));
 
-        console.log(reduceArr);
         return reduceArr;
     }
 

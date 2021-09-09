@@ -8,7 +8,6 @@ const PetitionSignaturesLast = (props) => {
 
     const { signatures, isSignaturesLoading } = useTracker(() => {
 
-        console.log("inside signsatures")
         const noDataAvailable = { signatures: [] };
         const handler = Meteor.subscribe('chartSignaturesLast', props.addressId)
     
@@ -18,7 +17,6 @@ const PetitionSignaturesLast = (props) => {
     
         const signatures = Signatures.find({}, {sort: {createdAt: -1}}).fetch();
     
-        console.log(signatures);
         return { signatures, isSignaturesLoading: false};
     }, [props.addressId])
     

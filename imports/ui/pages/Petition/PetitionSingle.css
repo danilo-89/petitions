@@ -184,22 +184,23 @@
 
 .petition-video-wrapper {
   text-align: center;
+  max-width: 100%;
+}
+
+.petition-video-wrapper iframe {
+  max-width: 100%;
 }
 
 .cover-holder__progress-bar-line {
-  height: 8px;
+  height: 10px;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 12px;
   margin-top: 10px;
-  background: linear-gradient(
-    to right,
-    #ffeb3b,
-    #16db93 60%,
-    rgb(233, 233, 233) 60%
-  );
+  background: linear-gradient( to right, #ffeb3b, #16db93 60%, rgb(233, 233, 233) 60% );
   border-radius: 8px;
   position: relative;
+  border: 1px solid #c5c5c5;
 }
 
 .dropbtn {

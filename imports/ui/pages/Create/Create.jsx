@@ -1,10 +1,5 @@
-import { useFormControl } from "@material-ui/core";
-import React, { useState, useEffect } from "react";
-import CustomLoader from "../../components/CustomLoader";
-import PetitionSingle from "../Petition/PetitionSingle";
-import PetitionForm from "../Petition/PetitionForm";
+import React, { useState } from "react";
 import '../../styles/Create.css'
-import Resizer from "react-image-file-resizer";
 import Form from 'react-bootstrap/Form';
 import FormControl from 'react-bootstrap/FormControl';
 import InputGroup from 'react-bootstrap/InputGroup';
@@ -18,25 +13,7 @@ import { useHistory } from 'react-router-dom';
 
 const Create = () => {
 
-    const [file, setFile] = useState(null);
-    const [error, setError] = useState(null);
-
-    const types = ['image/png', 'image/jpeg', 'image/webp'];
-
     const history = useHistory();
-
-    const changeHandler = (e) => {
-        let selected = e.target.files[0];
-
-        console.log(selected)
-        if (selected && types.includes(selected.type)) {
-            setFile(selected);
-            setError(null)
-        } else {
-            setFile(null)
-            setError('Please sellect PNG or JPEG')
-        }
-    }
 
     const [title, setTitle] = useState('')
     const [towards, setTowards] = useState('')
@@ -58,24 +35,6 @@ const Create = () => {
         { id: 9, include: true, field: 'Comment', mandatory: false, type: 'textarea', value: '' },
     ])
 
-
-    // const onChange = async (event) => {
-    //     try {
-    //       const file = event.target.files[0];
-    //       const image = await resizeFile(file);
-    //       console.log(image);
-    //     } catch (err) {
-    //       console.log(err);
-    //     }
-    //   };
-
-    const onChangeField = (targetValue, index) => {
-        const newFields = [...fields];
-        const fieldIndex = [index - 1];
-        newFields[fieldIndex] = { ...newFields[fieldIndex], value: targetValue }
-        setFields(newFields)
-    }
-
     const onSetImage = (imageCover) => {
         setImageCover(imageCover)
     }
@@ -86,91 +45,6 @@ const Create = () => {
         newFields[fieldIndex] = { ...newFields[fieldIndex], [checkName]: !newFields[fieldIndex][checkName] }
         setFields(newFields)
     }
-
-
-    // const handleImage = (e) => {
-    //     console.log("test")
-    //     var func = this;
-    //     var file = e.target.files[0];
-    //     var reader = new FileReader();
-    //     reader.onload = function(fileLoadEvent) {
-    //         Meteor.call('print.img', file, reader.result);
-    //     };
-    //     reader.readAsBinaryString(file);
-    // }
-
-
-    const handleImage = async (e) => {
-        // e.persist()
-
-
-        try {
-            const file = e.target.files[0];
-            const image = await resizeFile(file);
-            console.log(image);
-            setImageCover(image)
-            // img.src = URL.createObjectURL(image);
-
-        } catch (err) {
-            console.log(err);
-        }
-
-        // console.log(e)
-        console.log(imageCover)
-
-
-        // Meteor.call('UploadFile', (err, res) => {
-        //     if (err) {
-        //         console.log(err.reason);
-        //     } else {
-        //         if (res.isError) {
-        //             // Bert.alert(res.err.reason, 'danger');
-        //             console.log(res.err.reason)
-        //         } else {
-        //             // Bert.alert('Success', 'success');
-        //             // resetForm();
-        //             // FlowRouter.go('/myRecipes');
-        //             console.log(res)
-        //         }
-        //     }
-        // });
-
-
-
-
-    }
-
-    const resizeFile = (file) =>
-        new Promise((resolve) => {
-            Resizer.imageFileResizer(
-                file,
-                700,
-                700,
-                "JPEG",
-                85,
-                0,
-                (uri) => {
-                    resolve(uri);
-                },
-                "base64"
-            );
-        });
-
-        const resizeFileImg = (file) =>
-        new Promise((resolve) => {
-            Resizer.imageFileResizer(
-                file,
-                700,
-                700,
-                "JPEG",
-                85,
-                0,
-                (uri) => {
-                    resolve(uri);
-                },
-                "file"
-            );
-        });
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -186,77 +60,42 @@ const Create = () => {
             fields,
         }
 
-        console.log(obj)
+        const checkIfValid = fields.filter((field) => field.include && field.mandatory).length;
 
-        Meteor.call('create.petition', obj, (err, res) => {
-            if (err) {
-                toast.error(err.reason);
-            } else {
-                if (res.isError) {
-                    // Bert.alert(res.err.reason, 'danger');
-                    toast.error(res.err.reason)
+        if (checkIfValid) {
+            Meteor.call('create.petition', obj, (err, res) => {
+                if (err) {
+                    toast.error(err.reason);
                 } else {
-                    // Bert.alert('Success', 'success');
-                    // resetForm();
-                    // FlowRouter.go('/myRecipes');
-                    toast.success('petition created');
-                    console.log(res)
-                    history.push(`petition/${res.newPetition}`);
+                    if (res.isError) {
+                        toast.error(res.err.reason)
+                    } else {
+                        toast.success('petition created');
+                        history.push(`petition/${res.newPetition}`);
+                    }
                 }
-            }
-        });
+            });
+        } else {
+            toast.error('You must check at least one petiton signing field that is mandatory!');
+        }
 
-    }
-
-
-    function currentlySelected(e) {
-        console.log(e)
-        console.log(e.formattedValue)
-        console.log(e.getValue(e.id, e.field))
     }
 
     return (
         <div>
 
-            
+
 
             <CustomToaster />
 
-            {console.log({ title })}
-
-
-
-
-            
-
-            {/* <PetitionSingle
-                title={title}
-                towards={towards}
-                overview={overview}
-                details={details}
-                video={video}
-                imageCover={imageCover ? helpers.getImgUrlById(imageCover) : '/abstract-user-flat-4.svg'}
-                imageCoverData={true}
-            /> */}
-
-            {/* <div className="container">
-                <PetitionForm
-                    fields={fields}
-                    onChange={onChangeField}
-                />
-            </div>
-
-            <button onClick={onChangeField}>Test</button> */}
-
-            {/* <canvas id="canvas"></canvas> */}
             <div className="container">
 
-                <form 
-                className="pt-3"
-                onSubmit={handleSubmit}
+                <form
+                    className="pt-3"
+                    onSubmit={handleSubmit}
                 >
 
-                <Form.Group>
+                    <Form.Group>
                         <Form.Label htmlFor="petitionTitle">Petition Title *</Form.Label>
                         <InputGroup className="mb-3">
                             <FormControl
@@ -288,13 +127,13 @@ const Create = () => {
                         <Form.Label>Cover picture *</Form.Label>
                         <InputGroup>
                             <InputGroup.Prepend>
-                                <InputGroup.Text 
-                                id="inputGroupPrepend"
-                                className=" bg-white btn"
+                                <InputGroup.Text
+                                    id="inputGroupPrepend"
+                                    className=" bg-white btn"
                                 >
-                                    <span 
-                                    className="px-2"
-                                    onClick={() => document.getElementById('fileinput').click()}
+                                    <span
+                                        className="px-2"
+                                        onClick={() => document.getElementById('fileinput').click()}
                                     >
                                         Browse
                                     </span>
@@ -309,12 +148,8 @@ const Create = () => {
                                 required={true}
                                 readOnly={true}
                                 onClick={() => document.getElementById('fileinput').click()}
-                                // value={values.username}
-                                // onChange={handleChange}
-                                // isInvalid={!!errors.username}
                             />
                             <Form.Control.Feedback type="invalid" tooltip>
-                                {/* {errors.username} */}
                             </Form.Control.Feedback>
                         </InputGroup>
                     </Form.Group>
@@ -323,7 +158,7 @@ const Create = () => {
                         <img className="prev-image" src={helpers.getImgUrlById(imageCover)} alt="" />
                     </div>}
 
-                    <FileUpload 
+                    <FileUpload
                         // uImage={uImage}
                         setImage={onSetImage}
                     />
@@ -403,7 +238,7 @@ const Create = () => {
                                 {
                                     fields.map(field => {
                                         return (
-                                            <tr key={field.id}>
+                                            <tr key={field.id} className={`${!field.include ? "inactive" : ""}`}>
                                                 <td onClick={() => handleCheckboxClick(field.id, "include")}>
                                                     <Form.Group className="mb-0">
                                                         <Form.Check
@@ -422,6 +257,7 @@ const Create = () => {
                                                             type="checkbox"
                                                             checked={field.mandatory}
                                                             readOnly
+                                                            disabled={!field.include ? true : false}
                                                         />
                                                     </Form.Group>
                                                 </td>
@@ -436,8 +272,8 @@ const Create = () => {
 
                     <div className="text-center pb-5">
                         <button
-                        type="submit"
-                        className="btn btn-primary"
+                            type="submit"
+                            className="btn btn-primary"
                         >
                             Submit
                         </button>

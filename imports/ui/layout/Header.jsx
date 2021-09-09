@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import MatchMediaWrapper from '../components/MatchMediaWrapper.jsx';
 import Sidebar from './Sidebar.jsx';
 import HamburgerButton from './HamburgerButton.jsx';
 import NavigationWide from './NavigationWide.jsx';
-import { Button } from '@material-ui/core';
 import './Header.css';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -41,7 +40,6 @@ const Header = () => {
     }
 
     const toggleDrawer = (open) => (event) => {
-        console.log(open)
         if (
             event &&
             event.type === "keydown" &&
@@ -54,8 +52,8 @@ const Header = () => {
     };
 
 
-    const mobileContent = (<div>This is what you see on mobile!</div>);
-    const desktopContent = (<div>This is what you see on desktop!</div>);
+    // const mobileContent = (<div>This is what you see on mobile!</div>);
+    // const desktopContent = (<div>This is what you see on desktop!</div>);
 
     return (
 

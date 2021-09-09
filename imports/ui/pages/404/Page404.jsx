@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 
 const Page404 = () => {
     const history = useHistory();
-    return ( 
+    return (
         <>
             <div className="container h-100-custom d-flex align-items-center justify-content-center">
                 <div className="text-center">
@@ -16,9 +16,9 @@ const Page404 = () => {
                         Go to Home page
                     </button>
                 </div>
-        </div>
+            </div>
         </>
-     );
+    );
 }
- 
+
 export default Page404;

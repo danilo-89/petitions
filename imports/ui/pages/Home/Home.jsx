@@ -4,17 +4,13 @@ import PetitionCard from "./PetitionCard";
 import { Link } from "react-router-dom";
 import { useTracker } from 'meteor/react-meteor-data';
 import CustomLoader from "../../components/CustomLoader";
-import helpers from '/imports/ui/components/GlobalHelpers';
 import Form from 'react-bootstrap/Form';
-import FormControl from 'react-bootstrap/FormControl';
 import InputGroup from 'react-bootstrap/InputGroup';
 import { Button } from "react-bootstrap";
-import './Home.css'
 import HomePagination from "./HomePagination";
 import CustomToaster from "../../components/CustomToaster";
 
 const Home = () => {
-
 
     const [searchInputValue, setSearchInputValue] = useState("");
     const [searchTerm, setSearchTerm] = useState("");
@@ -23,13 +19,6 @@ const Home = () => {
     const { petitions, isLoading } = useTracker(() => {
         const noDataAvailable = { petitions: [] };
 
-        // WHEN USER IS NOT LOGGED IN
-        // if (!Meteor.user()) {
-        //   return noDataAvailable;
-        // }
-
-        
-        console.log('petitions sub')
         const handler = Meteor.subscribe('petitions', searchTerm, skipValue);
 
         // WHEN SUBSCRIBE IS NOT READY
@@ -45,10 +34,6 @@ const Home = () => {
 
     const onPageNumClick = (num) => {
         setSkipValue((currNum) => num)
-    }
-
-    const getPaginationLength = (tLength) => {
-        return Math.ceil(tLength/2);
     }
 
     return (
@@ -91,12 +76,6 @@ const Home = () => {
                 }
 
                 {isLoading ? <CustomLoader /> : ''}
-
-                
-
-                {/* <div>total {getPaginationLength(petitions.length)}</div> */}
-
-                
 
                 <div className="row">
 
