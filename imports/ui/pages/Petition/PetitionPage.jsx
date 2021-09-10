@@ -92,7 +92,7 @@ const PetitionPage = () => {
                 petition?._id ?
                 <>
 
-                    <div className="mb-3">
+                    <div className="mb-4">
                     <PetitionSingle
                         title={petition.title}
                         petitionId={petition._id}

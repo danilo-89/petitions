@@ -26,7 +26,6 @@ const Profile = () => {
         const pic = profileData?.picture || "";
         setProfileUsername(Meteor.user()?.username || "");
         setUImage(() => pic)
-        console.log({profileUsername}, {pic})
     }, [profileData, userId, isUserLoading])
 
     const onSetImage = (uImg) => {
@@ -117,7 +116,7 @@ const Profile = () => {
 
 
                 <div className="text-center">
-                    {(Meteor.user()?.username != profileUsername && profileData?.picture != uImage) &&
+                    {!isUserLoading && (Meteor.user()?.username != profileUsername || profileData?.picture != uImage) &&
                         <div>
                             <button
                             className="btn btn-secondary min-w-105px px-4 py-2 mr-2"
