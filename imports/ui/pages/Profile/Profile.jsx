@@ -19,13 +19,14 @@ const Profile = () => {
     const [uImage, setUImage] = useState("");
     const [profileUsername, setProfileUsername] = useState('');
 
-    const { profileData, userId, isUserLoading, isUserLogging, dispatch } = useContext(UserContext)
+    const { profileData, userId, isUserLoading } = useContext(UserContext)
 
 
     useEffect(() => {
         const pic = profileData?.picture || "";
         setProfileUsername(Meteor.user()?.username || "");
         setUImage(() => pic)
+        console.log({profileUsername}, {pic})
     }, [profileData, userId, isUserLoading])
 
     const onSetImage = (uImg) => {
@@ -40,7 +41,7 @@ const Profile = () => {
             return { ...noDataAvailable, isLoading: true };
         }
 
-        const petitions = Petitions.find({},{sort: {createdAt: -1}}).fetch();
+        const petitions = Petitions.find({userId: Meteor.userId()},{sort: {createdAt: -1}}).fetch();
 
         return { petitions, isLoading: false };
     })
@@ -116,7 +117,7 @@ const Profile = () => {
 
 
                 <div className="text-center">
-                    {(Meteor.user()?.username != profileUsername || profileData?.picture != uImage) &&
+                    {(Meteor.user()?.username != profileUsername && profileData?.picture != uImage) &&
                         <div>
                             <button
                             className="btn btn-secondary min-w-105px px-4 py-2 mr-2"

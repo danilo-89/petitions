@@ -8,8 +8,6 @@ import CsvDownloader from 'react-csv-downloader';
 
 const PetitionChart = (props) => {
 
-    console.log(props)
-
     const [optionValue, setOptionValue] = useState('all');
     const [data1, setData1] = useState();
 

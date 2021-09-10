@@ -237,7 +237,7 @@ const PetitionSingle = (props) => {
                                 className="title-holder__left-avatar">
                                     {userAuthor && (<UserAvatar 
                                         // handleClick={handleAvatarClick}
-                                        img={helpers.getImgUrlById(userAuthor.profile.picture)}
+                                        img={ userAuthor?.profile?.picture ? helpers.getImgUrlById(userAuthor?.profile?.picture) : '/abstract-user-flat-4.svg'}
                                     />)
                                     }
                                 </div>
@@ -266,7 +266,7 @@ const PetitionSingle = (props) => {
                     {props.details}
                 </p>
                 {props.video && 
-                <div className="petition-video-wrapper">
+                <div className="petition-video-wrapper pt-43">
                             <iframe width="450" height="345" src={`https://www.youtube.com/embed/${props.video}`} allowFullScreen={true}>
                             </iframe>
                 </div>
