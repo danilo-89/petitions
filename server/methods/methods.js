@@ -213,13 +213,15 @@ Meteor.methods({
 
         console.log({totalSignatures});
 
+        const uId = this.userId || "undefined";
+
         try {
 
             Signatures.insert(
                 {
                     ...obj,
                     createdAt: new Date,
-                    userId: this.userId || ""
+                    userId: uId
                 }
             )
             Petitions.update(  
