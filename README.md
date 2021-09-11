@@ -2,7 +2,7 @@
 
 ![](public/screen.jpg)
 
-### See it live [petitions](https://recipan.herokuapp.com/)
+### See it live [petitions](https://petitions-react.herokuapp.com/)
 -------------
 Notice! First start delay is about 20 seconds because of Heroku hosting cold start on the free packet.
 
