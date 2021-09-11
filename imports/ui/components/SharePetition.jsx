@@ -43,7 +43,7 @@ const SharePetition = () => {
                     <Facebook />
                 </a>
 
-                <a href="whatsapp://send?text={props.petitionId}" target="_blank" className="soc-share-btn soc-wapp">
+                <a href={`whatsapp://send?text=${window.location.href}`} target="_blank" className="soc-share-btn soc-wapp">
                     <Whatsapp />
                 </a>
                 
@@ -51,11 +51,11 @@ const SharePetition = () => {
                     <Twitter />
                 </a>
 
-                <a href="https://www.linkedin.com/shareArticle?url={props.petitionId}" target="_blank" className="soc-share-btn soc-linkd">
+                <a href={`https://www.linkedin.com/shareArticle?url=${window.location.href}`} target="_blank" className="soc-share-btn soc-linkd">
                     <Linkedin />
                 </a>
 
-                <a href="mailto:?&subject=&body={props.petitionId}" target="_blank" className="soc-share-btn soc-mail">
+                <a href={`mailto:?&subject=&body=${window.location.href}`} target="_blank" className="soc-share-btn soc-mail">
                     <At />
                 </a>
 

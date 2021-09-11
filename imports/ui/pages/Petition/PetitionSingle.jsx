@@ -262,7 +262,7 @@ const PetitionSingle = (props) => {
                 <h4 className="petition-content__overview">
                     {props.overview}
                 </h4>
-                <p className="petition-content__details">
+                <p className="petition-content__details mb-3">
                     {props.details}
                 </p>
                 {props.video && 
